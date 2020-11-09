@@ -1,0 +1,21 @@
+﻿
+
+@model Usuario
+
+<form method="post" class="form-horizontal" role="form">
+    <label>Codigo:</label>
+    <input asp-for="codigo" />
+
+    <label>Contrasena:</label>
+    <input asp-for="contrasena" />
+
+    <input type="submit" value="Aceptar" />
+    <button type="submit">Aceptar</button>
+
+    <div class="alert-danger">
+        @ViewBag.Error
+    </div>
+</form>
+
+ 
+
