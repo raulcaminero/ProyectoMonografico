@@ -34,7 +34,9 @@ namespace WebApp
                             op.LoginPath = "/account/login";
                         });
 
-               string connection = "database = dbg_8; server =.; user id = sa; password = hola00";
+            services.AddSession();
+
+            string connection = "database = dbg_8; server =.; user id = sa; password = hola00";
     
                services.AddDbContext<MyDB>(op =>
                {
@@ -65,6 +67,8 @@ namespace WebApp
 
                 app.UseAuthentication();
                 app.UseAuthorization();
+
+                app.UseSession();
 
                 app.UseEndpoints(endpoints =>
                 {

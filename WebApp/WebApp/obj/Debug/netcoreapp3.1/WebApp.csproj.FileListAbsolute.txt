@@ -49,8 +49,6 @@ E:\tmp\culminares\repo1\WebApp\WebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensio
 E:\tmp\culminares\repo1\WebApp\WebApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 E:\tmp\culminares\repo1\WebApp\WebApp\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 E:\tmp\culminares\repo1\WebApp\WebApp\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
-E:\tmp\culminares\repo1\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.csproj.CoreCompileInputs.cache
-E:\tmp\culminares\repo1\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.MvcApplicationPartsAssemblyInfo.cache
 E:\tmp\culminares\repo1\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.Views.pdb
 E:\tmp\culminares\repo1\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.csproj.CopyComplete
 E:\tmp\culminares\repo1\WebApp\WebApp\obj\Debug\netcoreapp3.1\WebApp.dll
