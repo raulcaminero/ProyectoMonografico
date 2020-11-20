@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace WebApp.Models
+namespace WebApp.Models.Data
 {
     public class MyDB : DbContext
     {
@@ -16,6 +16,7 @@ namespace WebApp.Models
         }
 
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Persona> Persona { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

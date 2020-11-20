@@ -4,13 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Models
+namespace WebApp.Models.Data
 {
-    public class Usuario
+    public class Persona
     {
-
         [Key]
-        public string codigo { get; set; }
-        public string contrasena { get; set; }
+        public int Codigo { get; set; }
     }
 }

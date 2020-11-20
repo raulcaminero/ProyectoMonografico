@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 using WebApp.Models;
+using WebApp.Models.Data;
 
 namespace WebApp
     {
@@ -34,9 +35,9 @@ namespace WebApp
                             op.LoginPath = "/account/login";
                         });
 
-            services.AddSession();
+                services.AddSession();
 
-            string connection = "database = dbg_8; server =.; user id = sa; password = hola00";
+                string connection = "database = dbg_8; server =.; user id = sa; password = hola00";
     
                services.AddDbContext<MyDB>(op =>
                {
