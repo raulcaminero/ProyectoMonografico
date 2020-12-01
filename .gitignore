@@ -89,7 +89,7 @@ msbuild.wrn
 *.suo
 *.user
 _ReSharper.*
-bin
-obj
+WebApp/WebApp/bin
+WebApp/WebApp/obj
 packages
 
