@@ -17,6 +17,7 @@ namespace WebApp.Models.Data
 
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<Campus> Campus { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -24,13 +25,15 @@ namespace WebApp.Models.Data
             if (!optionsBuilder.IsConfigured)
             {
 
-                optionsBuilder.UseSqlServer("database=dbg_8;server=.;user id=sa;password=hola00");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=CulmineraDB;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Campus>()
+                .HasIndex(c => c.Codigo)
+                .IsUnique();
         }
     }
 
