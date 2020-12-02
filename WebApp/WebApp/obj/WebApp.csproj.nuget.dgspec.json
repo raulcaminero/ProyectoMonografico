@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\w.alcantara\\Source\\Repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj": {}
+    "C:\\Users\\Raul\\source\\repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\w.alcantara\\Source\\Repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj": {
+    "C:\\Users\\Raul\\source\\repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\w.alcantara\\Source\\Repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\Raul\\source\\repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "C:\\Users\\w.alcantara\\Source\\Repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj",
-        "packagesPath": "C:\\Users\\w.alcantara\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\w.alcantara\\Source\\Repos\\ProyectoMonografico\\WebApp\\WebApp\\obj\\",
+        "projectPath": "C:\\Users\\Raul\\source\\repos\\ProyectoMonografico\\WebApp\\WebApp\\WebApp.csproj",
+        "packagesPath": "C:\\Users\\Raul\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Raul\\source\\repos\\ProyectoMonografico\\WebApp\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\w.alcantara\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Raul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -89,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
