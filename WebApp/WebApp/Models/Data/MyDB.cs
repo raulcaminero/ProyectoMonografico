@@ -22,10 +22,14 @@ namespace WebApp.Models.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
+
+#pragma warning disable CS1030 // #warning directive
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("database=dbg_8;server=.;user id=sa;password=P@$$w0rd");
+            if (!optionsBuilder.IsConfigured)
+#pragma warning restore CS1030 // #warning directive
+            {
+                optionsBuilder.UseSqlServer("Server=TC01TICLT29;Database=dbg_8;User=sa;Password=P@$$w0rd;");
+                //optionsBuilder.UseSqlServer("database=dbg_8;server=TC01TICLT29;User=sa;password=P@$$w0rd;");
             }
         }
 

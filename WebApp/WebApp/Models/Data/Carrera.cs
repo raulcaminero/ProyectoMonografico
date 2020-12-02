@@ -9,10 +9,11 @@ namespace WebApp.Models.Data
     {
         [Key]
         public int Id { get; set; }
+        public string Codigo { get; set; }
         public int idEscuela { get; set; }
         public string Nombre { get; set; }
         public string Detalles { get; set; }
-        public bool Estado { get; set; }
+        public string Estado { get; set; }
 
     }
 }
