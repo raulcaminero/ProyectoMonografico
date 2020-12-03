@@ -57,6 +57,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                campus.Estado = (Estados) 1;
                 _context.Add(campus);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
