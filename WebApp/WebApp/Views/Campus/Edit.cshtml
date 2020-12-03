@@ -2,11 +2,11 @@
 @using WebApp.Models.Data
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
 <h4>Campus</h4>
 <hr />
@@ -30,20 +30,16 @@
                 <input asp-for="Localidad" class="form-control" />
                 <span asp-validation-for="Localidad" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="Estado" class="form-control">
             <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control" asp-items="Html.GetEnumSelectList<Estados>()"></select>
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Regresar a la lista</a>
 </div>
 
 @section Scripts {
