@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<WebApp.Models.Data.Campus>
+@using WebApp.Models.Data
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de Campus";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Lista de Campus</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Registar Nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -44,9 +45,17 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
+                @if (item.Estado == ((Estados) 1))
+                {
+                    <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
+                }
+                else
+                {
+                    <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
+                }
             </td>
         </tr>
 }
