@@ -61,10 +61,12 @@ namespace WebApp.Controllers
                 bool Existe = _context.Facultads.Any(x => x.Codigo == facultad.Codigo);
                 if (Existe)
                 {
-                    ModelState.AddModelError("Codigo", "El codigo ya existe");
-                }
-               
+                    ModelState.AddModelError("Codigokey", "El codigo ya existe");
 
+                    return View(facultad);
+                }
+
+                
                 _context.Add(facultad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -105,6 +107,14 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                bool Existe = _context.Facultads.Any(x => x.Codigo == facultad.Codigo && x.Id != facultad.Id);
+                if (Existe)
+                {
+                    ModelState.AddModelError("Codigo", "El codigo ya existe");
+
+                    return View(facultad);
+                }
+
                 try
                 {
                     _context.Update(facultad);
