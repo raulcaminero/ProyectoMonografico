@@ -210,5 +210,21 @@ namespace WebApp.Controllers
         {
             return _context.Campus.Any(e => e.Id == id);
         }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult CheckExistingCode (string codigo, int id)
+        {
+            bool existsCode = false;
+
+            if (id == 0)
+                existsCode = _context.Campus.Any(c => c.Codigo == codigo);
+            else
+                existsCode = _context.Campus.Any(c => c.Codigo == codigo && c.Id != id);
+           
+            if (existsCode)
+                return Json("Ya existe un Campus con este codigo");
+
+            return Json(true);
+        }
     }
 }
