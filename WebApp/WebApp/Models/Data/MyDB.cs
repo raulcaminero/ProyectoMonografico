@@ -17,8 +17,8 @@ namespace WebApp.Models.Data
 
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public virtual DbSet<Campus> Campus { get; set; }
         public virtual DbSet<Carrera> Carrera { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,7 +34,9 @@ namespace WebApp.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Campus>()
+                .HasIndex(c => c.Codigo)
+                .IsUnique();
         }
     }
 
