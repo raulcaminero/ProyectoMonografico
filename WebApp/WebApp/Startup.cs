@@ -36,9 +36,9 @@ namespace WebApp
                         });
 
                 services.AddSession();
+              
+                string connection = "Server=TC01TICLT29;Database=dbg_8;User=sa;Password=P@$$w0rd;";
 
-                
-    
                services.AddDbContext<MyDB>(op =>
                {
                    op.UseSqlServer(Configuration.GetConnectionString("dev"));
