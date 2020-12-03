@@ -37,13 +37,11 @@ namespace WebApp
 
                 services.AddSession();
 
-                string connection = "database = dbg_8; server =.; user id = sa; password = hola00";
+                
     
                services.AddDbContext<MyDB>(op =>
                {
-                   op.UseSqlServer(connection, ops =>
-                   {
-                   });
+                   op.UseSqlServer(Configuration.GetConnectionString("dev"));
                });
 
             }
