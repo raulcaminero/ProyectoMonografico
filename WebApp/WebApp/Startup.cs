@@ -37,16 +37,16 @@ namespace WebApp
 
                 services.AddSession();
 
-                string connection = "database = dbg_8; server =.; user id = sa; password = hola00";
-    
-               services.AddDbContext<MyDB>(op =>
-               {
-                   op.UseSqlServer(connection, ops =>
-                   {
-                   });
-               });
+            string connection = "Server=localhost\\SQLEXPRESS;Database=prueba4546;Trusted_Connection=True;";
 
-            }
+            services.AddDbContext<MyDB>(op =>
+            {
+                op.UseSqlServer(connection, ops =>
+                {
+                });
+            });
+
+        }
 
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

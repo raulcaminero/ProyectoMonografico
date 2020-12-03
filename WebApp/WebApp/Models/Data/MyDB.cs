@@ -18,6 +18,8 @@ namespace WebApp.Models.Data
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
 
+        public  virtual DbSet<Facultad> Facultads { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
