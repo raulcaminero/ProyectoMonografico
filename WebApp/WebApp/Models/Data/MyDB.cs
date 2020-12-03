@@ -29,7 +29,6 @@ namespace WebApp.Models.Data
 #pragma warning restore CS1030 // #warning directive
             {
                 optionsBuilder.UseSqlServer("Server=TC01TICLT29;Database=dbg_8;User=sa;Password=P@$$w0rd;");
-                //optionsBuilder.UseSqlServer("database=dbg_8;server=TC01TICLT29;User=sa;password=P@$$w0rd;");
             }
         }
 
