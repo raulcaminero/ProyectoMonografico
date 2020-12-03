@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         // GET: Campus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Campus.ToListAsync());
+            return View(await _context.Campus.Where(c => c.Estado != ((Estados)(-1))).ToListAsync());
         }
 
         // GET: Campus/Details/5
