@@ -55,11 +55,20 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NombreFacultad,Codigo,NombreDecano,Ubicación,Telefono,Estado")] Facultad facultad)
         {
+            
             if (ModelState.IsValid)
             {
+                bool Existe = _context.Facultads.Any(x => x.Codigo == facultad.Codigo);
+                if (Existe)
+                {
+                    ModelState.AddModelError("Codigo", "El codigo ya existe");
+                }
+               
+
                 _context.Add(facultad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                
             }
             return View(facultad);
         }
@@ -67,6 +76,8 @@ namespace WebApp.Controllers
         // GET: Facultad/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
+            
             if (id == null)
             {
                 return NotFound();
@@ -139,7 +150,29 @@ namespace WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var facultad = await _context.Facultads.FindAsync(id);
+
             _context.Facultads.Remove(facultad);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpPost, ActionName("Estado")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Estado(int id)
+        {
+            var facultad = await _context.Facultads.FindAsync(id);
+
+            if (facultad.Estado == Models.Data.Enum.Estado.Activo)
+            {
+                facultad.Estado = Models.Data.Enum.Estado.Inactivo;
+            }
+            else
+            {
+                facultad.Estado = Models.Data.Enum.Estado.Activo;
+            }
+
+            _context.Facultads.Update(facultad);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
