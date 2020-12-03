@@ -54,6 +54,14 @@ namespace WebApp.Controllers
         }
         private async Task<bool> ValidarUsr(Usuario usr)
         {
+            bool retorno = false;
+            await Task.Run(()=> {
+                var u = _db.Usuario.Where(x => x.codigo == usr.codigo).SingleOrDefault();
+                if (u == null) retorno = false;
+                if (u.contrasena != usr.contrasena) retorno = false;
+
+                retorno = true;
+            });
             /*
             if (usr.codigo == "carlos" && usr.contrasena == "123")
             {
@@ -65,11 +73,7 @@ namespace WebApp.Controllers
             }
             */
 
-            var u = _db.Usuario.Where(x => x.codigo == usr.codigo).SingleOrDefault();
-            if (u == null) return false;
-            if (u.contrasena != usr.contrasena) return false;
-
-            return true;
+            return retorno;
 
         }
 
