@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         // GET: Campus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Campus.ToListAsync());
+            return View(await _context.Campus.Where(c => c.Estado != ((Estados)(-1))).ToListAsync());
         }
 
         // GET: Campus/Details/5
@@ -57,6 +57,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                campus.Estado = (Estados) 1;
                 _context.Add(campus);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -139,7 +140,68 @@ namespace WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var campus = await _context.Campus.FindAsync(id);
-            _context.Campus.Remove(campus);
+            campus.Estado = (Estados) (-1);
+            _context.Campus.Update(campus);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Campus/Inactivate/5
+        public async Task<IActionResult> Inactivate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var campus = await _context.Campus
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (campus == null)
+            {
+                return NotFound();
+            }
+
+            return View(campus);
+        }
+
+        // POST: Campus/Inactivate/5
+        [HttpPost, ActionName("Inactivate")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> InactivateConfirmed(int id)
+        {
+            var campus = await _context.Campus.FindAsync(id);
+            campus.Estado = 0;
+            _context.Campus.Update(campus);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Campus/Activate/5
+        public async Task<IActionResult> Activate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var campus = await _context.Campus
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (campus == null)
+            {
+                return NotFound();
+            }
+
+            return View(campus);
+        }
+
+        // POST: Campus/Inactivate/5
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ActivateConfirmed(int id)
+        {
+            var campus = await _context.Campus.FindAsync(id);
+            campus.Estado = (Estados) 1;
+            _context.Campus.Update(campus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -147,6 +209,22 @@ namespace WebApp.Controllers
         private bool CampusExists(int id)
         {
             return _context.Campus.Any(e => e.Id == id);
+        }
+
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult CheckExistingCode (string codigo, int id)
+        {
+            bool existsCode = false;
+
+            if (id == 0)
+                existsCode = _context.Campus.Any(c => c.Codigo == codigo);
+            else
+                existsCode = _context.Campus.Any(c => c.Codigo == codigo && c.Id != id);
+           
+            if (existsCode)
+                return Json("Ya existe un Campus con este codigo");
+
+            return Json(true);
         }
     }
 }
