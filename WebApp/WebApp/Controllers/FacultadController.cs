@@ -154,6 +154,23 @@ namespace WebApp.Controllers
             return View(facultad);
         }
 
+        public async Task<IActionResult> Estado(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var facultad = await _context.Facultads
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (facultad == null)
+            {
+                return NotFound();
+            }
+
+            return View(facultad);
+        }
+
         // POST: Facultad/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -161,15 +178,17 @@ namespace WebApp.Controllers
         {
             var facultad = await _context.Facultads.FindAsync(id);
 
-            _context.Facultads.Remove(facultad);
+            facultad.Estado = Models.Data.Enum.Estado.Eliminado;
+
+            _context.Facultads.Update(facultad);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
 
-        [HttpPost, ActionName("Estado")]
+        [HttpPost, ActionName("ConfirmarEstado")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Estado(int id)
+        public async Task<IActionResult> ConfirmarEstado(int id)
         {
             var facultad = await _context.Facultads.FindAsync(id);
 

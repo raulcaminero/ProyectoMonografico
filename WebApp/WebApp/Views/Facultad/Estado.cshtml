@@ -1,13 +1,22 @@
 ﻿@model WebApp.Models.Data.Facultad
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Estado";
 }
 
-
+<h1>Estado</h1>
 
 <h3>
- Estas seguro de Eliminar el usuario ? </h3>
+    @if (Model.Estado == Estado.Activo)
+    {
+        <span> Estas seguro de Inactivar el usuario ? </span>
+    }
+    else
+    {
+        <span> Estas seguro de Activar el usuario ? </span>
+
+    }
+</h3>
 <div>
     <h4>Facultad</h4>
     <hr />
@@ -50,7 +59,7 @@
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form asp-action="ConfirmarEstado">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Cambiar" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>

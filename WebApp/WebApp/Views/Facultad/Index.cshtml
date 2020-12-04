@@ -57,15 +57,16 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="Estado" asp-route-id="@item.Id">
 
                     @if (item.Estado == Estado.Activo)
                     {
-                    <span> Inactivar </span>
+                        <span> Inactivar </span>
                     }
                     else
                     {
-                    <span> Activar </span>
+                        <span> Activar </span>
                     }
 
                 </a>
