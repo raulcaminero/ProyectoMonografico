@@ -230,6 +230,10 @@ namespace WebApp.Controllers
 		public async Task<IActionResult> InactivateConfirmed(int id)
 		{
 			var requerimiento = await _context.Requerimientos.FindAsync(id);
+
+			if (requerimiento == null)
+				return NotFound();
+			
 			requerimiento.Estado = Models.EstadoRequerimiento.Inactivo;
 
 			await _context.SaveChangesAsync();
@@ -237,11 +241,13 @@ namespace WebApp.Controllers
 		}
 
 		// POST: Requerimientos/Activate/5
-		[HttpPost, ActionName("Activate")]
-		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Activate(int id)
 		{
 			var requerimiento = await _context.Requerimientos.FindAsync(id);
+
+			if (requerimiento == null)
+				return NotFound();
+			
 			requerimiento.Estado = Models.EstadoRequerimiento.Activo;
 
 			await _context.SaveChangesAsync();
