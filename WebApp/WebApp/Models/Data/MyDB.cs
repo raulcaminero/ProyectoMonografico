@@ -20,14 +20,13 @@ namespace WebApp.Models.Data
         public virtual DbSet<Campus> Campus { get; set; }
         public virtual DbSet<Carrera> Carrera { get; set; }
         public virtual DbSet<Escuela> Escuela { get; set; }
+        public virtual DbSet<Requerimiento> Requerimientos { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
-#pragma warning disable CS1030 // #warning directive
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
             if (!optionsBuilder.IsConfigured)
-#pragma warning restore CS1030 // #warning directive
             {
+                optionsBuilder.UseSqlServer("Server=localhost;Database=CulmineraDB;Trusted_Connection=True;");
             }
         }
 
