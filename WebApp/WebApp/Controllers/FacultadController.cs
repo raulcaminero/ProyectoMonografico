@@ -21,7 +21,9 @@ namespace WebApp.Controllers
         // GET: Facultad
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Facultads.ToListAsync());
+            var faculta = await _context.Facultads.Where(x => x.Estado != Models.Data.Enum.Estado.Eliminado).ToListAsync();
+                
+            return View(faculta);
         }
 
         // GET: Facultad/Details/5
