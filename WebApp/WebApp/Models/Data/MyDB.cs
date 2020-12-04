@@ -19,7 +19,7 @@ namespace WebApp.Models.Data
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Campus> Campus { get; set; }
         public virtual DbSet<Carrera> Carrera { get; set; }
-
+        public virtual DbSet<Escuela> Escuela { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
@@ -28,7 +28,6 @@ namespace WebApp.Models.Data
             if (!optionsBuilder.IsConfigured)
 #pragma warning restore CS1030 // #warning directive
             {
-                optionsBuilder.UseSqlServer("Server=TC01TICLT29;Database=dbg_8;User=sa;Password=P@$$w0rd;");
             }
         }
 
