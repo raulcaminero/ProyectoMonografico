@@ -50,58 +50,58 @@ namespace WebApp.Migrations
                 });
 
             modelBuilder.Entity("WebApp.Models.Data.Carrera", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Codigo")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Codigo")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Detalles")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Detalles")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Estado")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Estado")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Nombre")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("idEscuela")
-                        .HasColumnType("int");
+                b.Property<int>("idEscuela")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Carrera");
-                });
+                b.ToTable("Carrera");
+            });
 
             modelBuilder.Entity("WebApp.Models.Data.Escuela", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CodigoEscuela")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("CodigoEscuela")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Estado")
-                        .HasColumnType("int");
+                b.Property<int>("Estado")
+                    .HasColumnType("int");
 
-                    b.Property<string>("IdFacultad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("IdFacultad")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Nombre")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Escuela");
-                });
+                b.ToTable("Escuela");
+            });
 
             modelBuilder.Entity("WebApp.Models.Data.Persona", b =>
                 {
