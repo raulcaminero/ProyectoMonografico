@@ -9,11 +9,11 @@ using WebApp.Models.Data;
 
 namespace WebApp.Controllers
 {
-    public class FacultadController : Controller
+    public class FacultadesController : Controller
     {
         private readonly MyDB _context;
 
-        public FacultadController(MyDB context)
+        public FacultadesController(MyDB context)
         {
             _context = context;
         }
@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         // GET: Facultad
         public async Task<IActionResult> Index()
         {
-            var faculta = await _context.Facultads.Where(x => x.Estado != Models.Data.Enum.Estado.Eliminado).ToListAsync();
+            var faculta = await _context.Facultades.Where(x => x.Estado != Models.Data.Enum.Estado.Eliminado).ToListAsync();
                 
             return View(faculta);
         }
@@ -34,7 +34,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var facultad = await _context.Facultads
+            var facultad = await _context.Facultades
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (facultad == null)
             {
@@ -60,7 +60,7 @@ namespace WebApp.Controllers
             
             if (ModelState.IsValid)
             {
-                bool Existe = _context.Facultads.Any(x => x.Codigo == facultad.Codigo);
+                bool Existe = _context.Facultades.Any(x => x.Codigo == facultad.Codigo);
                 if (Existe)
                 {
                     ModelState.AddModelError("Codigokey", "El codigo ya existe");
@@ -80,18 +80,13 @@ namespace WebApp.Controllers
         // GET: Facultad/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-
-            
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var facultad = await _context.Facultads.FindAsync(id);
+            var facultad = await _context.Facultades.FindAsync(id);
             if (facultad == null)
-            {
                 return NotFound();
-            }
+
             return View(facultad);
         }
 
@@ -109,7 +104,7 @@ namespace WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                bool Existe = _context.Facultads.Any(x => x.Codigo == facultad.Codigo && x.Id != facultad.Id);
+                bool Existe = _context.Facultades.Any(x => x.Codigo == facultad.Codigo && x.Id != facultad.Id);
                 if (Existe)
                 {
                     ModelState.AddModelError("Codigo", "El codigo ya existe");
@@ -146,7 +141,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var facultad = await _context.Facultads
+            var facultad = await _context.Facultades
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (facultad == null)
             {
@@ -163,7 +158,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var facultad = await _context.Facultads
+            var facultad = await _context.Facultades
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (facultad == null)
             {
@@ -178,11 +173,11 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var facultad = await _context.Facultads.FindAsync(id);
+            var facultad = await _context.Facultades.FindAsync(id);
 
             facultad.Estado = Models.Data.Enum.Estado.Eliminado;
 
-            _context.Facultads.Update(facultad);
+            _context.Facultades.Update(facultad);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -192,7 +187,7 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmarEstado(int id)
         {
-            var facultad = await _context.Facultads.FindAsync(id);
+            var facultad = await _context.Facultades.FindAsync(id);
 
             if (facultad.Estado == Models.Data.Enum.Estado.Activo)
             {
@@ -203,14 +198,14 @@ namespace WebApp.Controllers
                 facultad.Estado = Models.Data.Enum.Estado.Activo;
             }
 
-            _context.Facultads.Update(facultad);
+            _context.Facultades.Update(facultad);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool FacultadExists(int id)
         {
-            return _context.Facultads.Any(e => e.Id == id);
+            return _context.Facultades.Any(e => e.Id == id);
         }
     }
 }
