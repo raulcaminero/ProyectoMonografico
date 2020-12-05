@@ -17,22 +17,24 @@ namespace WebApp.Models.Data
 
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
-
         public  virtual DbSet<Facultad> Facultads { get; set; }
-
+        public virtual DbSet<Campus> Campus { get; set; }
+        public virtual DbSet<Carrera> Carrera { get; set; }
+        public virtual DbSet<Requerimiento> Requerimientos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("database=dbg_8;server=.;user id=sa;password=hola00");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=CulmineraDB;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Campus>()
+                .HasIndex(c => c.Codigo)
+                .IsUnique();
         }
     }
 
