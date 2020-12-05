@@ -17,6 +17,7 @@ namespace WebApp.Models.Data
 
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
+        public  virtual DbSet<Facultad> Facultads { get; set; }
         public virtual DbSet<Campus> Campus { get; set; }
         public virtual DbSet<Carrera> Carrera { get; set; }
         public virtual DbSet<Escuela> Escuela { get; set; }
