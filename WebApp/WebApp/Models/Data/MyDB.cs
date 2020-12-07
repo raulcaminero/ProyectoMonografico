@@ -26,7 +26,7 @@ namespace WebApp.Models.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;Database=CulmineraDB;User Id=sa;Password=P@$$w0rd;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=CulmineraDB;Trusted_Connection=True;");
                 //optionsBuilder.UseSqlServer("Server=localhost;Database=CulmineraDB;Trusted_Connection=True;");
             }
         }
