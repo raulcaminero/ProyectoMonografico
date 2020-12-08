@@ -19,14 +19,30 @@ namespace PlantillaInscripcion.Controllers
         }
 
         public IActionResult Inscripcion()
+
+        [HttpPost]
+        public IActionResult Inscripcion()
         {
-            Inscripcion ins = new Inscripcion();
+            if (ModelState.IsValid) {
+
+                using (MyContext db = new MyContext()){
+                    var Tabla = new Inscripcion();
+                    Tabla.Facultad = model.Facultad;
+                    Tabla.Escuela = model.Escuela;
+                    Tabla.Carrera = model.Carrera;
+                    Tabla.Tipo = model.Tipo;
+                    Tabla.PlanEstudio = model.PlanEstudio;
+                    TempData["Message"] = "Registro guardado correctamente";
+                }
+            }
+  /*           Inscripcion ins = new Inscripcion();
             ins.Facultad = Request.Form["Facultad"].ToString();
             ins.Escuela = Request.Form["Escuela"].ToString();
             ins.Carrera = Request.Form["Carrera"].ToString();
             ins.Tipo = Request.Form["Tipo"].ToString();
-            ins.PlanEstudio = Request.Form["PlanEstudio"].ToString();
-            return View(ins);
+            ins.PlanEstudio = Request.Form["PlanEstudio"].ToString(); */
+
+            return Redirect("~/Home/Index");
         }
 
         public ActionResult DatosPersonales() {
