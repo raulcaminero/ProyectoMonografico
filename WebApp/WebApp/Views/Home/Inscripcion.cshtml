@@ -54,6 +54,15 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+<div>
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript"> 
+            window.onload = function () {
+                alert(TempData["Message"])
+            };
+        </script>
+    }
+</div>
 </body>
 </html>
