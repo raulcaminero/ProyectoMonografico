@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebApp.Models;
+using PlantillaInscripcion.Models;
 
-namespace WebApp.Controllers
+namespace PlantillaInscripcion.Controllers
 {
-
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,6 +16,21 @@ namespace WebApp.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public IActionResult Inscripcion()
+        {
+            Inscripcion ins = new Inscripcion();
+            ins.Facultad = Request.Form["Facultad"].ToString();
+            ins.Escuela = Request.Form["Escuela"].ToString();
+            ins.Carrera = Request.Form["Carrera"].ToString();
+            ins.Tipo = Request.Form["Tipo"].ToString();
+            ins.PlanEstudio = Request.Form["PlanEstudio"].ToString();
+            return View(ins);
+        }
+
+        public ActionResult DatosPersonales() {
+            return View();
         }
 
         public IActionResult Index()
