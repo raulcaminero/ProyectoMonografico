@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Context;
 using WebApp.Models;
 using WebApp.Models.Data;
 
@@ -17,69 +18,79 @@ namespace WebApp.Controllers
 {
     public class AccountController : Controller
     {
-        MyDB _db;
-        public AccountController( MyDB db)
+        private readonly ApplicationDbContext _context;
+        public AccountController(ApplicationDbContext context)
         {
-            _db = db;
+
+            _context = context;
         }
 
-        // GET: AccountController
-        public ActionResult Login()
+        [HttpGet]
+        public async Task<ActionResult> registro()
         {
             return View();
         }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login( Usuario usr  )
+        public async Task<ActionResult> registro(string email,
+                                                 string password,
+                                                 int rol,
+                                                 string primer_nombre,
+                                                 string segundo_nombre,
+                                                 string primer_apellido,
+                                                 string segundo_apellido,
+                                                 string tipo_identificacion,
+                                                 string identificacion,
+                                                 string sexo,
+                                                 string matricula,
+                                                 int campus)
         {
-            var result = await AutenticaUsr(usr);
+            Models.Data.Usuario usurios = new Usuario();
 
-            if (result)
+            usurios.Email = email;
+            usurios.contrasena = password;
+            usurios.rol = rol;
+
+
+            usurios.primer_nombre = primer_nombre;
+            usurios.segundo_nombre = segundo_nombre;
+            usurios.primer_apellido = primer_apellido;
+            usurios.segundo_apellido = segundo_apellido;
+            usurios.tipo_identificacion = tipo_identificacion;
+            usurios.identificacion = identificacion;
+            usurios.sexo = sexo;
+            usurios.matricula = matricula;
+            usurios.campus = campus;
+            _context.Add(usurios);
+            _context.SaveChanges();
+
+            return RedirectToAction("Login");
+        }
+        // GET: AccountController
+        [HttpGet]
+        public ActionResult Login()
+        {
+            LogOff();
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> Login(string email, string password)
+        {
+            // var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
+            var c = _context.usuarios1.Where(x => x.Email == email).FirstOrDefault();
+
+            //var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
+            if (c == null)
             {
-                return RedirectToAction("index", "home");
+                ViewBag.Message = "Este Usuario no Existe";
+                return View();
+
             }
 
-            ViewBag.Error = "Credenciales incorrectas";
 
-            return View(usr);
-        }
-
-        private async Task<bool> AutenticaUsr(Usuario usr)
-        {
-            if (!await ValidarUsr(usr)) return false;
-
-            await CrearCookie(usr);
-            return true;
-        }
-        private async Task<bool> ValidarUsr(Usuario usr)
-        {
-            /*
-            if (usr.codigo == "carlos" && usr.contrasena == "123")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            */
-
-            var u = _db.Usuario.Where(x => x.codigo == usr.codigo).SingleOrDefault();
-            if (u == null) return false;
-            if (u.contrasena != usr.contrasena) return false;
-
-            return true;
-
-        }
-
-        private async Task<bool> CrearCookie(Usuario usr)
-        {
-            var claims = new[]
-                {
-                    new Claim( ClaimTypes.Name, usr.codigo),
-                    new Claim( ClaimTypes.NameIdentifier , usr.codigo)
-                };
+            var claims = new[] {
+                new Claim(ClaimTypes.NameIdentifier,email),
+                new Claim(ClaimTypes.Name, c.primer_nombre)
+               };
 
             var identity = new ClaimsIdentity(claims, "CookieAuth");
             var principal = new ClaimsPrincipal(identity);
@@ -87,8 +98,23 @@ namespace WebApp.Controllers
 
             bool u = HttpContext.User.Identity.IsAuthenticated;
 
-            return true;
+
+
+            return RedirectToAction("Index", "Home");
+
         }
+
+
+        public async Task<ActionResult> LogOff()
+        {
+
+
+
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
     }
 }
