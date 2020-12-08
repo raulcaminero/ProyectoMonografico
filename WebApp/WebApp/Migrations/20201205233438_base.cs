@@ -105,6 +105,22 @@ namespace WebApp.Migrations
                 table: "Campus",
                 column: "Codigo",
                 unique: true);
+
+            migrationBuilder.CreateTable(
+               name: "Escuela",
+               columns: table => new
+               {
+                   Id = table.Column<int>(nullable: false)
+                       .Annotation("SqlServer:Identity", "1, 1"),
+                   CodigoEscuela = table.Column<string>(nullable: false),
+                   IdFacultad = table.Column<string>(nullable: false),
+                   Nombre = table.Column<string>(nullable: false),
+                   Estado = table.Column<int>(nullable: false)
+               },
+               constraints: table =>
+               {
+                   table.PrimaryKey("PK_Escuela", x => x.Id);
+               });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -126,6 +142,9 @@ namespace WebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuario");
+
+            migrationBuilder.DropTable(
+               name: "Escuela");
         }
     }
 }

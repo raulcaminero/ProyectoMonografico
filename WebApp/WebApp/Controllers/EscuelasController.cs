@@ -21,7 +21,11 @@ namespace WebApp.Controllers
         // GET: Escuelas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Escuela.Where(c => c.Estado != ((Estados)(-1))).ToListAsync());
+            var request = await _context.Escuela
+                .Where(esc => esc.Estado != ((Estados)(-1)))
+                .Include(esc => esc.Facultad)
+                .ToListAsync();
+            return View(request);
         }
 
         // GET: Escuelas/Details/5
@@ -43,8 +47,10 @@ namespace WebApp.Controllers
         }
 
         // GET: Escuelas/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var fac = await _context.Facultades.ToListAsync();
+            ViewBag.ListaFacultades = fac;
             return View();
         }
 

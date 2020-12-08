@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApp.Models.Data
 {
@@ -14,7 +14,10 @@ namespace WebApp.Models.Data
         public string CodigoEscuela { get; set; }
 
         [Required(ErrorMessage = "Debe seleccionar el codigo de la facultad")]
-        public string IdFacultad { get; set; }
+        public int IdFacultad { get; set; }
+
+        [ForeignKey("IdFacultad")]
+        public Facultad Facultad { get; set; }
 
         [Required(ErrorMessage = "Debe registrar el nombre de la escuela")]
         public string Nombre { get; set; }

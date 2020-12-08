@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Escuelas</h1>
 
 <p>
     <a asp-action="Create">Registrar nuevo</a>
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.CodigoEscuela)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdFacultad)
+                @Html.DisplayFor(modelItem => item.Facultad.NombreFacultad)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
