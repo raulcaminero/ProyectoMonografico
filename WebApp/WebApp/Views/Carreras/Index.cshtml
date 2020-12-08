@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WebApp.Models.Data.Carrera>
+@using WebApp.Models.Data
+@{
+    ViewData["Title"] = "Carreras";
+}
+
+<h1>Carreras</h1>
+
+<p>
+    <a asp-action="Create">Registrar nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idEscuela)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @((EnumEscuelas)item.idEscuela)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detalles)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @if (item.Estado == (Estados)(-1))
+                {
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
+                }
+                else
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    if (item.Estado == ((Estados)1))
+                    {
+                        <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
+                    }
+                }
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
