@@ -1,25 +1,25 @@
 ﻿@model IEnumerable<WebApp.Models.Data.Facultad>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Facultades";
 }
 
-<h1>Index</h1>
+<h1>Facultades</h1>
 
 <p>
-    <a asp-action="Create">Crear Faculta</a>
+    <a asp-action="Create">Crear facultad</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NombreFacultad)
+               Nombre
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Codigo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NombreDecano)
+                Decano
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ubicación)
@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
                 <a asp-action="Estado" asp-route-id="@item.Id">
 
                     @if (item.Estado == Estado.Activo)
