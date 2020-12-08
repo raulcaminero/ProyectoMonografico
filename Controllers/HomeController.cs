@@ -46,6 +46,26 @@ namespace PlantillaInscripcion.Controllers
         }
 
         public ActionResult DatosPersonales() {
+            if (ModelState.IsValid)
+            {
+                DatosPersonales conexion = new Models.DatosPersonales();
+                var oper = new DatosPersonales
+                {
+
+                    PrimerNombre = opersonales.PrimerNombre,
+                    SegundoNombre = opersonales.SegundoNombre,
+                    PrimerApellido = opersonales.PrimerApellido,
+                    SegundoApellido = opersonales.SegundoApellido,
+                    TipoIdentificacion = opersonales.TipoIdentificacion,
+                    NumIdentificacion = opersonales.NumIdentificacion,
+                    Sexo = opersonales.Sexo,
+                    MatriculaOCodigo = opersonales.MatriculaOCodigo,
+                    FechaNacimiento = opersonales.FechaNacimiento,
+                    Contacto = opersonales.Contacto,
+                    Nacionalidad = opersonales.Nacionalidad,
+                    Campus = opersonales.Campus
+                };
+            };
             return View();
         }
 
