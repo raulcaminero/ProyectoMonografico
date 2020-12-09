@@ -25,5 +25,8 @@ $(document).ready(function () {
         }
     );
 
+    $("#yadcf-filter-wrapper--careers-tb-2").insertBefore("#school-head");
+    $("#yadcf-filter-wrapper--careers-tb-5").insertBefore("#state-head");
+
     $(".yadcf-filter-reset-button").remove();
 });
