@@ -50,11 +50,11 @@ namespace WebApp.Migrations
                 });
 
             modelBuilder.Entity("WebApp.Models.Data.Carrera", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int")
+                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Codigo")
                         .IsRequired()
@@ -71,13 +71,13 @@ namespace WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("idEscuela")
-                        .HasColumnType("int");
+                b.Property<int>("idEscuela")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Carrera");
-                });
+                b.ToTable("Carrera");
+            });
 
             modelBuilder.Entity("WebApp.Models.Data.Facultad", b =>
                 {
