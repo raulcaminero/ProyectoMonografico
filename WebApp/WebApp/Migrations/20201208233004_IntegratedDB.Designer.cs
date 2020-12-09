@@ -9,15 +9,15 @@ using WebApp.Models.Data;
 
 namespace WebApp.Migrations
 {
-    [DbContext(typeof(MyDB))]
-    [Migration("20201205233438_base")]
-    partial class @base
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20201208233004_IntegratedDB")]
+    partial class IntegratedDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -118,18 +118,6 @@ namespace WebApp.Migrations
                     b.ToTable("Facultades");
                 });
 
-            modelBuilder.Entity("WebApp.Models.Data.Persona", b =>
-                {
-                    b.Property<int>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Codigo");
-
-                    b.ToTable("Persona");
-                });
-
             modelBuilder.Entity("WebApp.Models.Data.Requerimiento", b =>
                 {
                     b.Property<int>("Id")
@@ -168,15 +156,50 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.Models.Data.Usuario", b =>
                 {
-                    b.Property<string>("codigo")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("codigo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("campus")
+                        .HasColumnType("int");
 
                     b.Property<string>("contrasena")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("identificacion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("matricula")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("primer_apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("primer_nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("rol")
+                        .HasColumnType("int");
+
+                    b.Property<string>("segundo_apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("segundo_nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sexo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tipo_identificacion")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("codigo");
 
-                    b.ToTable("Usuario");
+                    b.ToTable("usuarios1");
                 });
 #pragma warning restore 612, 618
         }
