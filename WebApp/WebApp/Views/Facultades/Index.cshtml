@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Crear facultad</a>
 </p>
-<table class="table">
+<table id="faculties-tb" class="table">
     <thead>
         <tr>
             <th>
@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.Telefono)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                <span id="fc-state-head">@Html.DisplayNameFor(model => model.Estado)</span>
             </th>
             <th></th>
         </tr>
@@ -55,18 +55,18 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id"  class="btn btn-primary">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
                 <a asp-action="Estado" asp-route-id="@item.Id">
 
                     @if (item.Estado == Estado.Activo)
                     {
-                        <span> Inactivar </span>
+                        <span class="btn btn-warning"> Inactivar </span>
                     }
                     else
                     {
-                        <span> Activar </span>
+                        <span class="btn btn-success"> Activar </span>
                     }
 
                 </a>
