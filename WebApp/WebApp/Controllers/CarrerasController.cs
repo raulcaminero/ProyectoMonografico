@@ -12,9 +12,9 @@ namespace WebApp.Controllers
 {
     public class CarrerasController : Controller
     {
-        private readonly MyDB _context;
+        private readonly ApplicationDbContext _context;
 
-        public CarrerasController(MyDB context)
+        public CarrerasController(ApplicationDbContext context)
         {
             _context = context;
         }

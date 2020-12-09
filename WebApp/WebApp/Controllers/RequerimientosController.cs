@@ -12,9 +12,9 @@ namespace WebApp.Controllers
 {
 	public class RequerimientosController : Controller
 	{
-		private readonly MyDB _context;
+		private readonly ApplicationDbContext _context;
 
-		public RequerimientosController(MyDB context)
+		public RequerimientosController(ApplicationDbContext context)
 		{
 			_context = context;
 		}

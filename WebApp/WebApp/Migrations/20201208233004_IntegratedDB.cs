@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApp.Migrations
 {
-    public partial class @base : Migration
+    public partial class IntegratedDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,18 +59,6 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persona",
-                columns: table => new
-                {
-                    Codigo = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Persona", x => x.Codigo);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Requerimientos",
                 columns: table => new
                 {
@@ -89,15 +77,27 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuario",
+                name: "usuarios1",
                 columns: table => new
                 {
-                    codigo = table.Column<string>(nullable: false),
-                    contrasena = table.Column<string>(nullable: true)
+                    codigo = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    primer_nombre = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    contrasena = table.Column<string>(nullable: true),
+                    rol = table.Column<int>(nullable: false),
+                    segundo_nombre = table.Column<string>(nullable: true),
+                    primer_apellido = table.Column<string>(nullable: true),
+                    segundo_apellido = table.Column<string>(nullable: true),
+                    tipo_identificacion = table.Column<string>(nullable: true),
+                    identificacion = table.Column<string>(nullable: true),
+                    sexo = table.Column<string>(nullable: true),
+                    matricula = table.Column<string>(nullable: true),
+                    campus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuario", x => x.codigo);
+                    table.PrimaryKey("PK_usuarios1", x => x.codigo);
                 });
 
             migrationBuilder.CreateIndex(
@@ -119,13 +119,10 @@ namespace WebApp.Migrations
                 name: "Facultades");
 
             migrationBuilder.DropTable(
-                name: "Persona");
-
-            migrationBuilder.DropTable(
                 name: "Requerimientos");
 
             migrationBuilder.DropTable(
-                name: "Usuario");
+                name: "usuarios1");
         }
     }
 }
