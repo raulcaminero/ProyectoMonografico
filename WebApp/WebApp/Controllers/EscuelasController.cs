@@ -11,9 +11,9 @@ namespace WebApp.Controllers
 {
     public class EscuelasController : Controller
     {
-        private readonly MyDB _context;
+        private readonly ApplicationDbContext _context;
 
-        public EscuelasController(MyDB context)
+        public EscuelasController(ApplicationDbContext context)
         {
             _context = context;
         }
