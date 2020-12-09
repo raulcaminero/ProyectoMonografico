@@ -1,6 +1,6 @@
 using System;
 
-namespace PlantillaInscripcion.Models
+namespace WebApp.Models
 {
     public class ErrorViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PlantillaInscripcion.Migrations
+namespace WebApp.Migrations
 {
     public partial class migra1 : Migration
     {

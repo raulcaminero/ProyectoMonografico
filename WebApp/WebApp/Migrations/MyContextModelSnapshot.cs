@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PlantillaInscripcion.Models;
+using WebApp.Models;
 
-namespace PlantillaInscripcion.Migrations
+namespace WebApp.Migrations
 {
     [DbContext(typeof(MyContext))]
     partial class MyContextModelSnapshot : ModelSnapshot

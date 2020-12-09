@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace PlantillaInscripcion.Models
+namespace WebApp.Models
 {
     public class MyContext:DbContext
     {
