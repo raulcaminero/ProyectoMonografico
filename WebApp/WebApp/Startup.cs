@@ -1,23 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebApp.Context;
-using WebApp.Models;
-using WebApp.Models.Data;
 
 namespace WebApp
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -41,10 +31,9 @@ namespace WebApp
 
 			services.AddSession();
 
-            }
-			services.AddDbContext<MyDB>(op =>
+			services.AddDbContext<Models.Data.ApplicationDbContext>(op =>
 			{
-				op.UseSqlServer(Configuration.GetConnectionString("dev"));
+				op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 			});
 
 		}
@@ -76,7 +65,7 @@ namespace WebApp
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Campus}/{action=Index}/{id?}");
+					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
 		}
 	}

@@ -1,19 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApp.Models.Data;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace WebApp.Context
+namespace WebApp.Models.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-           : base(options)
+        public ApplicationDbContext()
         {
-
         }
-        public DbSet<Usuario> usuarios1 { set; get; }
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Usuario> usuarios1 { get; set; }
+        public DbSet<Facultad> Facultades { get; set; }
+        public DbSet<Campus> Campus { get; set; }
+        public DbSet<Carrera> Carrera { get; set; }
+        public DbSet<Requerimiento> Requerimientos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Campus>()
+                .HasIndex(c => c.Codigo)
+                .IsUnique();
+        }
     }
+
 }
