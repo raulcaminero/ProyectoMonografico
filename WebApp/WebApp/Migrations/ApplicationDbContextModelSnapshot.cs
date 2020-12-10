@@ -107,6 +107,7 @@ namespace WebApp.Migrations
             });
 
             modelBuilder.Entity("WebApp.Models.Data.Persona", b =>
+            modelBuilder.Entity("WebApp.Models.Data.Facultad", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

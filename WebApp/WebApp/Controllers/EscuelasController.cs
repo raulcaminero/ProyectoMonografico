@@ -21,7 +21,12 @@ namespace WebApp.Controllers
         // GET: Escuelas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Escuela.Where(c => c.Estado != ((Estados)(-1))).ToListAsync());
+            var request = await _context.Escuela
+                //.Where(esc => esc.Estado != Estados.Eliminado)
+                //.Include(esc => esc.Facultad)
+                .ToListAsync();
+
+            return View(request);
         }
 
         // GET: Escuelas/Details/5
@@ -43,8 +48,9 @@ namespace WebApp.Controllers
         }
 
         // GET: Escuelas/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                escuela.Estado = (Estados) 1;
+                escuela.Estado = Estados.Activo;
                 _context.Add(escuela);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -140,7 +146,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var escuela = await _context.Escuela.FindAsync(id);
-            escuela.Estado = (Estados)(-1);
+            escuela.Estado = Estados.Eliminado;
 
             _context.Escuela.Update(escuela);
             await _context.SaveChangesAsync();
@@ -206,7 +212,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> ActivateConfirmed(int id)
         {
             var escuela = await _context.Escuela.FindAsync(id);
-            escuela.Estado = (Estados)1;
+            escuela.Estado = Estados.Activo;
             _context.Escuela.Update(escuela);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
