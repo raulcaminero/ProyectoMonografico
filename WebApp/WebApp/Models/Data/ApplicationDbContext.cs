@@ -16,8 +16,9 @@ namespace WebApp.Models.Data
         }
 
         public DbSet<Usuario> usuarios1 { get; set; }
-        public DbSet<Facultad> Facultades { get; set; }
         public DbSet<Campus> Campus { get; set; }
+        public DbSet<Facultad> Facultades { get; set; }
+        public DbSet<Escuela> Escuelas { get; set; }
         public DbSet<Carrera> Carreras { get; set; }
         public DbSet<Requerimiento> Requerimientos { get; set; }
 

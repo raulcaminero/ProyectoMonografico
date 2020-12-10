@@ -11,9 +11,9 @@ namespace WebApp.Controllers
 {
     public class EscuelasController : Controller
     {
-        private readonly MyDB _context;
+        private readonly ApplicationDbContext _context;
 
-        public EscuelasController(MyDB context)
+        public EscuelasController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -21,9 +21,9 @@ namespace WebApp.Controllers
         // GET: Escuelas
         public async Task<IActionResult> Index()
         {
-            var request = await _context.Escuela
-                //.Where(esc => esc.Estado != Estados.Eliminado)
-                //.Include(esc => esc.Facultad)
+            var request = await _context.Escuelas
+                .Where(e => e.Estado != Estados.Eliminado)
+                .Include(e => e.Facultad)
                 .ToListAsync();
 
             return View(request);
@@ -33,24 +33,26 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var escuela = await _context.Escuela
+            var escuela = await _context.Escuelas
+                .Where(e => e.Estado != Estados.Eliminado)
+                .Include(e => e.Facultad)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (escuela == null)
-            {
                 return NotFound();
-            }
 
             return View(escuela);
         }
 
         // GET: Escuelas/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            
+            var facultades = _context.Facultades
+                .Where(e => e.Estado != Estados.Eliminado).ToList();
+            ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
+
             return View();
         }
 
@@ -79,7 +81,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var escuela = await _context.Escuela.FindAsync(id);
+            var escuela = await _context.Escuelas.FindAsync(id);
             if (escuela == null)
             {
                 return NotFound();
@@ -95,9 +97,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoEscuela,IdFacultad,Nombre,Estado")] Escuela escuela)
         {
             if (id != escuela.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -126,16 +126,13 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var escuela = await _context.Escuela
+            var escuela = await _context.Escuelas
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (escuela == null)
-            {
                 return NotFound();
-            }
 
             return View(escuela);
         }
@@ -145,33 +142,30 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var escuela = await _context.Escuela.FindAsync(id);
+            var escuela = await _context.Escuelas.FindAsync(id);
             escuela.Estado = Estados.Eliminado;
 
-            _context.Escuela.Update(escuela);
+            _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EscuelaExists(int id)
         {
-            return _context.Escuela.Any(e => e.Id == id);
+            return _context.Escuelas.Any(e => e.Id == id);
         }
 
         // GET: Escuelas/Inactivate/5
         public async Task<IActionResult> Inactivate(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var escuela = await _context.Escuela
+            var escuela = await _context.Escuelas
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (escuela == null)
-            {
                 return NotFound();
-            }
 
             return View(escuela);
         }
@@ -181,9 +175,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> InactivateConfirmed(int id)
         {
-            var escuela = await _context.Escuela.FindAsync(id);
-            escuela.Estado = 0;
-            _context.Escuela.Update(escuela);
+            var escuela = await _context.Escuelas.FindAsync(id);
+            escuela.Estado = Estados.Inactivo;
+            _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -192,16 +186,13 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Activate(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var escuela = await _context.Escuela
+            var escuela = await _context.Escuelas
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (escuela == null)
-            {
                 return NotFound();
-            }
 
             return View(escuela);
         }
@@ -211,9 +202,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ActivateConfirmed(int id)
         {
-            var escuela = await _context.Escuela.FindAsync(id);
+            var escuela = await _context.Escuelas.FindAsync(id);
             escuela.Estado = Estados.Activo;
-            _context.Escuela.Update(escuela);
+            _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -224,12 +215,12 @@ namespace WebApp.Controllers
             bool existsCode = false;
 
             if (id == 0)
-                existsCode = _context.Escuela.Any(c => c.CodigoEscuela== codigo);
+                existsCode = _context.Escuelas.Any(c => c.CodigoEscuela== codigo);
             else
-                existsCode = _context.Escuela.Any(c => c.CodigoEscuela == codigo && c.Id != id);
+                existsCode = _context.Escuelas.Any(c => c.CodigoEscuela == codigo && c.Id != id);
 
             if (existsCode)
-                return Json("Ya existe una Escuela con este codigo");
+                return Json("Ya existe una escuela con este codigo");
 
             return Json(true);
         }

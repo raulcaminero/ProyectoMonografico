@@ -18,14 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Codigo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.idEscuela)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Detalles)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
@@ -44,19 +39,13 @@
                 @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @((EnumEscuelas)item.idEscuela)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Detalles)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                @if (item.Estado == (Estados)(-1))
+                @if (item.Estado == Estados.Eliminado)
                 {
                     <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
                 }

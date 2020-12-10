@@ -30,7 +30,7 @@ namespace WebApp.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Codigo = table.Column<string>(nullable: false),
-                    idEscuela = table.Column<int>(nullable: false),
+                    IdEscuela = table.Column<int>(nullable: false),
                     Nombre = table.Column<string>(nullable: false),
                     Detalles = table.Column<string>(nullable: false),
                     Estado = table.Column<int>(nullable: false)
@@ -107,7 +107,7 @@ namespace WebApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateTable(
-               name: "Escuela",
+               name: "Escuelas",
                columns: table => new
                {
                    Id = table.Column<int>(nullable: false)
@@ -139,7 +139,6 @@ namespace WebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "usuarios1");
-                name: "Usuario");
 
             migrationBuilder.DropTable(
                name: "Escuela");

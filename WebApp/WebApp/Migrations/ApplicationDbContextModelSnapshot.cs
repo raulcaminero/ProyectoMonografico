@@ -50,11 +50,11 @@ namespace WebApp.Migrations
                 });
 
             modelBuilder.Entity("WebApp.Models.Data.Carrera", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Codigo")
                         .IsRequired()
@@ -67,46 +67,48 @@ namespace WebApp.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdEscuela")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("idEscuela")
-                    .HasColumnType("int");
+                    b.HasKey("Id");
 
-                b.HasKey("Id");
+                    b.HasIndex("IdEscuela");
 
-                b.ToTable("Carrera");
-            });
+                    b.ToTable("Carreras");
+                });
 
             modelBuilder.Entity("WebApp.Models.Data.Escuela", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("CodigoEscuela")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("CodigoEscuela")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("Estado")
-                    .HasColumnType("int");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
-                b.Property<string>("IdFacultad")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdFacultad")
+                        .HasColumnType("int");
 
-                b.Property<string>("Nombre")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Escuela");
-            });
+                    b.HasIndex("IdFacultad");
 
-            modelBuilder.Entity("WebApp.Models.Data.Persona", b =>
+                    b.ToTable("Escuelas");
+                });
+
             modelBuilder.Entity("WebApp.Models.Data.Facultad", b =>
                 {
                     b.Property<int>("Id")
@@ -226,6 +228,24 @@ namespace WebApp.Migrations
                     b.HasKey("codigo");
 
                     b.ToTable("usuarios1");
+                });
+
+            modelBuilder.Entity("WebApp.Models.Data.Carrera", b =>
+                {
+                    b.HasOne("WebApp.Models.Data.Escuela", "Escuela")
+                        .WithMany()
+                        .HasForeignKey("IdEscuela")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApp.Models.Data.Escuela", b =>
+                {
+                    b.HasOne("WebApp.Models.Data.Facultad", "Facultad")
+                        .WithMany()
+                        .HasForeignKey("IdFacultad")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

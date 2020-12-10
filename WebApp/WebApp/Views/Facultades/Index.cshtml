@@ -60,7 +60,7 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
                 <a asp-action="Estado" asp-route-id="@item.Id">
 
-                    @if (item.Estado == Estado.Activo)
+                    @if (item.Estado == WebApp.Models.Data.Estados.Activo)
                     {
                         <span> Inactivar </span>
                     }
