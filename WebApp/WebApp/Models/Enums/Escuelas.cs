@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApp.Models.Data
 {
-    public class Persona
+    public class Escuelas
     {
-        [Key]
-        public int Codigo { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+
     }
 }
