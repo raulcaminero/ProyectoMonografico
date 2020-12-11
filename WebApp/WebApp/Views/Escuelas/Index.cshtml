@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebApp.Models.Data.Escuela>
+@using WebApp.Models.Data
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Escuelas</h1>
+
+<p>
+    <a asp-action="Create">Registrar nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoEscuela)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Facultad)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoEscuela)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Facultad.NombreFacultad)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Ver</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                @if (item.Estado == (( Estados ) 1))
+                {
+                    <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
+                }
+                else
+                {
+                    <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
