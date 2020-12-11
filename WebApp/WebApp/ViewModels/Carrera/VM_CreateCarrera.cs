@@ -1,17 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using WebApp.Models.Data;
 
 namespace WebApp.ViewModels.Carrera
 {
-    public class VM_CreateCarrera
+	public class VM_CreateCarrera
     {
         [Remote(action: "CheckExistingCarrera", controller: "Carreras", AdditionalFields = "Id")]
         public WebApp.Models.Data.Carrera Carrera { get; set; }
 
-        public List<WebApp.Models.Data.Escuelas> Escuelas { get; set; }
+		[Required]
+		public string Codigo { get; set; }
+
+		[Required]
+		public string Nombre { get; set; }
+
+		[Required]
+		public int IdEscuela { get; set; }
+		public Escuela Escuela { get; set; }
+
+		public List<Escuela> Escuelas { get; set; }
 
     }
 }
