@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.CodigoEscuela)
             </th>
             <th>
-                <span id="sc-faculty-head">@Html.DisplayNameFor(model => model.IdFacultad)</span>
+                @Html.DisplayNameFor(model => model.Facultad)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.CodigoEscuela)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdFacultad)
+                @Html.DisplayFor(modelItem => item.Facultad.NombreFacultad)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
