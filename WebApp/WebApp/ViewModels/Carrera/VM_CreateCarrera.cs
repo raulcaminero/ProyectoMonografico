@@ -22,5 +22,6 @@ namespace WebApp.ViewModels.Carrera
 
 		public List<Escuela> Escuelas { get; set; }
 
+		public List<Facultad> Facultades { get; set; }
     }
 }
