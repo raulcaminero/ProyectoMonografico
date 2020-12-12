@@ -1,0 +1,316 @@
+﻿<div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+    <div class="form-group breadcrum-right">
+        <div class="dropdown">
+
+        </div>
+    </div>
+</div>
+
+<div class="content-body">
+    <!-- account setting page start -->
+    <section id="page-account-settings">
+        <div class="row">
+            <!-- left menu section -->
+            <div class="col-md-3 mb-2 mb-md-0">
+                <ul class="nav nav-pills flex-column mt-md-0 mt-1">
+                    <li class="nav-item active">
+                        <a class="nav-link d-flex py-75 active" id="account-pill-general" data-toggle="pill" href="#account-vertical-general" aria-expanded="true">
+                            <i class="feather icon-globe mr-50 font-medium-3"></i>
+                            General
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex py-75" id="account-pill-password" data-toggle="pill" href="#account-vertical-password" aria-expanded="false">
+                            <i class="feather icon-lock mr-50 font-medium-3"></i>
+                            Cambia la contraseña
+                        </a>
+                    </li>
+                    <!--
+                        <li class="nav-item">
+                            <a class="nav-link d-flex py-75" id="account-pill-social" data-toggle="pill" href="#account-vertical-social" aria-expanded="false">
+                                <i class="feather icon-camera mr-50 font-medium-3"></i>
+                                Social links
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex py-75" id="account-pill-info" data-toggle="pill" href="#account-vertical-info" aria-expanded="false">
+                                <i class="feather icon-info mr-50 font-medium-3"></i>
+                                Subir Archivos
+                            </a>
+                        </li>
+                    -->
+                </ul>
+                <div class="navbar navbar-expand-lg">
+                    <form>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <div class="input-group">
+                            <input type="submit" class="btn btn-info form-control" value="Additional Info">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- right content section -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active in" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
+                                    <div class="col-md-3">
+                                        <form id="form_imagenes" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-md-3" id="center">
+                                                    <img src="/image/Foto2x2_Mesa de trabajo 1.jpg" id="img_inves" width="201" height="200">
+
+                                                    <div>
+                                                        <a style="color: #ffffff;height: 50px;width: 204px;" class="btn btn-primary btn-lg btn-block waves-effect waves-light" id="filess">
+                                                            Subir Imagen
+                                                            <i class="fa fa-cloud-upload"></i>
+                                                        </a> <span id="cantidad"></span> <input type="file" id="files" name="archivos[]" style="display: none;" multiple="multiple" accept="image/*">
+                                                    </div>
+                                                    <input type="submit" style="display: none;" id="true_submit_imagenes" name="">
+                                                </div>
+
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <hr>
+                                    <form id="form_registro">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Primer Nombre: <span class="rojo">*</span></label>
+                                                    <input title="Este campo es requerido." type="text" placeholder="Primer Nombre:" class="form-control" name="pNombre" id="pNombre" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Segundo Nombre</label>
+                                                    <input type="text" placeholder="Segundo Nombre" class="form-control" name="sNombre" id="sNombre" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Primer Apellido: <span class="rojo">*</span></label>
+                                                    <input title="Este campo es requerido." type="text" placeholder="Primer Apellido" class="form-control" name="PApellido" id="PApellido" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Segundo Apellido: </label>
+                                                    <input type="text" class="form-control" placeholder="Segundo Apellido" name="sApellido" id="sApellido" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Tipo Identificación: <span class="rojo">*</span></label>
+                                                    <select title="Este campo es requerido." id="tipo_documento" name="tipo_documento" class="form-control" disabled="disabled">
+                                                        <option selected=""></option>
+                                                        <option value="0">Cédula</option>
+                                                        <option value="1">Pasaporte</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Número Identificación: <span class="rojo">*</span></label>
+                                                    <input title="Este campo es requerido." type="text" placeholder="Número Identificación" class="form-control" maxlength="13" name="cedula" id="cedula" disabled="disabled">
+                                                    <input type="hidden" name="cedula_vieja" id="cedula_vieja" value="027-0047034-3">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Sexo: <span class="rojo">*</span></label>
+                                                    <select title="Este campo es requerido." id="sexo" name="sexo" class="form-control" disabled="disabled">
+                                                        <option value="" selected=""></option>
+                                                        <option value="0">Masculino</option>
+                                                        <option value="1">Femenino</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Matricula o Código:</label>
+                                                    <input type="text" class="form-control" placeholder="Matricula o Código" maxlength="20" name="matricula" id="matricula" disabled="disabled">
+                                                    <input type="hidden" name="matricula_vieja" id="matricula_vieja" value="100223477">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Fecha Nacimiento: <span class="rojo">*</span></label>
+                                                    <input title="Este campo es requerido." type="date" class="form-control" name="fecha" id="fecha" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Teléfono o Celular: <span class="rojo">*</span></label>
+                                                    <input title="Este campo es requerido." type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" name="telefono" id="telefono" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
+                                                    <select title="Este campo es requerido." id="nacionalidad" name="nacionalidad" class="form-control" disabled="disabled">
+                                                        <option value="" selected=""></option>
+                                                        <option value="0">Dominicano</option>
+                                                        <option value="1">Extranjero</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Campus: <span class="rojo">*</span></label>
+                                                    <select title="Este campo es requerido." id="campus" name="campus" class="form-control" disabled="disabled">
+                                                        <option value="" selected=""></option>
+                                                        <option value="2">SEDE</option>
+                                                        <option value="3">Santiago</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
+                                    <form id="cambio_password">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <div class="controls">
+                                                        <label for="account-old-password">Contraseña anterior <span class="rojo">*</span></label>
+                                                        <input type="password" class="form-control" id="password_anterior" placeholder="Contraseña anterior">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <div class="controls">
+                                                        <label for="account-new-password">Nueva contraseña <span class="rojo">*</span></label>
+                                                        <input type="password" name="password" id="password_nueva" class="form-control" placeholder="Nueva contraseña">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <div class="controls">
+                                                        <label for="account-retype-new-password">
+                                                            Reescriba nueva
+                                                            Contraseña <span class="rojo">*</span>
+                                                        </label>
+                                                        <input type="password" name="con-password" class="form-control" id="password_nueva_repetir" placeholder="Reescriba nueva Contraseña">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                                <button type="submit" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
+                                                    Guardar Cambios
+                                                </button>
+                                                <button type="reset" class="btn btn-danger waves-effect waves-light">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
+                                    <div class="row">
+                                        <form id="form_cedula" enctype="multipart/form-data">
+
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <a style="color: #ffffff;height: 67px;width: 204px;" class="btn btn-primary waves-effect waves-light" id="filess_cedula">
+                                                        Subir Copia de la Cédula de Identidad
+                                                        <i class="fa fa-cloud-upload"></i>
+                                                    </a> <span id="cantidad"></span> <input type="file" id="files_cedula" name="archivos[]" style="display: none;" multiple="multiple" accept="image/*">
+                                                </div>
+                                                <div class="row">
+                                                    <div id="lista_archivos"> <div class=""><i style="margin-left: 10px;"></i><i style="margin-left: 8px;"></i>  <div><a target="_blank" href="../solicitud/archivos/cedulas/27/IMG_20200702_125440.jpg"><p style="border: solid 2px;border-color: #6aafaf;border-radius: 8px;text-align: center;">IMG_20200702_125440.jpg</p></a></div>  </div></div>
+                                                </div>
+
+                                                <input type="submit" style="display: none;" id="true_submit_imagenes_cedula" name="">
+                                            </div>
+
+
+                                        </form>
+                                        <form id="form_kardex" enctype="multipart/form-data">
+
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <a style="color: #ffffff;height: 67px;width: 204px;" class="btn btn-primary waves-effect waves-light" id="filess_kardex">
+                                                        Subir kárdex Académico
+                                                        <i class="fa fa-cloud-upload"></i>
+                                                    </a> <span id="cantidad"></span> <input type="file" id="files_kardex" name="archivos[]" style="display: none;" multiple="multiple" accept="image/*">
+                                                </div>
+                                                <div class="row">
+                                                    <div id="lista_archivos_kardex"> <div class=""><i style="margin-left: 10px;"></i><i style="margin-left: 8px;"></i>  <div><a target="_blank" href="../solicitud/archivos/kardex_academicos/27/HistóricoAcadémico-MaikorY.Sánchez100223477.pdf"><p style="border: solid 2px;border-color: #6aafaf;border-radius: 8px;text-align: center;">HistóricoAcadémico-MaikorY.Sánchez100223477.pdf</p></a></div>  </div></div>
+                                                </div>
+
+                                                <input type="submit" style="display: none;" id="true_submit_imagenes_kardex" name="">
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="account-vertical-social" role="tabpanel" aria-labelledby="account-pill-social" aria-expanded="false">
+                                    <form id="form_redes">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="twitter">Twitter</label>
+                                                    <input type="text" id="Twitter" class="form-control" placeholder="Twitter">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="facebook">Facebook</label>
+                                                    <input type="text" id="facebook" class="form-control" placeholder="Facebook">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="google">Google+</label>
+                                                    <input type="text" id="google" class="form-control" placeholder="Google+">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="linkedin">LinkedIn</label>
+                                                    <input type="text" id="linkedin" class="form-control" placeholder="LinkedIn">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="instagram">Instagram</label>
+                                                    <input type="text" id="instagram" class="form-control" placeholder="Instagram">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                                <button type="submit" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
+                                                    Guardar Cambios
+                                                </button>
+                                                <button type="reset" class="btn btn-outline-warning waves-effect waves-light">Cancelar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- account setting page end -->
+
+</div>
