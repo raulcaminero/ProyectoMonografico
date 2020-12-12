@@ -45,12 +45,17 @@ $(document).ready(function ()
             yadcf.init(careersTB,
                 [
                     {
+                        column_number: 1,
+                        filter_type: "select",
+                        filter_default_label: "Todas"
+                    },
+                    {
                         column_number: 2,
                         filter_type: "select",
                         filter_default_label: "Todas"
                     },
                     {
-                        column_number: 5,
+                        column_number: 4,
                         filter_type: "select",
                         filter_default_label: "Todos",
                         case_insensitive: false,
@@ -62,8 +67,9 @@ $(document).ready(function ()
                 }
             );
 
+            $("#yadcf-filter-wrapper--careers-tb-1").insertBefore("#cr-faculty-head");
             $("#yadcf-filter-wrapper--careers-tb-2").insertBefore("#cr-school-head");
-            $("#yadcf-filter-wrapper--careers-tb-5").insertBefore("#cr-state-head");
+            $("#yadcf-filter-wrapper--careers-tb-4").insertBefore("#cr-state-head");
 
             $(".yadcf-filter-reset-button").remove();
         }

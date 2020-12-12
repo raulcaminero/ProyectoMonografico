@@ -27,40 +27,42 @@ namespace WebApp.Controllers
                 .Include(c => c.Escuela.Facultad)
                 .Where(c => c.Estado != Estados.Eliminado)
                 .ToListAsync();
-            List<Escuela> escuelas = new List<Escuela>();
+            /* List<Escuela> escuelas = new List<Escuela>();
 
-            Escuela todaEscuela = new Escuela
-            {
-                Id = 0,
-                Nombre = "Todas"
-            };
+             Escuela todaEscuela = new Escuela
+             {
+                 Id = 0,
+                 Nombre = "Todas"
+             };
 
-            escuelas.Add(todaEscuela);
+             escuelas.Add(todaEscuela);
 
-            escuelas.AddRange(_context.Escuelas
-                .Where(e => e.Estado == Estados.Activo)
-                .Include(e => e.Facultad)
-                .ToList());
+             escuelas.AddRange(_context.Escuelas
+                 .Where(e => e.Estado == Estados.Activo)
+                 .Include(e => e.Facultad)
+                 .ToList());
 
-            Facultad todas = new Facultad
-            {
-                Id = 0,
-                NombreFacultad = "Todas"
-            };
+             Facultad todas = new Facultad
+             {
+                 Id = 0,
+                 NombreFacultad = "Todas"
+             };
 
-            List<Facultad> facultades = new List<Facultad>();
-            facultades.Add(todas);
+             List<Facultad> facultades = new List<Facultad>();
+             facultades.Add(todas);
 
-            facultades.AddRange(_context.Facultades.Where(x => x.Estado == Estados.Activo).ToList());
+             facultades.AddRange(_context.Facultades.Where(x => x.Estado == Estados.Activo).ToList());
 
-            VM_IndexCarrera vm = new VM_IndexCarrera
-            {
-                Carreras = carreras,
-                Escuelas = escuelas,
-                Facultades = facultades
-            };
+             VM_IndexCarrera vm = new VM_IndexCarrera
+             {
+                 Carreras = carreras,
+                 Escuelas = escuelas,
+                 Facultades = facultades
+             };
 
-            return base.View(vm);
+             return base.View(vm);*/
+
+            return View(carreras);
         }
 
         public async Task<IActionResult> _TablaCarreras(List<Carrera> carreras = null, int idFacultad = 0, int idEscuela = 0)
