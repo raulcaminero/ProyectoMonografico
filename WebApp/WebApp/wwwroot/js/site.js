@@ -29,6 +29,7 @@ $(document).ready(function ()
             );
 
             $("#yadcf-filter-wrapper--campus-tb-3").insertBefore("#cp-state-head");
+            $("#yadcf-filter-wrapper--campus-tb-3").insertBefore("#cp-state-head");
 
             $(".yadcf-filter-reset-button").remove();
         }
