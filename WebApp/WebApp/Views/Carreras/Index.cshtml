@@ -5,7 +5,6 @@
     ViewData["Title"] = "Carreras";
 }
 
-
 <div class="row">
     <div class="col-lg-2">
         <h1>Carreras</h1>
@@ -28,71 +27,6 @@
 </p>
 
 <div id="target_tabla"></div>
-@*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Código
-                </th>
-                <th>
-                    Escuela
-                </th>
-                <th>
-                    Carrera
-                </th>
-                <th>
-                    Estado
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Carreras)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Codigo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Escuela.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Estado)
-                    </td>
-                    <td>
-                        @if (item.Estado == Estados.Eliminado)
-                        {
-                            <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
-                        }
-                        else
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                            if (item.Estado == ((Estados)1))
-                            {
-                                <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
-                            }
-                            else
-                            {
-                                <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
-                            }
-                        }
-
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
 
 @section Scripts{
     <script>
@@ -114,13 +48,8 @@
                 }
 
                 var idEscuela = $("#idEscuela").val();
-
-                //_TablaCarreras(List<Carrera> carreras = null, int idFacultad = 0, int idEscuela = 0)
-
                 FiltrarCarreras(idFacultad, idEscuela);
             });
-
-
         });
 
         $("#idEscuela").change(function () {
@@ -141,8 +70,6 @@
                 var idFacultad = $("#idFacultad").val();
                 FiltrarCarreras(idFacultad, idEscuela);
             });
-
-
         });
 
         function FiltrarCarreras(idFacultad, idEscuela) {
