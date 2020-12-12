@@ -22,7 +22,12 @@ namespace WebApp.Controllers
         // GET: Carreras
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Carreras.ToListAsync());
+			var carreras = await _context.Carreras
+                .Include(c => c.Escuela.Facultad)
+                .Where(c => c.Estado != Estados.Eliminado)
+                .ToListAsync();
+
+			return base.View(carreras);
         }
 
         // GET: Carreras/Details/5
@@ -32,6 +37,8 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var carrera = await _context.Carreras
+                .Where(c => c.Estado != Estados.Eliminado)
+                .Include(c => c.Escuela.Facultad)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (carrera == null)
@@ -43,7 +50,10 @@ namespace WebApp.Controllers
         // GET: Carreras/Create
         public IActionResult Create()
         {
-            var escuelas = _context.Escuelas.Where(e => e.Estado == Estados.Activo).ToList();
+            var escuelas = _context.Escuelas
+                .Where(e => e.Estado == Estados.Activo)
+                .Include(e => e.Facultad)
+                .ToList();
 
             VM_CreateCarrera vm = new VM_CreateCarrera
             {

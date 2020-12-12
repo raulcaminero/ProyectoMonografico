@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = null;
+}
 
 @model WebApp.Models.Data.Usuario
 
@@ -129,16 +131,16 @@
     <script src="~/plantilla/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--Custom JavaScript -->
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $(".preloader").fadeOut();
         });
-        $(function() {
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         });
         // ==============================================================
         // Login and Recover Password
         // ==============================================================
-        $('#to-recover').on("click", function() {
+        $('#to-recover').on("click", function () {
             $("#loginform").slideUp();
             $("#recoverform").fadeIn();
         });
