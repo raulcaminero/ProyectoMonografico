@@ -90,3 +90,5 @@ _ReSharper.*
 WebApp/WebApp/bin
 WebApp/WebApp/obj
 packages
+
+Migrations/

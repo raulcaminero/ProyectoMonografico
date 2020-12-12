@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Models.Data.Enum;
 
 namespace WebApp.Models.Data
 {
@@ -32,9 +31,7 @@ namespace WebApp.Models.Data
         [DataType(DataType.PhoneNumber)]
         public string Telefono { get; set; }
 
-        public Estado Estado{ get; set; }
-        
-
+        public Estados Estado{ get; set; }
         
     }
 
