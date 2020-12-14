@@ -12,19 +12,17 @@ namespace WebApp.Models
             Facultad = new HashSet<Facultad>();
             Servicio = new HashSet<Servicio>();
         }
-
         public int CampusId { get; set; }
         public string CampusCodigo { get; set; }
         public string CampusNombre { get; set; }
+        public string Localidad { get; set; }
         public string EstadoId { get; set; }
-        public int LocalidadId { get; set; }
         public string FullName
         {
             get { return CampusCodigo.Trim() + " " + CampusNombre; }
         }
 
         public virtual Estado Estado { get; set; }
-        public virtual Localidad Localidad { get; set; }
         public virtual ICollection<Carrera> Carrera { get; set; }
         public virtual ICollection<Escuela> Escuela { get; set; }
         public virtual ICollection<Facultad> Facultad { get; set; }

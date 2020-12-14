@@ -23,8 +23,8 @@ namespace WebApp.Controllers
 
         public int _pagSize, _skip, _regTotal;
 
-        MyDB _db;
-        public ServicioController(MyDB db)
+        ApplicationDbContext _db;
+        public ServicioController(ApplicationDbContext db)
         {
             _db = db;
         }
@@ -47,7 +47,7 @@ namespace WebApp.Controllers
                                     Servicio_Id = s.Servicio_Id,
                                     Servicio_Codigo = s.Servicio_Codigo,
                                     Servicio_Descripcion = s.Servicio_Descripcion,
-                                    Servicio_FechaInio = s.Servicio_FechaInio,
+                                    Servicio_FechaInicio = s.Servicio_FechaInicio,
                                     Servicio_FechaCierre = s.Servicio_FechaCierre,
                                     Estado_Id = s.Estado_Id,
                                     TipoServicio_Nombre = t.TipoServicioDescripcion,
@@ -189,7 +189,7 @@ namespace WebApp.Controllers
                                     Servicio_Id = s.Servicio_Id,
                                     Servicio_Codigo = s.Servicio_Codigo,
                                     Servicio_Descripcion = s.Servicio_Descripcion,
-                                    Servicio_FechaInio = s.Servicio_FechaInio,
+                                    Servicio_FechaInicio = s.Servicio_FechaInicio,
                                     Servicio_FechaCierre = s.Servicio_FechaCierre,
                                     TipoServicio_Nombre = t.TipoServicioDescripcion,
                                     Facultad = f,

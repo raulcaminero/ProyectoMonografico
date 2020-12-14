@@ -8,7 +8,6 @@ namespace WebApp.Models
         public int TipoServicioId { get; set; }
         public string TipoServicioDescripcion { get; set; }
         public string EstadoId { get; set; }
-
         public virtual Estado Estado { get; set; }
     }
 }

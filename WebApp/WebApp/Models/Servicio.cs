@@ -6,19 +6,20 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
+
 namespace WebApp.Models
 {
     public partial class Servicio
     {
-        MyDB _db = new MyDB();
+        ApplicationDbContext _db = new ApplicationDbContext();
         public Servicio()
         {
             var lstcampus = _db.Campus.ToList();
-            var lstPersona = _db.Persona.Where(p => p.Rol_Id > 1 && p.EstadoId == "A");
-            var facultadList = _db.Facultad.Where(x => x.CampusId == -1).ToList();
+            var lstUsuario = _db.usuarios.Where(p => p.RolID > 1 && p.EstadoId == "A");
+            var facultadList = _db.Facultades.Where(x => x.CampusId == -1).ToList();
 
-            this.TipoServicioList = new SelectList(_db.TipoServicio.ToList(), "TipoServicioId", "TipoServicioDescripcion");
-            this.PersonaList = new SelectList(lstPersona, "Codigo", "PersonaNombre");
+            this.TipoServicioList = new SelectList(_db.TipoServicios.ToList(), "TipoServicioId", "TipoServicioDescripcion");
+            this.UsuarioList = new SelectList(lstUsuario, "Codigo", "UsuarioNombre");
 
             this.CampusList = new SelectList(lstcampus, "CampusId", "FullName");
             this.FacultadList = new SelectList(facultadList, "FacultaId", " FacultadNombre");
@@ -31,15 +32,15 @@ namespace WebApp.Models
             var tmp = _db.Servicio.Where(s => s.Servicio_Id == p_Id).First();
 
             var lstcampus = _db.Campus.ToList();
-            var lstPersona = _db.Persona.ToList();
-            var facultadList = _db.Facultad.Where(f => f.CampusId == tmp.Campus_Id).ToList();
-            var escuelaList = _db.Escuela.Where(e => e.FacultadId == tmp.Facultad_Id && e.CampusId == tmp.Campus_Id).ToList();
-            var carreraList = _db.Carrera.Where(c => c.EscuelaId == tmp.Escuela_Id && c.FacultadId == tmp.Facultad_Id && c.CampusId == tmp.Campus_Id).ToList();
+            var lstUsuario = _db.usuarios .ToList();
+            var facultadList = _db.Facultades.Where(f => f.CampusId == tmp.Campus_Id).ToList();
+            var escuelaList = _db.Escuelas.Where(e => e.FacultadId == tmp.Facultad_Id && e.CampusId == tmp.Campus_Id).ToList();
+            var carreraList = _db.Carreras.Where(c => c.EscuelaId == tmp.Escuela_Id && c.FacultadId == tmp.Facultad_Id && c.CampusId == tmp.Campus_Id).ToList();
 
             var estadoList = _db.Estado.ToList();
 
-            this.TipoServicioList = new SelectList(_db.TipoServicio.Where(t => t.TipoServicioId == tmp.TipoServicio_Id).ToList(), "TipoServicioId", "TipoServicioDescripcion");
-            this.PersonaList = new SelectList(lstPersona, "Codigo", "PersonaNombre");
+            this.TipoServicioList = new SelectList(_db.TipoServicios.Where(t => t.TipoServicioId == tmp.TipoServicio_Id).ToList(), "TipoServicioId", "TipoServicioDescripcion");
+            this.UsuarioList = new SelectList(lstUsuario, "Codigo", "UsuarioNombre");
 
             this.CampusList = new SelectList(lstcampus, "CampusId", "FullName");
             this.FacultadList = new SelectList(facultadList, "FacultadId", "FacultadNombre");
@@ -53,10 +54,10 @@ namespace WebApp.Models
             this.Servicio_Id = tmp.Servicio_Id;
             this.Servicio_Codigo = tmp.Servicio_Codigo; 
             this.Servicio_Descripcion = tmp.Servicio_Descripcion;
-            this.Servicio_FechaInio = tmp.Servicio_FechaInio;
+            this.Servicio_FechaInicio = tmp.Servicio_FechaInicio;
             this.Servicio_FechaCierre = tmp.Servicio_FechaCierre;
             this.Servicio_Costo = tmp.Servicio_Costo;
-            this.Persona_Codigo = tmp.Persona_Codigo;
+            this.UsuarioCodigo = tmp.UsuarioCodigo;
             this.TipoServicio_Id = tmp.TipoServicio_Id;
             this.Estado_Id = tmp.Estado_Id;
             this.Campus_Id = tmp.Campus_Id;
@@ -75,7 +76,7 @@ namespace WebApp.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DisplayName("Fecha Inicio")]
-        public DateTime? Servicio_FechaInio { get; set; }
+        public DateTime? Servicio_FechaInicio { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -86,7 +87,7 @@ namespace WebApp.Models
         public decimal? Servicio_Costo { get; set; }
 
         [DisplayName("Coordinador")]
-        public int? Persona_Codigo { get; set; }
+        public int? UsuarioCodigo { get; set; }
 
         [DisplayName("Tipo Servicio(*)")]
         public int TipoServicio_Id { get; set; }
@@ -108,7 +109,7 @@ namespace WebApp.Models
         [NotMapped]
         public SelectList TipoServicioList { get; set; }
         [NotMapped]
-        public SelectList PersonaList { get; set; }
+        public SelectList UsuarioList { get; set; }
         [NotMapped]
         public SelectList EstadoList { get; set; }
         [NotMapped]
@@ -124,5 +125,6 @@ namespace WebApp.Models
         public virtual Carrera Carrera { get; set; }
         public virtual Escuela Escuela { get; set; }
         public virtual Estado Estado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

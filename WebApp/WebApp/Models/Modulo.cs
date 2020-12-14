@@ -15,7 +15,7 @@ namespace WebApp.Models
         public string Descripcion { get; set; }
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
-        public int IdProfesor { get; set; }
+        public int UsuarioCodigo { get; set; }
         public string Imagen { get; set; }
         public string EstadoId { get; set; }
         public int? IdAdjunto { get; set; }
@@ -23,7 +23,7 @@ namespace WebApp.Models
 
         public virtual Estado Estado { get; set; }
         public virtual AdjuntoMaterial IdAdjuntoNavigation { get; set; }
-        public virtual Profesor IdProfesorNavigation { get; set; }
+        public virtual Usuario IdProfesorNavigation { get; set; }
         public virtual Servicio Servicio { get; set; }
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
     }

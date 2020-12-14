@@ -78,10 +78,10 @@
     <div class="form-group">
         <div class="row">
             @*<div class="col-md-5">
-                    @Html.LabelFor(x => Model.Servicio_FechaInio, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(x => Model.Servicio_FechaInicio, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                    @Html.TextBoxFor(x => x.Servicio_FechaInio, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(x => x.Servicio_FechaInio, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(x => x.Servicio_FechaInicio, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Servicio_FechaInicio, "", new { @class = "text-danger" })
                 </div>*@
 
             @*<div class="form-group row">*@
@@ -89,16 +89,16 @@
             @*<label>Fecha Inicio</label>*@
             <!--div class="col-8"-->
             <div class="col-sm-3">
-                @Html.LabelFor(x => Model.Servicio_FechaInio, htmlAttributes: new { @class = "control-label col-md-6" })
+                @Html.LabelFor(x => Model.Servicio_FechaInicio, htmlAttributes: new { @class = "control-label col-md-6" })
                 <div class="input-group">
 
-                    @Html.TextBoxFor(x => x.Servicio_FechaInio, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", placeholder = "Fecha Ingreso", required = "required", disabled = "disabled" })
+                    @Html.TextBoxFor(x => x.Servicio_FechaInicio, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", placeholder = "Fecha Ingreso", required = "required", disabled = "disabled" })
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <i class="fa fa-calendar"></i>
                         </div>
                     </div>
-                    @Html.ValidationMessageFor(x => x.Servicio_FechaInio, null, new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(x => x.Servicio_FechaInicio, null, new { @class = "text-danger" })
                     <div class="valid-feedback">Valido.</div>
                     <div class="invalid-feedback">Fecha Invalida.</div>
                     @*@Html.DisplayFor(x => x.Servicio_FechaInicio, "{0:MMM yyyy}", new { @class = "form-control", type = "date", placeholder = "Fecha Ingreso", required = "required", disabled = "disabled" })*@
@@ -119,10 +119,10 @@
                 </div>
             </div>
             <div class="col">
-                @Html.LabelFor(x => Model.Persona_Codigo, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(x => Model.Usuario_Codigo, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                @Html.DropDownListFor(x => Model.Persona_Codigo, new SelectList(Model.PersonaList, "Value", "Text"), "--Seleccionar Coodinador--", htmlAttributes: new { @class = "form-control", id = "Coordinador", required = "required", disabled = "disabled" })
-                @Html.ValidationMessageFor(x => x.Persona_Codigo, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(x => Model.Usuario_Codigo, new SelectList(Model.UsuarioList, "Value", "Text"), "--Seleccionar Coodinador--", htmlAttributes: new { @class = "form-control", id = "Coordinador", required = "required", disabled = "disabled" })
+                @Html.ValidationMessageFor(x => x.Usuario_Codigo, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>

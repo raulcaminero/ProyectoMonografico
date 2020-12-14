@@ -14,6 +14,9 @@ namespace WebApp.Models
         public int FacultadId { get; set; }
         public string FacultadCodigo { get; set; }
         public string FacultadNombre { get; set; }
+        public string NombreDecano { get; set; }
+        public string Ubicación { get; set; }
+        public string Telefono { get; set; }
         public string EstadoId { get; set; }
         public int CampusId { get; set; }
 

@@ -9,7 +9,7 @@ using WebApp.Models;
 
 namespace WebApp.Migrations
 {
-    [DbContext(typeof(MyDB))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20201212024141_cambio_adjunto")]
     partial class cambio_adjunto
     {
@@ -446,7 +446,7 @@ namespace WebApp.Migrations
                     b.ToTable("Modulo");
                 });
 
-            modelBuilder.Entity("Monografico.Models.Persona", b =>
+            modelBuilder.Entity("Monografico.Models.Usuario", b =>
                 {
                     b.Property<int>("Codigo")
                         .HasColumnType("int");
@@ -461,9 +461,9 @@ namespace WebApp.Migrations
                         .HasMaxLength(1)
                         .IsUnicode(false);
 
-                    b.Property<string>("PersonaNombre")
+                    b.Property<string>("UsuarioNombre")
                         .IsRequired()
-                        .HasColumnName("Persona_Nombre")
+                        .HasColumnName("Usuario_Nombre")
                         .HasColumnType("varchar(100)")
                         .HasMaxLength(100)
                         .IsUnicode(false);
@@ -478,7 +478,7 @@ namespace WebApp.Migrations
 
                     b.HasIndex("EstadoId");
 
-                    b.ToTable("Persona");
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("Monografico.Models.Profesor", b =>
@@ -541,8 +541,8 @@ namespace WebApp.Migrations
                         .HasColumnName("Facultad_Id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Persona_Codigo")
-                        .HasColumnName("Persona_Codigo")
+                    b.Property<int?>("Usuario_Codigo")
+                        .HasColumnName("Usuario_Codigo")
                         .HasColumnType("int");
 
                     b.Property<string>("Servicio_Codigo")
@@ -571,9 +571,9 @@ namespace WebApp.Migrations
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("('')");
 
-                    b.Property<DateTime?>("Servicio_FechaInio")
+                    b.Property<DateTime?>("Servicio_FechaInicio")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Servicio_FechaInio")
+                        .HasColumnName("Servicio_FechaInicio")
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("('')");
 
@@ -785,12 +785,12 @@ namespace WebApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Monografico.Models.Persona", b =>
+            modelBuilder.Entity("Monografico.Models.Usuario", b =>
                 {
                     b.HasOne("Monografico.Models.Estado", "Estado")
-                        .WithMany("Persona")
+                        .WithMany("Usuario")
                         .HasForeignKey("EstadoId")
-                        .HasConstraintName("FK_Persona_Estado")
+                        .HasConstraintName("FK_Usuario_Estado")
                         .IsRequired();
                 });
 

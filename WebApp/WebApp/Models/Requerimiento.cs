@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.Models.Data
+namespace WebApp.Models
 {
 	public class Requerimiento
 	{

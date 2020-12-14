@@ -28,7 +28,7 @@ namespace WebApp
         {
             services.AddControllersWithViews();
 			//Conn servidor Ramon
-			//services.AddDbContext<MyDB>(options =>
+			//services.AddDbContext<ApplicationDbContext>(options =>
 			//{
 				//options.UseSqlServer(Configuration.GetConnectionString("conn"));
 			//});
@@ -36,7 +36,7 @@ namespace WebApp
 			//Conn servidor Andy/Diomar
 			var connection = @"Server= .\SQLEXPRESS; Database =CULMINARES; "+
 			                  "Trusted_Connection = true; ConnectRetryCount= 0; ";
-			       services.AddDbContext<MyDB
+			       services.AddDbContext<ApplicationDbContext
 			        >(options => options.UseSqlServer(connection));
 		}
 

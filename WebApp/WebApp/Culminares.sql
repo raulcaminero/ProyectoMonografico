@@ -77,13 +77,13 @@ CREATE TABLE [dbo].[Empleado](
  )
 GO
 
-CREATE TABLE [dbo].[Persona](
+CREATE TABLE [dbo].[Usuario](
 	[Codigo] [int] NOT NULL,
-	[Persona_Nombre] [varchar](100) NOT NULL,
+	[Usuario_Nombre] [varchar](100) NOT NULL,
 	[Rol_Id] [int] NOT NULL,
 	[Estado_Id] [char](1) NOT NULL,
- CONSTRAINT [PK_Persona] PRIMARY KEY(Codigo),
- CONSTRAINT [FK_Persona_Estado] FOREIGN KEY([Estado_Id]) REFERENCES [dbo].[Estado] ([Estado_Id]),
+ CONSTRAINT [PK_Usuario] PRIMARY KEY(Codigo),
+ CONSTRAINT [FK_Usuario_Estado] FOREIGN KEY([Estado_Id]) REFERENCES [dbo].[Estado] ([Estado_Id]),
 )
 GO
 CREATE TABLE [dbo].[TipoServicio](
@@ -99,10 +99,10 @@ CREATE TABLE [dbo].[Servicio](
 	[Servicio_Id] [int] IDENTITY(1,1) NOT NULL,
 	[Servicio_Codigo] [nchar](10) NOT NULL,
 	[Servicio_Descripcion] [varchar](100) NOT NULL,
-	[Servicio_FechaInio] [datetime] NULL,
+	[Servicio_FechaInicio] [datetime] NULL,
 	[Servicio_FechaCierre] [datetime] NULL,
 	[Servicio_Costo] [decimal](12, 2) NULL,
-	[Persona_Codigo] [int] NULL,
+	[Usuario_Codigo] [int] NULL,
 	[TipoServicio_Id] [int] NOT NULL,
 	[Estado_Id] [char](1) NULL,
 	[Campus_Id] [int] NOT NULL,
@@ -187,11 +187,11 @@ CREATE TABLE [dbo].[Usuario](
 GO
 ALTER TABLE [dbo].[Empleado] ADD  CONSTRAINT [DF_Empleado_Salario]  DEFAULT ((0)) FOR [Salario]
 GO
-ALTER TABLE [dbo].[Persona] ADD  CONSTRAINT [DF_Persona_Rol_Id]  DEFAULT ((1)) FOR [Rol_Id]
+ALTER TABLE [dbo].[Usuario] ADD  CONSTRAINT [DF_Usuario_Rol_Id]  DEFAULT ((1)) FOR [Rol_Id]
 GO
-ALTER TABLE [dbo].[Persona] ADD  CONSTRAINT [DF_Persona_Estado_Id]  DEFAULT ('A') FOR [Estado_Id]
+ALTER TABLE [dbo].[Usuario] ADD  CONSTRAINT [DF_Usuario_Estado_Id]  DEFAULT ('A') FOR [Estado_Id]
 GO
-ALTER TABLE [dbo].[Servicio] ADD  CONSTRAINT [DF_Servicio_Servicio_FechaInio]  DEFAULT ('') FOR [Servicio_FechaInio]
+ALTER TABLE [dbo].[Servicio] ADD  CONSTRAINT [DF_Servicio_Servicio_FechaInicio]  DEFAULT ('') FOR [Servicio_FechaInicio]
 GO
 ALTER TABLE [dbo].[Servicio] ADD  CONSTRAINT [DF_Servicio_Servicio_FechaCierre]  DEFAULT ('') FOR [Servicio_FechaCierre]
 GO
@@ -215,11 +215,11 @@ SET IDENTITY_INSERT [dbo].[Campus] ON
 INSERT [dbo].[Campus] ([Campus_Id], [Campus_Codigo], [Campus_Nombre], [Estado_Id], [Localidad_Id]) VALUES (1, N'SEDE      ', N'Sede Central', N'A', 1)
 SET IDENTITY_INSERT [dbo].[Campus] OFF
 GO
-INSERT [dbo].[Persona] ([Codigo], [Persona_Nombre], [Rol_Id], [Estado_Id]) VALUES (1, N'Juan Manuel Feliz', 1, N'A')
-INSERT [dbo].[Persona] ([Codigo], [Persona_Nombre], [Rol_Id], [Estado_Id]) VALUES (2, N'Eddy Brito', 3, N'A')
-INSERT [dbo].[Persona] ([Codigo], [Persona_Nombre], [Rol_Id], [Estado_Id]) VALUES (3, N'Carlos Caraballo', 4, N'A')
-INSERT [dbo].[Persona] ([Codigo], [Persona_Nombre], [Rol_Id], [Estado_Id]) VALUES (4, N'Delgado Bello', 4, N'A')
-INSERT [dbo].[Persona] ([Codigo], [Persona_Nombre], [Rol_Id], [Estado_Id]) VALUES (5, N'Martha Perez', 4, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (1, N'Juan Manuel Feliz', 1, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (2, N'Eddy Brito', 3, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (3, N'Carlos Caraballo', 4, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (4, N'Delgado Bello', 4, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (5, N'Martha Perez', 4, N'A')
 GO
 
 INSERT [dbo].[Empleado] ([Codigo], [Nombre], [Salario], [FechaIngreso]) VALUES (1, N'Juan Manuel Feliz', CAST(0.00 AS Decimal(13, 2)), CAST(N'1998-06-01' AS Date))
@@ -335,8 +335,8 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Servicio] ON 
 
-INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInio], [Servicio_FechaCierre], [Servicio_Costo], [Persona_Codigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (1, N'MSEDE#11  ', N'Monogr�fico de Inform�tica SEDE #11', CAST(N'2010-08-08T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 3, 2, N'I', 1, 1, 7, 14)
-INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInio], [Servicio_FechaCierre], [Servicio_Costo], [Persona_Codigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (2, N'MSEDE#12  ', N'Tesis de Biolog�a SEDE #12', CAST(N'2010-09-02T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 2, 1, N'I', 1, 1, 1, 5)
+INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInicio], [Servicio_FechaCierre], [Servicio_Costo], [Usuario_Codigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (1, N'MSEDE#11  ', N'Monogr�fico de Inform�tica SEDE #11', CAST(N'2010-08-08T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 3, 2, N'I', 1, 1, 7, 14)
+INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInicio], [Servicio_FechaCierre], [Servicio_Costo], [Usuario_Codigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (2, N'MSEDE#12  ', N'Tesis de Biolog�a SEDE #12', CAST(N'2010-09-02T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 2, 1, N'I', 1, 1, 1, 5)
 SET IDENTITY_INSERT [dbo].[Servicio] OFF
 GO
 INSERT [dbo].[TipoServicio] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (1, N'Tesis de Grado', N'A')

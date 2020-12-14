@@ -101,19 +101,19 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persona",
+                name: "Usuario",
                 columns: table => new
                 {
                     Codigo = table.Column<int>(nullable: false),
-                    Persona_Nombre = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    Usuario_Nombre = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
                     Rol_Id = table.Column<int>(nullable: false, defaultValueSql: "((1))"),
                     Estado_Id = table.Column<string>(unicode: false, fixedLength: true, maxLength: 1, nullable: false, defaultValueSql: "('A')")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persona", x => x.Codigo);
+                    table.PrimaryKey("PK_Usuario", x => x.Codigo);
                     table.ForeignKey(
-                        name: "FK_Persona_Estado",
+                        name: "FK_Usuario_Estado",
                         column: x => x.Estado_Id,
                         principalTable: "Estado",
                         principalColumn: "Estado_Id",
@@ -300,10 +300,10 @@ namespace WebApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Servicio_Codigo = table.Column<string>(fixedLength: true, maxLength: 10, nullable: false),
                     Servicio_Descripcion = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
-                    Servicio_FechaInio = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "('')"),
+                    Servicio_FechaInicio = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "('')"),
                     Servicio_FechaCierre = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "('')"),
                     Servicio_Costo = table.Column<decimal>(type: "decimal(12, 2)", nullable: true, defaultValueSql: "((0))"),
-                    Persona_Codigo = table.Column<int>(nullable: true),
+                    Usuario_Codigo = table.Column<int>(nullable: true),
                     TipoServicio_Id = table.Column<int>(nullable: false),
                     Estado_Id = table.Column<string>(unicode: false, fixedLength: true, maxLength: 1, nullable: true, defaultValueSql: "('I')"),
                     Campus_Id = table.Column<int>(nullable: false),
@@ -520,8 +520,8 @@ namespace WebApp.Migrations
                 column: "Servicio_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persona_Estado_Id",
-                table: "Persona",
+                name: "IX_Usuario_Estado_Id",
+                table: "Usuario",
                 column: "Estado_Id");
 
             migrationBuilder.CreateIndex(
@@ -564,7 +564,7 @@ namespace WebApp.Migrations
                 name: "Empleado");
 
             migrationBuilder.DropTable(
-                name: "Persona");
+                name: "Usuario");
 
             migrationBuilder.DropTable(
                 name: "TipoServicio");

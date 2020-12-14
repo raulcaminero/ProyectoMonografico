@@ -11,9 +11,9 @@ namespace WebApp.Controllers
 {
     public class CalificacionesController : Controller
     {
-        private readonly MyDB _context;
+        private readonly ApplicationDbContext _context;
 
-        public CalificacionesController(MyDB context)
+        public CalificacionesController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -21,8 +21,8 @@ namespace WebApp.Controllers
         // GET: Calificaciones
         public async Task<IActionResult> Index()
         {
-            var myDB = _context.Calificaciones.Include(c => c.Estado).Include(c => c.Estudiante).Include(c => c.Modulo);
-            return View(await myDB.ToListAsync());
+            var ApplicationDbContext = _context.Calificaciones.Include(c => c.Estado).Include(c => c.Estudiante).Include(c => c.Modulo);
+            return View(await ApplicationDbContext.ToListAsync());
         }
 
         // GET: Calificaciones/Details/5

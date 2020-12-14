@@ -17,7 +17,6 @@ namespace WebApp.Models
         public int CampusId { get; set; }
         public int FacultadId { get; set; }
         public int EscuelaId { get; set; }
-
         public virtual Campus Campus { get; set; }
         public virtual Escuela Escuela { get; set; }
         public virtual Estado Estado { get; set; }

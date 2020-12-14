@@ -14,10 +14,10 @@ namespace WebApp.Controllers
 {
     public class ModuloController : Controller
     {
-        private readonly MyDB _context;
+        private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public ModuloController(MyDB context, IWebHostEnvironment _webHostEnvironment)
+        public ModuloController(ApplicationDbContext context, IWebHostEnvironment _webHostEnvironment)
         {
             _context = context;
             webHostEnvironment = _webHostEnvironment;
