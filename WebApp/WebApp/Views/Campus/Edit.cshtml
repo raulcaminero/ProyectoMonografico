@@ -1,5 +1,5 @@
-﻿@model WebApp.Models.Data.Campus
-@using WebApp.Models.Data
+﻿@model WebApp.Models.Campus
+@using WebApp.Models
 
 @{
     ViewData["Title"] = "Editar";
@@ -14,23 +14,23 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CampusId" />
             <div class="form-group">
-                <label asp-for="Codigo" class="control-label"></label>
-                <input asp-for="Codigo" class="form-control" />
-                <span asp-validation-for="Codigo" class="text-danger"></span>
+                <label asp-for="CampusCodigo" class="control-label"></label>
+                <input asp-for="CampusCodigo" class="form-control" />
+                <span asp-validation-for="CampusCodigo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+                <label asp-for="CampusNombre" class="control-label"></label>
+                <input asp-for="CampusNombre" class="form-control" />
+                <span asp-validation-for="CampusNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Localidad" class="control-label"></label>
                 <input asp-for="Localidad" class="form-control" />
                 <span asp-validation-for="Localidad" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Estado" class="form-control">
+            <input type="hidden" asp-for="EstadoId" class="form-control">
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>

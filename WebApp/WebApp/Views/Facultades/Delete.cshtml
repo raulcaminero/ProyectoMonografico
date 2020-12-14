@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.Data.Facultad
+﻿@model WebApp.Models.Facultad
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,16 +13,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NombreFacultad)
+            @Html.DisplayNameFor(model => model.FacultadNombre)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NombreFacultad)
+            @Html.DisplayFor(model => model.FacultadNombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Codigo)
+            @Html.DisplayNameFor(model => model.FacultadCodigo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Codigo)
+            @Html.DisplayFor(model => model.FacultadCodigo)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.NombreDecano)
@@ -43,15 +43,15 @@
             @Html.DisplayFor(model => model.Telefono)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
+            @Html.DisplayNameFor(model => model.EstadoId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
+            @Html.DisplayFor(model => model.EstadoId)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="FacultadId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApp.Models.Data.Facultad>
+﻿@model IEnumerable<WebApp.Models.Facultad>
 
 @{
     ViewData["Title"] = "Facultades";
@@ -16,7 +16,7 @@
                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Codigo)
+                Codigo
             </th>
             <th>
                 Decano
@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.Telefono)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                Estado
             </th>
             <th></th>
         </tr>
@@ -37,10 +37,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NombreFacultad)
+                @Html.DisplayFor(modelItem => item.FacultadNombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
+                @Html.DisplayFor(modelItem => item.FacultadCodigo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NombreDecano)
@@ -52,15 +52,15 @@
                 @Html.DisplayFor(modelItem => item.Telefono)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
+                @Html.DisplayFor(modelItem => item.EstadoId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
-                <a asp-action="Estado" asp-route-id="@item.Id">
+                <a asp-action="Edit" asp-route-id="@item.FacultadId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.FacultadId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.FacultadId">Eliminar</a> |
+                <a asp-action="Estado" asp-route-id="@item.FacultadId">
 
-                    @if (item.Estado == WebApp.Models.Data.Estados.Activo)
+                    @if (item.EstadoId == "A")
                     {
                         <span> Inactivar </span>
                     }

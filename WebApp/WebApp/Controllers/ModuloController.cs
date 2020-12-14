@@ -57,7 +57,7 @@ namespace WebApp.Controllers
         {
             
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
-            ViewData["IdProfesor"] = new SelectList(_context.Profesor, "Id", "Nombre");
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "Codigo", "primer_nombre+''+primer_apellido");
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion");
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion");
             return View();
@@ -77,7 +77,7 @@ namespace WebApp.Controllers
                     Descripcion = model.Descripcion,
                     FechaInicio = model.FechaInicio,
                     FechaFin = model.FechaFin,
-                    IdProfesor = model.IdProfesor,
+                    UsuarioCodigo = model.UsuarioCodigo,
                     Imagen = uniqueFileName,
                     EstadoId = model.EstadoId,
                     IdAdjunto = model.IdAdjunto,
@@ -91,8 +91,8 @@ namespace WebApp.Controllers
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion");
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", 
                 model.Estado.EstadoNombre);
-            ViewData["IdProfesor"] = new SelectList(_context.Profesor, "Id", "Nombre", 
-                 model.IdProfesorNavigation.Nombre);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "Codigo", "primer_apellido",
+            model.IdProfesorNavigation.primer_apellido);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion",
                 model.Servicio.Servicio_Descripcion);
             return View();
@@ -128,14 +128,14 @@ namespace WebApp.Controllers
             }
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion", modulo.IdAdjunto);
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", modulo.EstadoId);
-            ViewData["IdProfesor"] = new SelectList(_context.Profesor, "Id", "Nombre", modulo.IdProfesor);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "Codigo", "primer_apellido", modulo.UsuarioCodigo);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion", modulo.ServicioId);
             return View(modulo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Descripcion,FechaInicio,FechaFin,IdProfesor,Imagen,EstadoId,IdAdjunto,ServicioId")] Modulo modulo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Descripcion,FechaInicio,FechaFin,UsuarioCodigo,Imagen,EstadoId,IdAdjunto,ServicioId")] Modulo modulo)
         {
             if (id != modulo.Id)
             {
@@ -164,7 +164,7 @@ namespace WebApp.Controllers
             }
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion", modulo.IdAdjunto);
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", modulo.EstadoId);
-            ViewData["IdProfesor"] = new SelectList(_context.Profesor, "Id", "Nombre", modulo.IdProfesor);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "Codigo", "primer_apellido", modulo.UsuarioCodigo);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion", modulo.ServicioId);
             return View(modulo);
         }

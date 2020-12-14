@@ -24,7 +24,7 @@ namespace WebApp.Dto
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Servicio_FechaCierre { get; set; }
         public decimal? Servicio_Costo { get; set; }
-        public int? Usuario_Codigo { get; set; }
+        public int? UsuarioCodigo { get; set; }
         public int TipoServicio_Id { get; set; }
         public string TipoServicio_Nombre { get; set; }
         public String Estado_Id { get; set; }

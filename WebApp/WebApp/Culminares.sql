@@ -102,7 +102,7 @@ CREATE TABLE [dbo].[Servicio](
 	[Servicio_FechaInicio] [datetime] NULL,
 	[Servicio_FechaCierre] [datetime] NULL,
 	[Servicio_Costo] [decimal](12, 2) NULL,
-	[Usuario_Codigo] [int] NULL,
+	[UsuarioCodigo] [int] NULL,
 	[TipoServicio_Id] [int] NOT NULL,
 	[Estado_Id] [char](1) NULL,
 	[Campus_Id] [int] NOT NULL,
@@ -335,8 +335,8 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Servicio] ON 
 
-INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInicio], [Servicio_FechaCierre], [Servicio_Costo], [Usuario_Codigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (1, N'MSEDE#11  ', N'Monogr�fico de Inform�tica SEDE #11', CAST(N'2010-08-08T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 3, 2, N'I', 1, 1, 7, 14)
-INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInicio], [Servicio_FechaCierre], [Servicio_Costo], [Usuario_Codigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (2, N'MSEDE#12  ', N'Tesis de Biolog�a SEDE #12', CAST(N'2010-09-02T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 2, 1, N'I', 1, 1, 1, 5)
+INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInicio], [Servicio_FechaCierre], [Servicio_Costo], [UsuarioCodigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (1, N'MSEDE#11  ', N'Monogr�fico de Inform�tica SEDE #11', CAST(N'2010-08-08T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 3, 2, N'I', 1, 1, 7, 14)
+INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInicio], [Servicio_FechaCierre], [Servicio_Costo], [UsuarioCodigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (2, N'MSEDE#12  ', N'Tesis de Biolog�a SEDE #12', CAST(N'2010-09-02T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 2, 1, N'I', 1, 1, 1, 5)
 SET IDENTITY_INSERT [dbo].[Servicio] OFF
 GO
 INSERT [dbo].[TipoServicio] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (1, N'Tesis de Grado', N'A')

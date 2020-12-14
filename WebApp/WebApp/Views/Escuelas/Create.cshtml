@@ -1,5 +1,5 @@
-﻿@model WebApp.Models.Data.Escuela
-@using WebApp.Models.Data
+﻿@model WebApp.Models.Escuela
+@using WebApp.Models
 
 @{
     ViewData["Title"] = "Registrar";
@@ -15,21 +15,21 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CodigoEscuela" class="control-label"></label>
-                <input asp-for="CodigoEscuela" class="form-control" />
-                <span asp-validation-for="CodigoEscuela" class="text-danger"></span>
+                <label asp-for="EscuelaCodigo" class="control-label"></label>
+                <input asp-for="EscuelaCodigo" class="form-control" />
+                <span asp-validation-for="EscuelaCodigo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Facultad" class="control-label"></label>
-                <select asp-for="IdFacultad" class="form-control" asp-items="@ViewBag.Facultades">
+                <select asp-for="FacultadId" class="form-control" asp-items="@ViewBag.Facultades">
                 </select>
            
-                <span asp-validation-for="IdFacultad" class="text-danger"></span>
+                <span asp-validation-for="FacultadId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+                <label asp-for="EscuelaNombre" class="control-label"></label>
+                <input asp-for="EscuelaNombre" class="form-control" />
+                <span asp-validation-for="EscuelaNombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Registrar" class="btn btn-primary" />

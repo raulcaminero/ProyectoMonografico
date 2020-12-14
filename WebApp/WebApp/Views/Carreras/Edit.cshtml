@@ -12,23 +12,23 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Carrera.Id" />
+            <input type="hidden" asp-for="Carrera.CarreraId" />
             <div class="form-group">
-                <label asp-for="Carrera.Codigo" class="control-label"></label>
-                <input asp-for="Carrera.Codigo" class="form-control" />
-                <span asp-validation-for="Carrera.Codigo" class="text-danger"></span>
+                <label asp-for="Carrera.CarreraCodigo" class="control-label"></label>
+                <input asp-for="Carrera.CarreraCodigo" class="form-control" />
+                <span asp-validation-for="Carrera.CarreraCodigo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Carrera.IdEscuela" class="control-label"></label>
-                <select asp-for="Carrera.IdEscuela" asp-items="@(new SelectList(Model.Escuelas,"Id","Nombre",Model.Carrera.IdEscuela))"></select>
-                <span asp-validation-for="Carrera.IdEscuela" class="text-danger"></span>
+                <label asp-for="Carrera.EscuelaId" class="control-label"></label>
+                <select asp-for="Carrera.EscuelaId" asp-items="@(new SelectList(Model.Escuelas,"EscuelaId","EscuelaNombre",Model.Carrera.EscuelaId))"></select>
+                <span asp-validation-for="Carrera.EscuelaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Carrera.Nombre" class="control-label"></label>
-                <input asp-for="Carrera.Nombre" class="form-control" />
-                <span asp-validation-for="Carrera.Nombre" class="text-danger"></span>
+                <label asp-for="Carrera.CarreraNombre" class="control-label"></label>
+                <input asp-for="Carrera.CarreraNombre" class="form-control" />
+                <span asp-validation-for="Carrera.CarreraNombre" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Carrera.Estado" />
+            <input type="hidden" asp-for="Carrera.EstadoId" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

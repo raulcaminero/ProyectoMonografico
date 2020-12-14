@@ -1,5 +1,5 @@
-﻿@model IEnumerable<WebApp.Models.Data.Campus>
-@using WebApp.Models.Data
+﻿@model IEnumerable<WebApp.Models.Campus>
+@using WebApp.Models
 
 @{
     ViewData["Title"] = "Lista de Campus";
@@ -15,16 +15,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Codigo)
+                @Html.DisplayNameFor(model => model.CampusCodigo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                @Html.DisplayNameFor(model => model.CampusNombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Localidad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                @Html.DisplayNameFor(model => model.EstadoId)
             </th>
             <th></th>
         </tr>
@@ -33,28 +33,28 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
+                @Html.DisplayFor(modelItem => item.CampusCodigo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
+                @Html.DisplayFor(modelItem => item.CampusNombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Localidad)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
+                @Html.DisplayFor(modelItem => item.EstadoId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
-                @if (item.Estado == ((Estados) 1))
+                <a asp-action="Edit" asp-route-id="@item.CampusId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.CampusId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.CampusId">Eliminar</a> |
+                @if (item.EstadoId == "A")
                 {
-                    <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
+                    <a asp-action="Inactivate" asp-route-id="@item.CampusId">Inactivar</a>
                 }
                 else
                 {
-                    <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
+                    <a asp-action="Activate" asp-route-id="@item.CampusId">Activar</a>
                 }
             </td>
         </tr>

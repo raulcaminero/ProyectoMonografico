@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.Data.Campus
+﻿@model WebApp.Models.Campus
 
 @{
     ViewData["Title"] = "Eliminar";
@@ -13,16 +13,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Codigo)
+            @Html.DisplayNameFor(model => model.CampusCodigo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Codigo)
+            @Html.DisplayFor(model => model.CampusCodigo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.CampusNombre)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.CampusNombre)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Localidad)
@@ -31,15 +31,15 @@
             @Html.DisplayFor(model => model.Localidad)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
+            @Html.DisplayNameFor(model => model.EstadoId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
+            @Html.DisplayFor(model => model.EstadoId)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CampusId" />
         <input type="submit" value="Eliminar" class="btn btn-danger" /> |
         <a asp-action="Index">Regresar a la lista</a>
     </form>

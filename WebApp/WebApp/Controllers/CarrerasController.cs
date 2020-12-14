@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         {
 			var carreras = await _context.Carreras
                 .Include(c => c.Escuela.Facultad)
-                .Where(c => c.Estado != Estados.Eliminado)
+                .Where(c => c.EstadoId !="I" )
                 .ToListAsync();
 
 			return base.View(carreras);
@@ -37,9 +37,9 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var carrera = await _context.Carreras
-                .Where(c => c.Estado != Estados.Eliminado)
+                .Where(c => c.EstadoId != "I")
                 .Include(c => c.Escuela.Facultad)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CarreraId == id);
 
             if (carrera == null)
                 return NotFound();
@@ -50,17 +50,17 @@ namespace WebApp.Controllers
         // GET: Carreras/Create
         public IActionResult Create()
         {
-            var escuelas = _context.Escuelas
-                .Where(e => e.Estado == Estados.Activo)
+            /*var carreras = _context.Carreras
+                .Where(e => e.EstadoId == "A")
                 .Include(e => e.Facultad)
                 .ToList();
 
             VM_CreateCarrera vm = new VM_CreateCarrera
             {
-                Escuelas = escuelas
-            };
-
-            return View(vm);
+                Carrera = carreras
+            };   vm
+            */
+            return View();
         }
 
         // POST: Carreras/Create
@@ -68,11 +68,14 @@ namespace WebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdEscuela,Codigo,Nombre,Detalles")] Carrera carrera)
+        public async Task<IActionResult> Create
+            ([Bind("CarreraId,CarreraCodigo,CarreraNombre,EstadoId,CampusId,FacultadId, EscuelaId")] Carrera carrera)
         {
+          
+
             if (ModelState.IsValid)
             {
-                carrera.Estado = (Estados)1;
+                //carrera.EstadoId != "I";
                 _context.Add(carrera);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -92,12 +95,12 @@ namespace WebApp.Controllers
             if (carrera == null)
                 return NotFound();
 
-            var escuelas = _context.Escuelas.Where(e => e.Estado != Estados.Activo).ToList();
+            var escuelas = _context.Carreras.Where(e => e.EstadoId == "A");
 
             VM_CreateCarrera vm = new VM_CreateCarrera
             {
-                Carrera = carrera,
-                Escuelas = escuelas
+                Carrera = carrera
+               // Escuelas = escuelas
             };
             return View(vm);
         }
@@ -107,9 +110,10 @@ namespace WebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,idEscuela,Codigo,Nombre,Detalles,Estado")] Carrera carrera)
+        public async Task<IActionResult> Edit(int id, 
+            [Bind("CarreraId,CarreraCodigo,CarreraNombre,EstadoId,CampusId,FacultadId, EscuelaId")] Carrera carrera)
         {
-            if (id != carrera.Id)
+            if (id != carrera.CarreraId)
                 return NotFound();
 
             if (ModelState.IsValid)
@@ -121,7 +125,7 @@ namespace WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarreraExists(carrera.Id))
+                    if (!CarreraExists(carrera.CarreraId))
                     {
                         return NotFound();
                     }
@@ -142,7 +146,7 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var carrera = await _context.Carreras
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CarreraId == id);
             
             if (carrera == null)
                 return NotFound();
@@ -155,7 +159,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> ActivateConfirmed(int id)
         {
             var carrera = await _context.Carreras.FindAsync(id);
-            carrera.Estado = Estados.Activo;
+            carrera.EstadoId = "A";
             _context.Carreras.Update(carrera);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -169,15 +173,15 @@ namespace WebApp.Controllers
 
 			var carrera = await _context.Carreras
                 .Include(c => c.Escuela)
-				.FirstOrDefaultAsync(c => c.Id == id);
+				.FirstOrDefaultAsync(c => c.CarreraId == id);
 			
             if (carrera == null)
 				return NotFound();
 			
 			VM_CreateCarrera vm = new VM_CreateCarrera
 			{
-				Carrera = carrera,
-				Escuelas = new List<Escuela>() { carrera.Escuela }
+				Carrera = carrera
+				//Escuelas = new List<Escuela>() { carrera.Escuela }
 			};
 			return View(vm);
 		}
@@ -188,7 +192,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> InactivateConfirmed(int id)
         {
             var carrera = await _context.Carreras.FindAsync(id);
-            carrera.Estado = Estados.Inactivo;
+            carrera.EstadoId = "I";
             _context.Carreras.Update(carrera);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -197,13 +201,13 @@ namespace WebApp.Controllers
         [AcceptVerbs("GET", "POST")]
         public IActionResult CheckExisting_Code(Carrera carrera, int id)
         {
-            carrera.Nombre = carrera.Nombre == null ? "" : carrera.Nombre;
+            carrera.CarreraNombre = carrera.CarreraNombre == null ? "" : carrera.CarreraNombre;
             bool existsCode = false;
 
             if (id == 0)
-                existsCode = _context.Carreras.Any(c => c.Codigo == carrera.Codigo);
+                existsCode = _context.Carreras.Any(c => c.CarreraCodigo == carrera.CarreraCodigo);
             else
-                existsCode = _context.Carreras.Any(c => c.Codigo == carrera.Codigo && c.Id != carrera.Id);
+                existsCode = _context.Carreras.Any(c => c.CarreraCodigo == carrera.CarreraCodigo && c.CarreraId != carrera.CarreraId);
 
             if (existsCode)
                 return Json("Ya existe una Carrera con este codigo");
@@ -215,13 +219,13 @@ namespace WebApp.Controllers
         [AcceptVerbs("GET", "POST")]
         public IActionResult CheckExisting_Name(Carrera carrera, int id)
         {
-            carrera.Nombre = carrera.Nombre == null ? "" : carrera.Nombre;
+            carrera.CarreraNombre = carrera.CarreraNombre == null ? "" : carrera.CarreraNombre;
             bool existsCode = false;
 
-            if (carrera.Id == 0)
-                existsCode = _context.Carreras.Any(c => c.Nombre.ToLower().Equals(carrera.Nombre.ToLower()));
+            if (carrera.CarreraId == 0)
+                existsCode = _context.Carreras.Any(c => c.CarreraNombre.ToLower().Equals(carrera.CarreraNombre.ToLower()));
             else
-                existsCode = _context.Carreras.Any(c => c.Id != carrera.Id && c.Nombre.ToLower().Equals(carrera.Nombre.ToLower()));
+                existsCode = _context.Carreras.Any(c => c.CarreraId != carrera.CarreraId && c.CarreraNombre.ToLower().Equals(carrera.CarreraNombre.ToLower()));
 
             if (existsCode)
                 return Json("Ya existe una Carrera con este nombre");
@@ -237,7 +241,7 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var carrera = await _context.Carreras
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CarreraId == id);
 
             if (carrera == null)
                 return NotFound();
@@ -251,7 +255,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var carrera = await _context.Carreras.FindAsync(id);
-            carrera.Estado = Estados.Eliminado;
+            carrera.EstadoId = "I";
             _context.Carreras.Update(carrera);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -260,7 +264,7 @@ namespace WebApp.Controllers
 
         private bool CarreraExists(int id)
         {
-            return _context.Carreras.Any(e => e.Id == id);
+            return _context.Carreras.Any(e => e.CarreraId == id);
         }
     }
 }

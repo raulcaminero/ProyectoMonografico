@@ -21,7 +21,8 @@ namespace WebApp.Controllers
         // GET: Campus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Campus.Where(c => c.Estado != ((Estados)(-1))).ToListAsync());
+            //await _context.Campus.Where(c => c.EstadoId != "I")
+            return View();
         }
 
         // GET: Campus/Details/5
@@ -33,7 +34,7 @@ namespace WebApp.Controllers
             }
 
             var campus = await _context.Campus
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
                 return NotFound();
@@ -49,15 +50,14 @@ namespace WebApp.Controllers
         }
 
         // POST: Campus/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Codigo,Nombre,Localidad,Estado")] Campus campus)
+        public async Task<IActionResult> Create([Bind("CampusId,CampusCodigo,CampusNombre,Localidad,EstadoID")] Campus campus)
         {
             if (ModelState.IsValid)
             {
-                campus.Estado = (Estados) 1;
+               // campus.EstadoId = "A";
                 _context.Add(campus);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,9 +86,9 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Nombre,Localidad,Estado")] Campus campus)
+        public async Task<IActionResult> Edit(int id, [Bind("CampusId,CampusCodigo,CampusNombre,Localidad,EstadoID")] Campus campus)
         {
-            if (id != campus.Id)
+            if (id != campus.CampusId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CampusExists(campus.Id))
+                    if (!CampusExists(campus.CampusId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace WebApp.Controllers
             }
 
             var campus = await _context.Campus
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
                 return NotFound();
@@ -140,7 +140,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var campus = await _context.Campus.FindAsync(id);
-            campus.Estado = (Estados) (-1);
+            campus.EstadoId = "I";
             _context.Campus.Update(campus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -155,7 +155,7 @@ namespace WebApp.Controllers
             }
 
             var campus = await _context.Campus
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
                 return NotFound();
@@ -170,7 +170,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> InactivateConfirmed(int id)
         {
             var campus = await _context.Campus.FindAsync(id);
-            campus.Estado = 0;
+            campus.EstadoId = "I";
             _context.Campus.Update(campus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -185,7 +185,7 @@ namespace WebApp.Controllers
             }
 
             var campus = await _context.Campus
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CampusId == id);
             if (campus == null)
             {
                 return NotFound();
@@ -200,7 +200,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> ActivateConfirmed(int id)
         {
             var campus = await _context.Campus.FindAsync(id);
-            campus.Estado = (Estados) 1;
+            campus.EstadoId = "A";
             _context.Campus.Update(campus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -208,7 +208,7 @@ namespace WebApp.Controllers
 
         private bool CampusExists(int id)
         {
-            return _context.Campus.Any(e => e.Id == id);
+            return _context.Campus.Any(e => e.CampusId == id);
         }
 
         [AcceptVerbs("GET", "POST")]
@@ -217,9 +217,9 @@ namespace WebApp.Controllers
             bool existsCode = false;
 
             if (id == 0)
-                existsCode = _context.Campus.Any(c => c.Codigo == codigo);
+                existsCode = _context.Campus.Any(c => c.CampusCodigo == codigo);
             else
-                existsCode = _context.Campus.Any(c => c.Codigo == codigo && c.Id != id);
+                existsCode = _context.Campus.Any(c => c.CampusCodigo == codigo && c.CampusId != id);
            
             if (existsCode)
                 return Json("Ya existe un Campus con este codigo");

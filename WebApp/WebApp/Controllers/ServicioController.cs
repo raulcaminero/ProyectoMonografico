@@ -36,11 +36,11 @@ namespace WebApp.Controllers
 
             var LstServicios = (from s in _db.Servicio
                                 join es in _db.Estado on s.Estado_Id equals es.EstadoId
-                                join t in _db.TipoServicio on s.TipoServicio_Id equals t.TipoServicioId
+                                join t in _db.TipoServicios on s.TipoServicio_Id equals t.TipoServicioId
                                 join c in _db.Campus on s.Campus_Id equals c.CampusId
-                                join f in _db.Facultad on s.Facultad_Id equals f.FacultadId
-                                join e in _db.Escuela on s.Escuela_Id equals e.EscuelaId
-                                join r in _db.Carrera on s.Carrera_Id equals r.CarreraId
+                                join f in _db.Facultades on s.Facultad_Id equals f.FacultadId
+                                join e in _db.Escuelas on s.Escuela_Id equals e.EscuelaId
+                                join r in _db.Carreras on s.Carrera_Id equals r.CarreraId
                                 where (s.Estado_Id != "E")
                                 select new ListaServicio
                                 {
@@ -179,11 +179,11 @@ namespace WebApp.Controllers
 
             var LstServicios = (from s in _db.Servicio
                                 join es in _db.Estado on s.Estado_Id equals es.EstadoId
-                                join t in _db.TipoServicio on s.TipoServicio_Id equals t.TipoServicioId
+                                join t in _db.TipoServicios on s.TipoServicio_Id equals t.TipoServicioId
                                 join c in _db.Campus on s.Campus_Id equals c.CampusId
-                                join f in _db.Facultad on s.Facultad_Id equals f.FacultadId
-                                join e in _db.Escuela on s.Escuela_Id equals e.EscuelaId
-                                join r in _db.Carrera on s.Carrera_Id equals r.CarreraId
+                                join f in _db.Facultades on s.Facultad_Id equals f.FacultadId
+                                join e in _db.Escuelas on s.Escuela_Id equals e.EscuelaId
+                                join r in _db.Carreras on s.Carrera_Id equals r.CarreraId
                                 select new ListaServicio
                                 {
                                     Servicio_Id = s.Servicio_Id,
@@ -211,7 +211,7 @@ namespace WebApp.Controllers
         {
             if (!string.IsNullOrWhiteSpace(campusId))  // && campusId.Length == 3
             {
-                IEnumerable<SelectListItem> facultades = _db.Facultad.AsNoTracking()
+                IEnumerable<SelectListItem> facultades = _db.Facultades.AsNoTracking()
                  .Where(n => n.CampusId == int.Parse(campusId) && n.EstadoId == "A")
                  .OrderBy(n => n.FacultadNombre)
                      .Select(n =>
@@ -236,7 +236,7 @@ namespace WebApp.Controllers
         {
             if (!string.IsNullOrWhiteSpace(campusId) && facultadId > 0)  // && campusId.Length == 3
             {
-                IEnumerable<SelectListItem> datos = _db.Escuela.AsNoTracking()
+                IEnumerable<SelectListItem> datos = _db.Escuelas.AsNoTracking()
                  .Where(n => n.CampusId == int.Parse(campusId)
                         && n.FacultadId == facultadId && n.EstadoId == "A")
                  .OrderBy(n => n.EscuelaNombre)
@@ -262,7 +262,7 @@ namespace WebApp.Controllers
         {
             if (!string.IsNullOrWhiteSpace(campusId) && facultadId > 0 && escuelaId > 0)  // && campusId.Length == 3
             {
-                IEnumerable<SelectListItem> datos = _db.Carrera.AsNoTracking()
+                IEnumerable<SelectListItem> datos = _db.Carreras.AsNoTracking()
                  .Where(n => n.CampusId == int.Parse(campusId) &&
                              n.FacultadId == facultadId &&
                              n.EscuelaId == escuelaId &&

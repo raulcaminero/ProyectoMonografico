@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         // GET: Calificaciones
         public async Task<IActionResult> Index()
         {
-            var ApplicationDbContext = _context.Calificaciones.Include(c => c.Estado).Include(c => c.Estudiante).Include(c => c.Modulo);
+            var ApplicationDbContext = _context.Calificaciones.Include(c => c.Estado).Include(c => c.Usuario).Include(c => c.Modulo);
             return View(await ApplicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace WebApp.Controllers
 
             var calificaciones = await _context.Calificaciones
                 .Include(c => c.Estado)
-                .Include(c => c.Estudiante)
+                .Include(c => c.Usuario)
                 .Include(c => c.Modulo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (calificaciones == null)
@@ -50,17 +50,15 @@ namespace WebApp.Controllers
         public IActionResult Create()
         {
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId");
-            ViewData["EstudianteId"] = new SelectList(_context.Estudiante, "Id", "Nombre");
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "primer_nombre + primer_apellido ");
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo");
             return View();
         }
 
         // POST: Calificaciones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ModuloId,EstudianteId,Calificacion,EstadoId")] Calificaciones calificaciones)
+        public async Task<IActionResult> Create([Bind("Id,ModuloId,UsuarioCodigo,Calificacion,EstadoId")] Calificaciones calificaciones)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +67,7 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId", calificaciones.EstadoId);
-            ViewData["EstudianteId"] = new SelectList(_context.Estudiante, "Id", "Nombre", calificaciones.EstudianteId);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre + primer_apellido ", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
@@ -88,17 +86,16 @@ namespace WebApp.Controllers
                 return NotFound();
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["EstudianteId"] = new SelectList(_context.Estudiante, "Id", "Nombre", calificaciones.EstudianteId);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre +''+ primer_apellido ", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
 
         // POST: Calificaciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ModuloId,EstudianteId,Calificacion,EstadoId")] Calificaciones calificaciones)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ModuloId,UsuarioCodigo,Calificacion,EstadoId")] Calificaciones calificaciones)
         {
             if (id != calificaciones.Id)
             {
@@ -126,7 +123,7 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["EstudianteId"] = new SelectList(_context.Estudiante, "Id", "Nombre", calificaciones.EstudianteId);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre + primer_apellido ", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
@@ -141,7 +138,7 @@ namespace WebApp.Controllers
 
             var calificaciones = await _context.Calificaciones
                 .Include(c => c.Estado)
-                .Include(c => c.Estudiante)
+                .Include(c => c.Usuario)
                 .Include(c => c.Modulo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (calificaciones == null)

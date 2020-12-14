@@ -1,5 +1,5 @@
-﻿@model WebApp.Models.Data.Escuela
-@using WebApp.Models.Data
+﻿@model WebApp.Models.Escuela
+@using WebApp.Models
 
 @{
     ViewData["Title"] = "Detalles";
@@ -14,10 +14,10 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CodigoEscuela)
+            @Html.DisplayNameFor(model => model.EscuelaCodigo)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CodigoEscuela)
+            @Html.DisplayFor(model => model.EscuelaCodigo)
         </dd>
         @*<dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IdFacultad)
@@ -26,20 +26,20 @@
             @Html.DisplayFor(model => model.IdFacultad)
         </dd>*@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.EscuelaNombre)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.EscuelaNombre)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
+            @Html.DisplayNameFor(model => model.EstadoId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
+            @Html.DisplayFor(model => model.EstadoId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Editar" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Editar" asp-route-id="@Model.EscuelaId">Editar</a> |
     <a asp-action="Index">Regresar a la Lista</a>
 </div>

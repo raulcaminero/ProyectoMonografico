@@ -23,7 +23,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> registro(string email,
                                                  string password,
-                                                 int rol,
+                                                 int RolID,
                                                  string primer_nombre,
                                                  string segundo_nombre,
                                                  string primer_apellido,
@@ -32,12 +32,13 @@ namespace WebApp.Controllers
                                                  string identificacion,
                                                  string sexo,
                                                  string matricula,
-                                                 int campus)
+                                                 int campus,
+                                                 string EstadoId)
         {
-            Models.Data.Usuario usurios = new Usuario();
+            Models.Usuario usurios = new Usuario();
             usurios.Email = email;
             usurios.contrasena = password;
-            usurios.rol = rol;
+            usurios.RolID = RolID;
             usurios.primer_nombre = primer_nombre;
             usurios.segundo_nombre = segundo_nombre;
             usurios.primer_apellido = primer_apellido;
@@ -47,6 +48,7 @@ namespace WebApp.Controllers
             usurios.sexo = sexo;
             usurios.matricula = matricula;
             usurios.campus = campus;
+            usurios.EstadoId = EstadoId;
             _context.Add(usurios);
             _context.SaveChanges();
 
@@ -63,7 +65,7 @@ namespace WebApp.Controllers
         public async Task<ActionResult> Login(string email, string password)
         {
             // var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
-            var c = _context.usuarios1.Where(x => x.Email == email).FirstOrDefault();
+            var c = _context.usuarios.Where(x => x.Email == email).FirstOrDefault();
             //var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
             if (c == null)
             {

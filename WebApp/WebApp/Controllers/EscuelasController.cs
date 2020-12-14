@@ -22,7 +22,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var request = await _context.Escuelas
-                .Where(e => e.Estado != Estados.Eliminado)
+                .Where(e => e.EstadoId != "I")
                 .Include(e => e.Facultad)
                 .ToListAsync();
 
@@ -36,9 +36,9 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var escuela = await _context.Escuelas
-                .Where(e => e.Estado != Estados.Eliminado)
+                .Where(e => e.EstadoId != "I")
                 .Include(e => e.Facultad)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.EscuelaId == id);
 
             if (escuela == null)
                 return NotFound();
@@ -50,8 +50,8 @@ namespace WebApp.Controllers
         public IActionResult Create()
         {
             var facultades = _context.Facultades
-                .Where(e => e.Estado != Estados.Eliminado).ToList();
-            ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
+                .Where(e => e.EstadoId != "I");
+            ViewBag.Facultades = new SelectList(facultades, "FacultadId", "FacultadNombre");
 
             return View();
         }
@@ -61,11 +61,13 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CodigoEscuela,IdFacultad,Nombre,Estado")] Escuela escuela)
+        public async Task<IActionResult> Create
+            ([Bind("EscuelaId,EscuelaCodigo,EscuelaNombre ,EstadoId,CampusId, FacultadId")] Escuela escuela)
         {
+
             if (ModelState.IsValid)
             {
-                escuela.Estado = Estados.Activo;
+                //escuela.EstadoId = "A";
                 _context.Add(escuela);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,9 +96,10 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CodigoEscuela,IdFacultad,Nombre,Estado")] Escuela escuela)
+        public async Task<IActionResult> Edit
+            (int id, [Bind("EscuelaId,EscuelaCodigo,EscuelaNombre ,EstadoId,CampusId, FacultadId")] Escuela escuela)
         {
-            if (id != escuela.Id)
+            if (id != escuela.EscuelaId)
                 return NotFound();
 
             if (ModelState.IsValid)
@@ -108,7 +111,7 @@ namespace WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EscuelaExists(escuela.Id))
+                    if (!EscuelaExists(escuela.EscuelaId))
                     {
                         return NotFound();
                     }
@@ -129,7 +132,7 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var escuela = await _context.Escuelas
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.EscuelaId == id);
             
             if (escuela == null)
                 return NotFound();
@@ -143,7 +146,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var escuela = await _context.Escuelas.FindAsync(id);
-            escuela.Estado = Estados.Eliminado;
+            escuela.EstadoId = "I";
 
             _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();
@@ -152,7 +155,7 @@ namespace WebApp.Controllers
 
         private bool EscuelaExists(int id)
         {
-            return _context.Escuelas.Any(e => e.Id == id);
+            return _context.Escuelas.Any(e => e.EscuelaId == id);
         }
 
         // GET: Escuelas/Inactivate/5
@@ -162,7 +165,7 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var escuela = await _context.Escuelas
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.EscuelaId == id);
 
             if (escuela == null)
                 return NotFound();
@@ -176,7 +179,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> InactivateConfirmed(int id)
         {
             var escuela = await _context.Escuelas.FindAsync(id);
-            escuela.Estado = Estados.Inactivo;
+            escuela.EstadoId = "I";
             _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -189,7 +192,7 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var escuela = await _context.Escuelas
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.EscuelaId == id);
 
             if (escuela == null)
                 return NotFound();
@@ -203,7 +206,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> ActivateConfirmed(int id)
         {
             var escuela = await _context.Escuelas.FindAsync(id);
-            escuela.Estado = Estados.Activo;
+            escuela.EstadoId = "A";
             _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -215,9 +218,10 @@ namespace WebApp.Controllers
             bool existsCode = false;
 
             if (id == 0)
-                existsCode = _context.Escuelas.Any(c => c.CodigoEscuela== codigo);
+                existsCode = _context.Escuelas.Any(c => c.EscuelaCodigo == codigo);
             else
-                existsCode = _context.Escuelas.Any(c => c.CodigoEscuela == codigo && c.Id != id);
+                existsCode = _context.Escuelas.Any(c => c.EscuelaCodigo == codigo &&
+                c.EscuelaId != id);
 
             if (existsCode)
                 return Json("Ya existe una escuela con este codigo");
