@@ -1,0 +1,67 @@
+﻿@model WebApp.Models.Modulo
+
+@{
+    ViewData["Title"] = "Detalles del modulo";
+    
+}
+
+
+<div class="container-fluid ">
+	
+    <dl class="row">
+        <dd class="col-sm-12 text-center">
+            <h5>@Html.DisplayFor(model => model.Titulo)</h5>
+        </dd>
+        <dd class="col-sm-10 text-center">
+            <img src="~/images/@Html.DisplayFor(model => model.Imagen)" />
+        </dd>
+        <dd class="col-sm-12 text-center">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            Fecha de Inicio
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+        <dt class="col-sm-2">
+            Fecha de Finalizacion
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaFin)
+        </dd>
+        <dt class="col-sm-2">
+           Adjunto
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdAdjuntoNavigation.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado.EstadoNombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estado.EstadoNombre)
+        </dd>
+        <dt class="col-sm-2">
+            Profesor Encargado
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdProfesorNavigation.Nombre)
+        </dd>
+    </dl>
+	
+
+	<div class="tab-content" id="nav-tabContent">
+		
+		
+
+
+		<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+	</div>
+
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Index">volver</a>
+</div>
+
+

@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApp.Models
+namespace Ramontesis.Models
 {
     public class ErrorViewModel
     {

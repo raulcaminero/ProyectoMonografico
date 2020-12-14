@@ -15,8 +15,6 @@ namespace WebApp.Models.Data
         public string Email { set; get; }
         public string contrasena { get; set; }
         public int rol { get; set; }
-
-
         public string segundo_nombre { set; get; }
         public string primer_apellido { set; get; }
         public string segundo_apellido { set; get; }
