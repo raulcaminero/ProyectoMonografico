@@ -160,13 +160,13 @@ namespace WebApp.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ModuloAdjunto");
 
-               /* tabla intermedia profesor
-                * entity.HasOne(d => d.IdProfesorNavigation)
+               
+                 entity.HasOne(d => d.IdProfesorNavigation)
                     .WithMany(p => p.Modulo)
                     .HasForeignKey(d => d.UsuarioCodigo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ModuloProfesor");
-               */
+               
                 entity.HasOne(d => d.Servicio)
                     .WithMany(p => p.Modulo)
                     .HasForeignKey(d => d.ServicioId)

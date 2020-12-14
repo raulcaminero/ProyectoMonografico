@@ -31,8 +31,10 @@ namespace WebApp.Models
 
         public virtual Rol Rol { get; set; }
         public virtual Estado Estado { get; set; }
+        
         //tabla intermedia para calificaciones, profesores en modulos, servicios y de estudiantes
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
-        public object Modulo { get; internal set; }
+        public virtual ICollection<Modulo> Modulo { get; set; }
+
     }
 }
