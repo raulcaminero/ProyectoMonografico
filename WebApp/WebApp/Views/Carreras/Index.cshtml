@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebApp.Models.Data.Carrera>
+﻿@*@model WebApp.ViewModels.Carrera.VM_IndexCarrera*@
+@model IEnumerable<WebApp.Models.Data.Carrera>
 @using WebApp.Models.Data
 @{
     ViewData["Title"] = "Carreras";
@@ -6,66 +7,139 @@
 
 <h1>Carreras</h1>
 
-<p>
-    <a asp-action="Create">Registrar nueva</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Codigo)
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @if (item.Estado == Estados.Eliminado)
-                {
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
-                }
-                else
-                {
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                    if (item.Estado == ((Estados)1))
-                    {
-                        <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
-                    }
-                    else
-                    {
-                        <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
-                    }
-                }
+    @*       <div style="display: none" class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Facultad(es):</label>
+                    <select class="form-control" asp-items="@(new SelectList(Model.Facultades, "Id", "NombreFacultad"))" id="idFacultad"></select>
+                </div>
+            </div>
+            <div style="display: none" class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Escuela:</label>
+                    <select class="form-control" asp-items="@(new SelectList(Model.Escuelas, "Id", "Nombre"))" id="idEscuela"></select>
+                </div>
+            </div>
+        </div>*@
+    <p>
+        <a asp-action="Create">Registrar Nueva</a>
+    </p>
 
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+    @*      <div id="target_tabla"></div>
+
+        @section Scripts{
+            <script>
+                $("#target_tabla").load("/Carreras/_TablaCarreras");
+                $("#idFacultad").change(function () {
+                    var idFacultad = $(this).val();
+
+                    $.get("/Carreras/GetFilteredEscuelas/", { "idFacultad": idFacultad, "addEmpty": true }, function (data, success) {
+                        var opciones = "";
+                        $("#idEscuela").empty();
+
+                        for (var i = 0; i < data.length; i++) {
+                            opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
+                        }
+
+                        $("#idEscuela").append(opciones);
+                        if (data.length == 2) {
+                            $("#idEscuela").val(data[1].id);
+                        }
+
+                        var idEscuela = $("#idEscuela").val();
+                        FiltrarCarreras(idFacultad, idEscuela);
+                    });
+                });
+
+                $("#idEscuela").change(function () {
+                    var idEscuela = $("#idEscuela").val();
+                    $.get("/Carreras/GetFilteredFactultades/", { "idEscuela": idEscuela, "addEmpty": true }, function (data, success) {
+                        var opciones = "";
+                        $("#idFacultad").empty();
+
+                        for (var i = 0; i < data.length; i++) {
+                            opciones = `${opciones}<option value="${data[i].id}">${data[i].nombreFacultad}</option>`;
+                        }
+
+                        $("#idFacultad").append(opciones);
+
+                        if (data.length == 2) {
+                            $("#idFacultad").val(data[1].id);
+                        }
+                        var idFacultad = $("#idFacultad").val();
+                        FiltrarCarreras(idFacultad, idEscuela);
+                    });
+                });
+
+                function FiltrarCarreras(idFacultad, idEscuela) {
+                    $("#target_tabla").load("/Carreras/_TablaCarreras", { "idFacultad": idFacultad, "idEscuela": idEscuela }, function () {
+
+                    });
+                }
+            </script>
+        }*@
+
+    <table id="careers-tb" class="table">
+        <thead>
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    <span id="cr-faculty-head">Facultad</span>
+                </th>
+                <th>
+                    <span id="cr-school-head">Escuela</span>
+                </th>
+                <th>
+                    Carrera
+                </th>
+                <th>
+                    <span id="cr-state-head">Estado</span>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Escuela.Facultad.NombreFacultad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Escuela.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td>
+                        @if (item.Estado == Estados.Eliminado)
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                            if (item.Estado == ((Estados)1))
+                            {
+                                <a asp-action="Inactivate" asp-route-id="@item.Id" class="btn btn-warning">Inactivar</a>
+                            }
+                            else
+                            {
+                                <a asp-action="Activate" asp-route-id="@item.Id" class="btn btn-success">Activar</a>
+                            }
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

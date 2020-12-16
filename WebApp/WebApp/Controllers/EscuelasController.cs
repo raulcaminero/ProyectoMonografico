@@ -86,6 +86,9 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
+            var facultades = _context.Facultades.ToList();
+            ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad", escuela.IdFacultad);
+
             return View(escuela);
         }
 

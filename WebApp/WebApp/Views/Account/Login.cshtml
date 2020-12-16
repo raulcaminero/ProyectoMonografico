@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = null;
+}
 
 @model WebApp.Models.Data.Usuario
 
@@ -101,19 +103,24 @@
                     </div>
                 </form>
                 <br />
-                <p>
-                    Requisitos Básicos
+                <div class="form-group row">
+                    <h4>Requisitos Básicos</h4>
                     <br />
-                    <a href="~/plantilla/assets/Requisitos Básicos Para Monográficos.pdf" target="_blank">
-                        •	 Inscripción Monográfico (link)
-                    </a>
+                    <div class="form-control">
+                        <a asp-controller="Requerimientos" asp-action="View" asp-route-intTipoServicio="1">
+                            •	 Inscripción Monográfico
+                        </a>
+                    </div>
                     <br />
-                    <a href="~/plantilla/assets/Requisitos Básicos Para Tesis de Grado.pdf" target="_blank">
-                        •	Inscripción Tesis de Grado (link)
-                    </a>
+                    <br />
+                    <div class="form-control">
+                        <a asp-controller="Requerimientos" asp-action="View" asp-route-intTipoServicio="2">
+                            •	Inscripción Tesis de Grado
+                        </a>
+                    </div>
                     <br />
 
-                </p>
+                </div>
             </div>
         </div>
     </section>
@@ -123,22 +130,22 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="~/plantilla/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="~/plantilla/assets/node_modules/popper/popper.min.js"></script>
-    <script src="~/plantilla/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--Custom JavaScript -->
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $(".preloader").fadeOut();
         });
-        $(function() {
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         });
         // ==============================================================
         // Login and Recover Password
         // ==============================================================
-        $('#to-recover').on("click", function() {
+        $('#to-recover').on("click", function () {
             $("#loginform").slideUp();
             $("#recoverform").fadeIn();
         });

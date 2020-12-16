@@ -67,7 +67,7 @@ namespace WebApp.Controllers
                     return View(facultad);
                 }
 
-                
+                facultad.Estado = (Estados)1;
                 _context.Add(facultad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
