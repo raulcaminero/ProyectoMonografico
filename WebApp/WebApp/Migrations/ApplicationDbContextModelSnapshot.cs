@@ -180,8 +180,8 @@ namespace WebApp.Migrations
                     b.Property<string>("primer_nombre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("rol")
-                        .HasColumnType("int");
+                    b.Property<string>("rol")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("segundo_apellido")
                         .HasColumnType("nvarchar(max)");

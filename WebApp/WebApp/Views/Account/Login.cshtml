@@ -1,6 +1,11 @@
 ﻿
 
 @model WebApp.Models.Data.Usuario
+@{
+    
+    Layout = null;
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,20 +42,30 @@
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
+
     <section id="wrapper" class="login-register login-sidebar" style="background-image:url(../plantilla/assets/images/uni2.jpeg);">
         <div class="login-box card">
             <div class="card-body">
                 <form class="form-horizontal form-material text-center" id="loginform" method="post">
                     <p>
-                        Bienvenidos y Bienvenidas a la plataforma "CULMINARE", de la unidad de coordinación general de Tesis de grado, cussos equivalentes, Tesinas y Tesis de post-grado de la
+                        Bienvenidos y Bienvenidas a la plataforma "CULMINARE", de la unidad de coordinación general de Tesis de grado, cursos equivalentes, Tesinas y Tesis de post-grado de la
                         Facultad de Ciencias.
                         <br />
-                        Orientación, Formalización, Assesoramiento, Seguimiento, Evaluación, Calidad, Publicacion y Culminación
+                        Orientación, Formalización, Asesoramiento, Seguimiento, Evaluación, Calidad, Publicación y Culminación
                     </p>
                     <a href="javascript:void(0)" class="db">
                         <img src="../plantilla/assets/images/universidad.png" alt="Home" width="50" /><br />
                     </a>
+                    @if (ViewBag.Login != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>@ViewBag.Login</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
 
+                    }
                     <div class="form-group m-t-40">
                         <div class="col-xs-12">
                             <input class="form-control" type="email" name="email" required="" placeholder="Correo">
@@ -78,7 +93,7 @@
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
 
-                            <a href="registro" class="btn btn-danger btn-lg btn-block text-uppercase btn-rounded"><b>¿No estoy Registrado?</b></a>
+                            <a asp-area="" asp-controller="Account" asp-action="registro" class="btn btn-danger btn-lg btn-block text-uppercase btn-rounded"><b>¿No estoy Registrado?</b></a>
                         </div>
                     </div>
                 </form>
@@ -86,7 +101,7 @@
                     <div class="form-group ">
                         <div class="col-xs-12">
                             <h3>Recuperar Registro</h3>
-                            <p class="text-muted">Entra tu correo para enviarte el cambio de contraseña! </p>
+                            <p class="text-muted">Introduzca su correo para el cambio de contraseña </p>
                         </div>
                     </div>
                     <div class="form-group ">
@@ -117,9 +132,7 @@
             </div>
         </div>
     </section>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
+
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
@@ -129,16 +142,16 @@
     <script src="~/plantilla/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--Custom JavaScript -->
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $(".preloader").fadeOut();
         });
-        $(function() {
+        $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         });
         // ==============================================================
         // Login and Recover Password
         // ==============================================================
-        $('#to-recover').on("click", function() {
+        $('#to-recover').on("click", function () {
             $("#loginform").slideUp();
             $("#recoverform").fadeIn();
         });

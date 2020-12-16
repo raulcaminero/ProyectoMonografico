@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -17,6 +20,7 @@ namespace WebApp.Controllers
             _context = context;
         }
 
+
         [HttpGet]
         public async Task<ActionResult> registro()
         {
@@ -25,7 +29,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<ActionResult> registro(string email,
                                                  string password,
-                                                 int rol,
+                                                 string rol,
                                                  string primer_nombre,
                                                  string segundo_nombre,
                                                  string primer_apellido,
@@ -36,24 +40,45 @@ namespace WebApp.Controllers
                                                  string matricula,
                                                  int campus)
         {
-            Models.Data.Usuario usurios = new Usuario();
 
-            usurios.Email = email;
-            usurios.contrasena = password;
-            usurios.rol = rol;
+            // consultado en la base de datos par ver si el corro existe
+
+            var coreo = _context.usuarios1.Where(x => x.Email == email).FirstOrDefault();
+            if (coreo == null)
+            {
 
 
-            usurios.primer_nombre = primer_nombre;
-            usurios.segundo_nombre = segundo_nombre;
-            usurios.primer_apellido = primer_apellido;
-            usurios.segundo_apellido = segundo_apellido;
-            usurios.tipo_identificacion = tipo_identificacion;
-            usurios.identificacion = identificacion;
-            usurios.sexo = sexo;
-            usurios.matricula = matricula;
-            usurios.campus = campus;
-            _context.Add(usurios);
-            _context.SaveChanges();
+                Models.Data.Usuario usurios = new Usuario();
+
+                usurios.Email = email;
+                usurios.contrasena = password;
+                usurios.rol = rol;
+
+
+                usurios.primer_nombre = primer_nombre;
+                usurios.segundo_nombre = segundo_nombre;
+                usurios.primer_apellido = primer_apellido;
+                usurios.segundo_apellido = segundo_apellido;
+                usurios.tipo_identificacion = tipo_identificacion;
+                usurios.identificacion = identificacion;
+                usurios.sexo = sexo;
+                usurios.matricula = matricula;
+                usurios.campus = campus;
+                _context.Add(usurios);
+                _context.SaveChanges();
+
+                EnviarCorreo(email, primer_nombre);// para enviar correo
+
+            }
+            else
+            {
+                if (coreo.Email.Equals(email))
+                {
+
+                    ViewBag.Message = "Ya existe un Usuario con este Correo, Favor Vuelva a intentarlo";
+                    return View();
+                }
+            }
 
             return RedirectToAction("Login");
         }
@@ -73,27 +98,32 @@ namespace WebApp.Controllers
             //var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
             if (c == null)
             {
-                ViewBag.Message = "Este Usuario no Existe";
+
+                ViewBag.Login = "Este Usuario no Existe";
                 return View();
 
             }
-
-
-            var claims = new[] {
+            if (c.contrasena.Equals(password))
+            {
+                var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier,email),
                 new Claim(ClaimTypes.Name, c.primer_nombre)
                };
 
-            var identity = new ClaimsIdentity(claims, "CookieAuth");
-            var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync("CookieAuth", principal);
+                var identity = new ClaimsIdentity(claims, "CookieAuth");
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync("CookieAuth", principal);
 
-            bool u = HttpContext.User.Identity.IsAuthenticated;
+                bool u = HttpContext.User.Identity.IsAuthenticated;
 
 
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
 
+
+            ViewBag.Message = "Passwor Incorecto";
+            return View();
         }
 
 
@@ -106,7 +136,34 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public string EnviarCorreo(string correo, string nombre)
+        {
+            var mensaje = "Cumplido";
 
+
+            MailMessage Correo = new MailMessage();
+            Correo.From = new MailAddress("culminare.v2@gmail.com");
+            Correo.To.Add(correo);
+            Correo.Subject = ("Bienvenido a  Culminare");
+            Correo.Body = "Saludos, Te damos la Bienvenida a Culminare:" + "     " + nombre;
+            Correo.Priority = MailPriority.Normal;
+
+            SmtpClient ServerEmail = new SmtpClient();
+            ServerEmail.Credentials = new NetworkCredential("culminare.v2@gmail.com", "UASD1538");
+            ServerEmail.Host = "smtp.gmail.com";
+            ServerEmail.Port = 587;
+            ServerEmail.EnableSsl = true;
+            try
+            {
+                ServerEmail.Send(Correo);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+            }
+            Correo.Dispose();
+            return mensaje;
+        }
 
     }
 }
