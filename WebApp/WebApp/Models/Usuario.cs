@@ -28,7 +28,6 @@ namespace WebApp.Models
         public int campus { set; get; }
         public int RolID { get; set; }
         public string EstadoId { set; get; }
-
         public virtual Rol Rol { get; set; }
         public virtual Estado Estado { get; set; }
         

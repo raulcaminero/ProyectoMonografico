@@ -27,7 +27,7 @@ namespace WebApp.Dto
         public int? UsuarioCodigo { get; set; }
         public int TipoServicio_Id { get; set; }
         public string TipoServicio_Nombre { get; set; }
-        public String Estado_Id { get; set; }
+        public string Estado_Id { get; set; }
         public string Estado_Nombre { get; set; }
         public string Campus_Nombre { get; set; }
         public string Faculta_Nombre { get; set; }

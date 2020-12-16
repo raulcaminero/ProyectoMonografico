@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -18,6 +19,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> registro()
         {
+            ViewBag.Roles = new SelectList(_context.Rol.ToList(), "Id", "Descripcion");
             return View();
         }
         [HttpPost]
@@ -48,7 +50,8 @@ namespace WebApp.Controllers
             usurios.sexo = sexo;
             usurios.matricula = matricula;
             usurios.campus = campus;
-            usurios.EstadoId = EstadoId;
+            usurios.EstadoId = "A";
+
             _context.Add(usurios);
             _context.SaveChanges();
 

@@ -174,6 +174,16 @@ namespace WebApp.Models
                     .HasConstraintName("FK_Modulo_Servicio");
             });
 
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.Property(e => e.EstadoId)
+                    .IsRequired()
+                    .HasColumnName("Estado_Id")
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+            });
+
             modelBuilder.Entity<Servicio>(entity =>
             {
                 entity.Property(e => e.Servicio_Id).HasColumnName("Servicio_Id");
@@ -445,7 +455,6 @@ namespace WebApp.Models
         }
         //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<WebApp.Dto.ListaServicio> ListaServicio { get; set; }
     }
 
 }
