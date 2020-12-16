@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using WebApp.Models.Data;
 
-namespace WebApp.Models.Data
+namespace WebApp.Models
 {
-    public class Facultad
+    public partial class Facultad
     {
-        [Key]
+        public Facultad()
+        {
+            Carrera = new HashSet<Carrera>();
+            Escuela = new HashSet<Escuela>();
+        }
 
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Debe Introducir el nombre de la facultad")]
@@ -17,9 +21,8 @@ namespace WebApp.Models.Data
         public string NombreFacultad { get; set; }
 
         [Required(ErrorMessage = "Debe Introducir el Codigo de la facultad")]
-            [StringLength(8 , ErrorMessage ="No puede tener mas de 8 digitos")]
-
-        public string Codigo  { get; set; }
+        [StringLength(8, ErrorMessage = "No puede tener mas de 8 digitos")]
+        public string Codigo { get; set; }
 
         [Required(ErrorMessage = "Debe Introducir el nombre del decano de la facultad")]
         public string NombreDecano { get; set; }
@@ -31,9 +34,12 @@ namespace WebApp.Models.Data
         [DataType(DataType.PhoneNumber)]
         public string Telefono { get; set; }
 
-        public Estados Estado{ get; set; }
-        
-    }
+        public Estados Estado { get; set; }
 
-    
+        public int? CampusId { get; set; }
+
+        public virtual Campus Campus { get; set; }
+        public virtual ICollection<Carrera> Carrera { get; set; }
+        public virtual ICollection<Escuela> Escuela { get; set; }
+    }
 }

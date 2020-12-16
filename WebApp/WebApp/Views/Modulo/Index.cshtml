@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebApp.Models.Modulo>
+
+@{
+    ViewData["Title"] = "Modulo";
+}
+<div class="container-fluid ">
+    <div class="row text-center">
+        <h4 class="display-4 col-md-12">Modulos</h4>
+    </div>
+    <p>
+        <a asp-action="Create">
+            <span class="media-left">
+                <i class="fas fa-plus-circle fa-fw mr-3 fa-2x" aria-hidden="true"></i>
+            </span>
+        </a>
+    </p>
+    <ul style="list-style: none;padding-left:20px;" class="row">
+        @foreach (var item in Model)
+        {
+            <li class="mt-2 row">
+                <a class="list-group-item list-group-item-action" asp-action="Details" asp-route-id="@item.Id">
+                    <div class="col-md-1">
+                        <span class="media-left">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </span>
+                    </div>
+                    <span class="media-left ">
+                        <img class="col-md-1" src="https://www.pinclipart.com/picdir/big/123-1238448_short-discussions-with-parenting-and-child-development-icono.png" alt="Card image cap" style="width:50%">
+                    </span>
+                    <span class="media-body font-weight-bold col-md-1">
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </span>
+                    <spam><strong>Inicio</strong>
+                        @Html.DisplayFor(modelItem => item.FechaInicio)
+                    </spam>
+                    <spam><strong>Fin</strong>
+                        @Html.DisplayFor(modelItem => item.FechaFin)
+                    </spam>
+
+
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="col-md-1">
+                        <span class="media-left">
+                            <i class="fas fa-edit fa-fw mr-3 fa-2x" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="col-md-1">
+                        <span class="media-left">
+                            <i class="fas fa-trash-alt fa-fw mr-3 fa-2x" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

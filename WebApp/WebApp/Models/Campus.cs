@@ -2,13 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using WebApp.Models.Data;
 
-namespace WebApp.Models.Data
+namespace WebApp.Models
 {
-    public class Campus
+    public partial class Campus
     {
+        public Campus()
+        {
+            Carrera = new HashSet<Carrera>();
+            Escuela = new HashSet<Escuela>();
+            Facultad = new HashSet<Facultad>();
+            Servicio = new HashSet<Servicio>();
+        }
+
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Debe registrar el codigo del Campus")]
@@ -20,5 +27,9 @@ namespace WebApp.Models.Data
         public string Localidad { get; set; }
         [Required]
         public Estados Estado { get; set; }
+        public virtual ICollection<Carrera> Carrera { get; set; }
+        public virtual ICollection<Escuela> Escuela { get; set; }
+        public virtual ICollection<Facultad> Facultad { get; set; }
+        public virtual ICollection<Servicio> Servicio { get; set; }
     }
 }
