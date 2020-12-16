@@ -6,8 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using WebApp.Models.Data;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -25,7 +24,7 @@ namespace WebApp.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.usuarios1.ToListAsync());
+            return View(await _context.usuarios.ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -35,7 +34,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var usuario = await _context.usuarios1
+            var usuario = await _context.usuarios
                 .FirstOrDefaultAsync(m => m.codigo == id);
             if (usuario == null)
             {
