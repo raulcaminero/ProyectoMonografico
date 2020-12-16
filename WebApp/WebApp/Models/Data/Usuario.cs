@@ -25,5 +25,11 @@ namespace WebApp.Models.Data
         public string sexo { set; get; }
         public string matricula { set; get; }
         public int campus { set; get; }
+
+
+        public string? nacionalidad {set; get;}
+
+        public string? contacto {get; set;}
+        public date? fecha_nacimiento {set; get;}
     }
 }
