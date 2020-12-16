@@ -9,10 +9,30 @@ namespace PerfilEstudiante.Controllers
 {
     public class FormSolicitudController : Controller
     {
-        // GET: SolicitudController
-        public ActionResult Solicitud()
-        {
 
+        [HttpGet]
+        public ActionResult Solicitud (string email){
+            //autocompletar los datos del usuario buscando el email}
+            
+            return ();
+        }
+        // GET: SolicitudController
+        [HttpPost]
+        public ActionResult Solicitud(string email)
+        {
+            using (ApplicationDbContext dbContext = new ApplicationDbContext() ){
+                var oTabla = dbContext.usuarios1.Find(email);
+                oTabla.contacto = model.contacto;
+                oTabla.nacionalidad = model.nacionalidad;
+                oTabla.fecha_nacimiento = model.fecha_nacimiento;
+                dbContext.Entry(oTabla).State = System.Data.Entity.EntityState.Modified;
+                dbContext.saveChanges();
+            }
+            //var oTabla = db.Empleado.Find(email); busca el email del usuario
+            //oTabla.nombre = contacto;
+            //actualizar los campos del moises para poner la nacionalidad, contacto y fecha_nacimiento
+            //db.saveChanges(oTabla);
+            //cuando termine de subir todos los datos, el estadoSolicitud de la tabla ServicioSolicitud pase a activo
 
             return View();
         }
