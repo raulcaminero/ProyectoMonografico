@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Text.Json;
 using WebApp.Models;
 using WebApp.Dto;
+using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
@@ -37,10 +38,10 @@ namespace WebApp.Controllers
             var LstServicios = (from s in _db.Servicio
                                 join es in _db.Estado on s.Estado_Id equals es.EstadoId
                                 join t in _db.TipoServicios on s.TipoServicio_Id equals t.TipoServicioId
-                                join c in _db.Campus on s.Campus_Id equals c.CampusId
-                                join f in _db.Facultades on s.Facultad_Id equals f.FacultadId
-                                join e in _db.Escuelas on s.Escuela_Id equals e.EscuelaId
-                                join r in _db.Carreras on s.Carrera_Id equals r.CarreraId
+                                join c in _db.Campus on s.Campus_Id equals c.Id
+                                join f in _db.Facultades on s.Facultad_Id equals f.Id
+                                join e in _db.Escuelas on s.Escuela_Id equals e.Id
+                                join r in _db.Carreras on s.Carrera_Id equals r.Id
                                 where (s.Estado_Id != "E")
                                 select new ListaServicio
                                 {
@@ -140,13 +141,13 @@ namespace WebApp.Controllers
             }
             return RedirectToAction("Index");
 
-            Servicio servicio = new Servicio(id);
+            //Servicio servicio = new Servicio(id);
             if (action == "listado")
             {
                 return RedirectToAction("Index");
             }
 
-            return View(servicio);
+            //return View(servicio);
         }
 
 
@@ -180,10 +181,10 @@ namespace WebApp.Controllers
             var LstServicios = (from s in _db.Servicio
                                 join es in _db.Estado on s.Estado_Id equals es.EstadoId
                                 join t in _db.TipoServicios on s.TipoServicio_Id equals t.TipoServicioId
-                                join c in _db.Campus on s.Campus_Id equals c.CampusId
-                                join f in _db.Facultades on s.Facultad_Id equals f.FacultadId
-                                join e in _db.Escuelas on s.Escuela_Id equals e.EscuelaId
-                                join r in _db.Carreras on s.Carrera_Id equals r.CarreraId
+                                join c in _db.Campus on s.Campus_Id equals c.Id
+                                join f in _db.Facultades on s.Facultad_Id equals f.Id
+                                join e in _db.Escuelas on s.Escuela_Id equals e.Id
+                                join r in _db.Carreras on s.Carrera_Id equals r.Id
                                 select new ListaServicio
                                 {
                                     Servicio_Id = s.Servicio_Id,
@@ -212,13 +213,13 @@ namespace WebApp.Controllers
             if (!string.IsNullOrWhiteSpace(campusId))  // && campusId.Length == 3
             {
                 IEnumerable<SelectListItem> facultades = _db.Facultades.AsNoTracking()
-                 .Where(n => n.CampusId == int.Parse(campusId) && n.EstadoId == "A")
-                 .OrderBy(n => n.FacultadNombre)
+                 .Where(n => n.CampusId == int.Parse(campusId) && n.Estado == Estados.Activo)
+                 .OrderBy(n => n.NombreFacultad)
                      .Select(n =>
                      new SelectListItem
                      {
-                         Value = n.FacultadId.ToString(),
-                         Text = n.FacultadNombre
+                         Value = n.Id.ToString(),
+                         Text = n.NombreFacultad
                      }).ToList();
 
                 //var repo = new RegionsRepository();
@@ -238,13 +239,13 @@ namespace WebApp.Controllers
             {
                 IEnumerable<SelectListItem> datos = _db.Escuelas.AsNoTracking()
                  .Where(n => n.CampusId == int.Parse(campusId)
-                        && n.FacultadId == facultadId && n.EstadoId == "A")
-                 .OrderBy(n => n.EscuelaNombre)
+                        && n.IdFacultad == facultadId && n.Estado == Estados.Activo)
+                 .OrderBy(n => n.Nombre)
                      .Select(n =>
                      new SelectListItem
                      {
                          Value = n.EscuelaId.ToString(),
-                         Text = n.EscuelaNombre
+                         Text = n.Nombre
                      }).ToList();
 
                 //var repo = new EscuelasRepository();
@@ -265,14 +266,14 @@ namespace WebApp.Controllers
                 IEnumerable<SelectListItem> datos = _db.Carreras.AsNoTracking()
                  .Where(n => n.CampusId == int.Parse(campusId) &&
                              n.FacultadId == facultadId &&
-                             n.EscuelaId == escuelaId &&
-                             n.EstadoId == "A")
-                 .OrderBy(n => n.CarreraNombre)
+                             n.IdEscuela == escuelaId &&
+                             n.Estado == Estados.Activo)
+                 .OrderBy(n => n.Nombre)
                      .Select(n =>
                      new SelectListItem
                      {
-                         Value = n.CarreraId.ToString(),
-                         Text = n.CarreraNombre
+                         Value = n.Id.ToString(),
+                         Text = n.Nombre
                      }).ToList();
 
                 //var repo = new CarrerasRepository();

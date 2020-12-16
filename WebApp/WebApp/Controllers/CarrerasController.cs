@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
-using WebApp.Models.Data;
+using WebApp.Models;
+//using WebApp.Models.Data;
+using WebApp.Models.Enums;
 using WebApp.ViewModels.Carrera;
 
 namespace WebApp.Controllers

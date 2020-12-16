@@ -273,172 +273,172 @@ namespace WebApp.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TipoServicio_Estado");
             });
-            modelBuilder.Entity<Facultad>(entity =>
-            {
-                entity.Property(e => e.FacultadId).HasColumnName("Facultad_Id");
+            //modelBuilder.Entity<Facultad>(entity =>
+            //{
+            //    entity.Property(e => e.FacultadId).HasColumnName("Facultad_Id");
 
-                entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
+            //    entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
 
-                entity.Property(e => e.EstadoId)
-                    .IsRequired()
-                    .HasColumnName("Estado_Id")
-                    .HasMaxLength(1)
-                    .IsUnicode(false)
-                    .IsFixedLength();
+            //    entity.Property(e => e.EstadoId)
+            //        .IsRequired()
+            //        .HasColumnName("Estado_Id")
+            //        .HasMaxLength(1)
+            //        .IsUnicode(false)
+            //        .IsFixedLength();
 
-                entity.Property(e => e.FacultadCodigo)
-                    .IsRequired()
-                    .HasColumnName("Facultad_Codigo")
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+            //    entity.Property(e => e.FacultadCodigo)
+            //        .IsRequired()
+            //        .HasColumnName("Facultad_Codigo")
+            //        .HasMaxLength(10)
+            //        .IsFixedLength();
 
-                entity.Property(e => e.FacultadNombre)
-                    .IsRequired()
-                    .HasColumnName("Facultad_Nombre")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.FacultadNombre)
+            //        .IsRequired()
+            //        .HasColumnName("Facultad_Nombre")
+            //        .HasMaxLength(50)
+            //        .IsUnicode(false);
 
-                entity.HasOne(d => d.Campus)
-                    .WithMany(p => p.Facultad)
-                    .HasForeignKey(d => d.CampusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Facultad_Campus");
+            //    entity.HasOne(d => d.Campus)
+            //        .WithMany(p => p.Facultad)
+            //        .HasForeignKey(d => d.CampusId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Facultad_Campus");
 
-                entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Facultad)
-                    .HasForeignKey(d => d.EstadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Facultad_Estado");
-            });
+            //    entity.HasOne(d => d.Estado)
+            //        .WithMany(p => p.Facultad)
+            //        .HasForeignKey(d => d.EstadoId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Facultad_Estado");
+            //});
 
-            modelBuilder.Entity<Escuela>(entity =>
-            {
-                entity.Property(e => e.EscuelaId).HasColumnName("Escuela_Id");
+            //modelBuilder.Entity<Escuela>(entity =>
+            //{
+            //    entity.Property(e => e.EscuelaId).HasColumnName("Escuela_Id");
 
-                entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
+            //    entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
 
-                entity.Property(e => e.EscuelaCodigo)
-                    .IsRequired()
-                    .HasColumnName("Escuela_Codigo")
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+            //    entity.Property(e => e.EscuelaCodigo)
+            //        .IsRequired()
+            //        .HasColumnName("Escuela_Codigo")
+            //        .HasMaxLength(10)
+            //        .IsFixedLength();
 
-                entity.Property(e => e.EscuelaNombre)
-                    .IsRequired()
-                    .HasColumnName("Escuela_Nombre")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.EscuelaNombre)
+            //        .IsRequired()
+            //        .HasColumnName("Escuela_Nombre")
+            //        .HasMaxLength(100)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.EstadoId)
-                    .IsRequired()
-                    .HasColumnName("Estado_Id")
-                    .HasMaxLength(1)
-                    .IsUnicode(false)
-                    .IsFixedLength();
+            //    entity.Property(e => e.EstadoId)
+            //        .IsRequired()
+            //        .HasColumnName("Estado_Id")
+            //        .HasMaxLength(1)
+            //        .IsUnicode(false)
+            //        .IsFixedLength();
 
-                entity.Property(e => e.FacultadId).HasColumnName("Facultad_Id");
+            //    entity.Property(e => e.FacultadId).HasColumnName("Facultad_Id");
 
-                entity.HasOne(d => d.Campus)
-                    .WithMany(p => p.Escuela)
-                    .HasForeignKey(d => d.CampusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Escuela_Campus");
+            //    entity.HasOne(d => d.Campus)
+            //        .WithMany(p => p.Escuela)
+            //        .HasForeignKey(d => d.CampusId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Escuela_Campus");
 
-                entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Escuela)
-                    .HasForeignKey(d => d.EstadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Escuela_Estado");
+            //    entity.HasOne(d => d.Estado)
+            //        .WithMany(p => p.Escuela)
+            //        .HasForeignKey(d => d.EstadoId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Escuela_Estado");
 
-                entity.HasOne(d => d.Facultad)
-                    .WithMany(p => p.Escuela)
-                    .HasForeignKey(d => d.FacultadId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Escuela_Facultad");
-            });
-            modelBuilder.Entity<Carrera>(entity =>
-            {
-                entity.Property(e => e.CarreraId).HasColumnName("Carrera_Id");
+            //    entity.HasOne(d => d.Facultad)
+            //        .WithMany(p => p.Escuela)
+            //        .HasForeignKey(d => d.FacultadId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Escuela_Facultad");
+            //});
+            //modelBuilder.Entity<Carrera>(entity =>
+            //{
+            //    entity.Property(e => e.CarreraId).HasColumnName("Carrera_Id");
 
-                entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
+            //    entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
 
-                entity.Property(e => e.CarreraCodigo)
-                    .IsRequired()
-                    .HasColumnName("Carrera_Codigo")
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+            //    entity.Property(e => e.CarreraCodigo)
+            //        .IsRequired()
+            //        .HasColumnName("Carrera_Codigo")
+            //        .HasMaxLength(10)
+            //        .IsFixedLength();
 
-                entity.Property(e => e.CarreraNombre)
-                    .IsRequired()
-                    .HasColumnName("Carrera_Nombre")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.CarreraNombre)
+            //        .IsRequired()
+            //        .HasColumnName("Carrera_Nombre")
+            //        .HasMaxLength(100)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.EscuelaId).HasColumnName("Escuela_Id");
+            //    entity.Property(e => e.EscuelaId).HasColumnName("Escuela_Id");
 
-                entity.Property(e => e.EstadoId)
-                    .IsRequired()
-                    .HasColumnName("Estado_Id")
-                    .HasMaxLength(1)
-                    .IsUnicode(false)
-                    .IsFixedLength();
+            //    entity.Property(e => e.EstadoId)
+            //        .IsRequired()
+            //        .HasColumnName("Estado_Id")
+            //        .HasMaxLength(1)
+            //        .IsUnicode(false)
+            //        .IsFixedLength();
 
-                entity.Property(e => e.FacultadId).HasColumnName("Facultad_Id");
+            //    entity.Property(e => e.FacultadId).HasColumnName("Facultad_Id");
 
-                entity.HasOne(d => d.Campus)
-                    .WithMany(p => p.Carrera)
-                    .HasForeignKey(d => d.CampusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Carrera_Campus");
+            //    entity.HasOne(d => d.Campus)
+            //        .WithMany(p => p.Carrera)
+            //        .HasForeignKey(d => d.CampusId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Carrera_Campus");
 
-                entity.HasOne(d => d.Escuela)
-                    .WithMany(p => p.Carrera)
-                    .HasForeignKey(d => d.EscuelaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Carrera_Escuela");
+            //    entity.HasOne(d => d.Escuela)
+            //        .WithMany(p => p.Carrera)
+            //        .HasForeignKey(d => d.EscuelaId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Carrera_Escuela");
 
-                entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Carrera)
-                    .HasForeignKey(d => d.EstadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Carrera_Estado");
+            //    entity.HasOne(d => d.Estado)
+            //        .WithMany(p => p.Carrera)
+            //        .HasForeignKey(d => d.EstadoId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Carrera_Estado");
 
-                entity.HasOne(d => d.Facultad)
-                    .WithMany(p => p.Carrera)
-                    .HasForeignKey(d => d.FacultadId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Carrera_Facultad");
-            });
+            //    entity.HasOne(d => d.Facultad)
+            //        .WithMany(p => p.Carrera)
+            //        .HasForeignKey(d => d.FacultadId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Carrera_Facultad");
+            //});
 
-            modelBuilder.Entity<Campus>(entity =>
-            {
-                entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
+            //modelBuilder.Entity<Campus>(entity =>
+            //{
+            //    entity.Property(e => e.CampusId).HasColumnName("Campus_Id");
 
-                entity.Property(e => e.CampusCodigo)
-                    .IsRequired()
-                    .HasColumnName("Campus_Codigo")
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+            //    entity.Property(e => e.CampusCodigo)
+            //        .IsRequired()
+            //        .HasColumnName("Campus_Codigo")
+            //        .HasMaxLength(10)
+            //        .IsFixedLength();
 
-                entity.Property(e => e.CampusNombre)
-                    .IsRequired()
-                    .HasColumnName("Campus_Nombre")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.CampusNombre)
+            //        .IsRequired()
+            //        .HasColumnName("Campus_Nombre")
+            //        .HasMaxLength(100)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.EstadoId)
-                    .IsRequired()
-                    .HasColumnName("Estado_Id")
-                    .HasMaxLength(1)
-                    .IsUnicode(false)
-                    .IsFixedLength();
+            //    entity.Property(e => e.EstadoId)
+            //        .IsRequired()
+            //        .HasColumnName("Estado_Id")
+            //        .HasMaxLength(1)
+            //        .IsUnicode(false)
+            //        .IsFixedLength();
 
-                entity.HasOne(d => d.Estado)
-                    .WithMany(p => p.Campus)
-                    .HasForeignKey(d => d.EstadoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Campus_Estado");
-            });
+            //    entity.HasOne(d => d.Estado)
+            //        .WithMany(p => p.Campus)
+            //        .HasForeignKey(d => d.EstadoId)
+            //        .OnDelete(DeleteBehavior.ClientSetNull)
+            //        .HasConstraintName("FK_Campus_Estado");
+            //});
 
 
             //OnModelCreatingPartial(modelBuilder);

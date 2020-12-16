@@ -1,4 +1,4 @@
-﻿namespace WebApp.Models.Data
+﻿namespace WebApp.Models.Enums
 {
 	public enum TipoServicio
 	{

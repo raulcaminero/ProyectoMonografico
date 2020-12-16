@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebApp.Models.Data;
+using WebApp.Models.Enums;
 
 namespace WebApp.Models
 {

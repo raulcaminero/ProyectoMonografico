@@ -31,7 +31,7 @@ namespace WebApp
 
 			services.AddSession();
 
-			services.AddDbContext<Models.Data.ApplicationDbContext>(op =>
+			services.AddDbContext<Models.ApplicationDbContext>(op =>
 			{
 				op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 			});

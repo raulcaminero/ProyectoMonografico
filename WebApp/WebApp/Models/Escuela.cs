@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebApp.Models.Data;
+using WebApp.Models.Enums;
 
 namespace WebApp.Models
 {
@@ -33,7 +34,6 @@ namespace WebApp.Models
         public Estados Estado { get; set; }
         public int EscuelaId { get; set; }
         public string EscuelaCodigo { get; set; }
-        public string EscuelaNombre { get; set; }
         public int? CampusId { get; set; }
         public virtual Campus Campus { get; set; }
 

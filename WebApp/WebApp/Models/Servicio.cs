@@ -34,8 +34,8 @@ namespace WebApp.Models
             var lstcampus = _db.Campus.ToList();
             var lstUsuario = _db.usuarios .ToList();
             var facultadList = _db.Facultades.Where(f => f.CampusId == tmp.Campus_Id).ToList();
-            var escuelaList = _db.Escuelas.Where(e => e.Id == tmp.Facultad_Id && e.CampusId == tmp.Campus_Id).ToList();
-            var carreraList = _db.Carreras.Where(c => c.Id == tmp.Escuela_Id && c.FacultadId == tmp.Facultad_Id && c.CampusId == tmp.Campus_Id).ToList();
+            var escuelaList = _db.Escuelas.Where(e => e.IdFacultad == tmp.Facultad_Id && e.CampusId == tmp.Campus_Id).ToList();
+            var carreraList = _db.Carreras.Where(c => c.IdEscuela == tmp.Escuela_Id && c.FacultadId == tmp.Facultad_Id && c.CampusId == tmp.Campus_Id).ToList();
 
             var estadoList = _db.Estado.ToList();
 
