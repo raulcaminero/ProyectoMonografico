@@ -1,4 +1,6 @@
-﻿<div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+﻿@model WebApp.ViewModels.Solicitudes.RegistrarSolicitudViewModel 
+
+<div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
     <div class="form-group breadcrum-right">
         <div class="dropdown">
 
@@ -39,29 +41,31 @@
 
                     <fieldset id="form_incripcion-p-0" role="tabpanel" aria-labelledby="form_incripcion-h-0" class="body current" aria-hidden="false">
 
+                        <input type="hidden" asp-for="IdUsuario" />
+
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Primer Nombre: <span class="rojo">*</span></label>
-                                    <input title="Este campo es requerido." required="" type="text" placeholder="Primer Nombre:" class="form-control" name="pNombre" id="pNombre" enabled="true" aria-invalid="false">
+                                    <input asp-for="Nombre1" title="Este campo es requerido." required="" placeholder="Primer Nombre:" class="form-control" enabled="false">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Segundo Nombre</label>
-                                    <input type="text" placeholder="Segundo Nombre" class="form-control" name="sNombre" id="sNombre" enabled="false">
+                                    <input asp-for="Nombre2" placeholder="Segundo Nombre" class="form-control" enabled="false">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Primer Apellido: <span class="rojo">*</span></label>
-                                    <input title="Este campo es requerido." required="" type="text" placeholder="Primer Apellido" class="form-control" name="PApellido" id="PApellido" enabled="false">
+                                    <input  asp-for="Apellido1" title="Este campo es requerido." required="" placeholder="Primer Apellido" class="form-control" enabled="false">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Segundo Apellido: </label>
-                                    <input type="text" class="form-control" placeholder="Segundo Apellido" name="sApellido" id="sApellido" enabled="false">
+                                    <input asp-for="Apellido2" class="form-control" placeholder="Segundo Apellido" enabled="false">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -84,7 +88,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Sexo: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="sexo" name="sexo" class="form-control" enabled="false">
+                                    <select asp-for="Sexo" title="Este campo es requerido." required="" class="form-control" enabled="false">
                                         <option value="" selected=""></option>
                                         <option value="0">Masculino</option>
                                         <option value="1">Femenino</option>
@@ -94,26 +98,27 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Matricula o Código:</label>
-                                    <input type="text" class="form-control" placeholder="Matricula o Código" maxlength="20" name="matricula" id="matricula" enabled="false">
+                                    <input  asp-for="Matricula" class="form-control" placeholder="Matricula o Código" maxlength="20" enabled="false">
                                     <input type="hidden" name="matricula_vieja" id="matricula_vieja" value="100270904">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Fecha Nacimiento: <span class="rojo">*</span></label>
-                                    <input title="Este campo es requerido." required="" type="date" class="form-control" name="fecha" id="fecha" enabled="false" aria-invalid="true"><label id="fecha-error" class="danger" for="fecha"></label>
+                                    <input asp-for="FechaNacimiento" title="Este campo es requerido." required="" type="date" class="form-control enabled="false" aria-invalid="true">
+                                    <label id="fecha-error" class="danger" for="fecha"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Teléfono o Celular: <span class="rojo">*</span></label>
-                                    <input title="Este campo es requerido." required="" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" name="telefono" id="telefono" enabled="false" aria-invalid="false"><label id="telefono-error" class="danger" for="telefono" style="display: none;"></label>
+                                    <input  asp-for="Contacto" title="Este campo es requerido." required="" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" enabled="false" aria-invalid="false"><label id="telefono-error" class="danger" for="telefono" style="display: none;"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="nacionalidad" name="nacionalidad" class="form-control" enabled="false" aria-invalid="false">
+                                    <select asp-for="Nacionalidad" title="Este campo es requerido." required="" class="form-control" enabled="false" aria-invalid="false">
                                         <option value="" selected=""></option>
                                         <option value="0">Dominicano</option>
                                         <option value="1">Extranjero</option>
@@ -123,10 +128,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Campus: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="campus" name="campus" class="form-control" enabled="false" aria-invalid="false">
-                                        <option value="" selected=""></option>
-                                        <option value="2">SEDE</option>
-                                        <option value="3">Santiago</option>
+                                    <select asp-for="IdCampus" asp-items="@ViewBag.Campus" title="Este campo es requerido." required="" class="form-control" enabled="false" aria-invalid="false">
                                     </select>
                                 </div>
                             </div>

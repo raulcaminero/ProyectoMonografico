@@ -21,6 +21,12 @@ namespace WebApp.Models.Data
         public DbSet<Escuela> Escuelas { get; set; }
         public DbSet<Carrera> Carreras { get; set; }
         public DbSet<Requerimiento> Requerimientos { get; set; }
+        public DbSet<Solicitud> Solicitudes { get; set; }
+        public DbSet<Inscripcion> Inscripciones { get; set; }
+
+
+        // Temporal, para asociar las inscripciones
+        public DbSet<Servicio> Servicio { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

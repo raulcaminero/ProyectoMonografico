@@ -30,6 +30,6 @@ namespace WebApp.Models.Data
         public string? nacionalidad {set; get;}
 
         public string? contacto {get; set;}
-        public date? fecha_nacimiento {set; get;}
+        public DateTime? fecha_nacimiento {set; get;}
     }
 }
