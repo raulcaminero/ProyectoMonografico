@@ -142,9 +142,9 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Facultad: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="facultad" name="facultad" class="form-control" enabled="false">
+                                    <select asp-items="@ViewBag.Facultades" title="Este campo es requerido." required="" id="facultad" name="facultad" class="form-control" enabled="false">
                                         <option value="NA" selected="">Seleccione una Opción</option>
-                                        <option value="1">Humanidades</option>
+                                        @*<option value="1">Humanidades</option>
                                         <option value="2">Ciencias</option>
                                         <option value="3">Económicas y Sociales</option>
                                         <option value="4">Jurídicas y Políticas</option>
@@ -152,14 +152,14 @@
                                         <option value="6">Ciencias de la Salud</option>
                                         <option value="7">Agronómicas y Veterinarias</option>
                                         <option value="8">Artes</option>
-                                        <option value="9">Educación</option>
+                                        <option value="9">Educación</option>*@
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Escuela: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="escuela" name="escuela" class="form-control" enabled="false">
+                                    <select  asp-items="@ViewBag.Escuelas" title="Este campo es requerido." required="" id="escuela" name="escuela" class="form-control" enabled="false">
                                         <option value="NA" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
@@ -167,7 +167,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Carrera: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="carrera" name="carrera" class="form-control" enabled="false">
+                                    <select  asp-items="@ViewBag.Carreras" title="Este campo es requerido." required="" id="carrera" name="carrera" class="form-control" enabled="false">
                                         <option value="NA" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>

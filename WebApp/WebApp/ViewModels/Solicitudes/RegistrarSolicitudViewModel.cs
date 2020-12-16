@@ -49,8 +49,5 @@ namespace WebApp.ViewModels.Solicitudes
 
 		public int IdUsuario { get; set; }
 
-
-		public SelectList ListaCampus { get; set; }
-		public SelectList ListaFacultades { get; set; }
 	}
 }

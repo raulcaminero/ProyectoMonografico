@@ -21,16 +21,28 @@ namespace PerfilEstudiante.Controllers
 			_context = context;
 		}
 
+		private void cargarListas()
+		{
+			var campus = _context.Campus.ToList();
+			ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
+
+			var facultades = _context.Facultades.ToList();
+			ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
+
+			var escuelas = _context.Escuelas.ToList();
+			ViewBag.Escuelas = new SelectList(escuelas, "Id", "Nombre");
+
+			var carreras = _context.Carreras.ToList();
+			ViewBag.Carreras = new SelectList(carreras, "Id", "Nombre");
+		}
+
 		[HttpGet]
 		public ActionResult Solicitar(string email)
 		{
-			//autocompletar los datos del usuario buscando el email}
-			var campus = _context.Campus.ToList();
-			ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
+			cargarListas();
 			return View();
 		}
 
-		// GET: SolicitudController
 		[HttpPost]
 		public ActionResult Solicitar(RegistrarSolicitudViewModel vm)
 		{
@@ -63,8 +75,7 @@ namespace PerfilEstudiante.Controllers
 				return RedirectToAction("Escuelas", "Index");
 			}
 
-			var campus = _context.Campus.ToList();
-			ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
+			cargarListas();
 			return View(vm);
 		}
 	}

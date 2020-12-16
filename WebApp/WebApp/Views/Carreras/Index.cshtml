@@ -19,13 +19,11 @@
                 @Html.DisplayNameFor(model => model.Codigo)
             </th>
             <th>
-                <span id="cr-school-head">@Html.DisplayNameFor(model => model.idEscuela)</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Detalles)
             </th>
             <th>
                 <span id="cr-state-head">@Html.DisplayNameFor(model => model.Estado)</span>
@@ -44,13 +42,12 @@
                 @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @((EnumEscuelas)item.idEscuela)
+               
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Detalles)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
