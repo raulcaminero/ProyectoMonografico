@@ -8,7 +8,7 @@
 <h1>Facultades</h1>
 
 <p>
-    <a asp-action="Create">Crear facultad</a>
+    <a asp-action="Create">Crear Nueva</a>
 </p>
 <table id="faculties-tb" class="table">
     <thead>
@@ -17,7 +17,7 @@
                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Codigo)
+                Código
             </th>
             <th>
                 Decano
@@ -26,7 +26,7 @@
                 @Html.DisplayNameFor(model => model.Ubicación)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                Teléfono
             </th>
             <th>
                 <span id="fc-state-head">@Html.DisplayNameFor(model => model.Estado)</span>

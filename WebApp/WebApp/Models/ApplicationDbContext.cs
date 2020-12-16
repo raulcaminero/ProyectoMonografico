@@ -283,6 +283,11 @@ namespace WebApp.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TipoServicio_Estado");
             });
+
+            modelBuilder.Entity<Campus>()
+               .HasIndex(c => c.Codigo)
+               .IsUnique();
+
             //modelBuilder.Entity<Facultad>(entity =>
             //{
             //    entity.Property(e => e.FacultadId).HasColumnName("Facultad_Id");

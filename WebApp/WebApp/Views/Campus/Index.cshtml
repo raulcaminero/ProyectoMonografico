@@ -2,11 +2,11 @@
 @using WebApp.Models.Enums;
 
 @{
-    ViewData["Title"] = "Lista de Campus";
+    ViewData["Title"] = "Campus";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Lista de Campus</h1>
+<h1> Campus</h1>
 
 <p>
     <a asp-action="Create">Registar Nuevo</a>
@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Codigo)
+                Código
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
