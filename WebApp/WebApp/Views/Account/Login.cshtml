@@ -103,19 +103,24 @@
                     </div>
                 </form>
                 <br />
-                <p>
-                    Requisitos Básicos
+                <div class="form-group row">
+                    <h4>Requisitos Básicos</h4>
                     <br />
-                    <a href="~/plantilla/assets/Requisitos Básicos Para Monográficos.pdf" target="_blank">
-                        •	 Inscripción Monográfico (link)
-                    </a>
+                    <div class="form-control">
+                        <a asp-controller="Requerimientos" asp-action="View" asp-route-intTipoServicio="1">
+                            •	 Inscripción Monográfico
+                        </a>
+                    </div>
                     <br />
-                    <a href="~/plantilla/assets/Requisitos Básicos Para Tesis de Grado.pdf" target="_blank">
-                        •	Inscripción Tesis de Grado (link)
-                    </a>
+                    <br />
+                    <div class="form-control">
+                        <a asp-controller="Requerimientos" asp-action="View" asp-route-intTipoServicio="2">
+                            •	Inscripción Tesis de Grado
+                        </a>
+                    </div>
                     <br />
 
-                </p>
+                </div>
             </div>
         </div>
     </section>

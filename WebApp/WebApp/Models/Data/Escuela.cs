@@ -13,11 +13,13 @@ namespace WebApp.Models.Data
         [Remote(action: "CheckExistingCode", controller: "Escuelas", AdditionalFields = "Id")]
         public string CodigoEscuela { get; set; }
 
+
 		[Required(ErrorMessage = "Debe seleccionar el codigo de la facultad")]
-		public int IdFacultad { get; set; }
+		public int? IdFacultad { get; set; }
 
 		[ForeignKey("IdFacultad")]
 		public Facultad Facultad { get; set; }
+
 
 		[Required(ErrorMessage = "Debe registrar el nombre de la escuela")]
         public string Nombre { get; set; }
