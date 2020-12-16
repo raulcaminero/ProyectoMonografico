@@ -45,16 +45,16 @@ namespace WebApp.Controllers
 
             // consultado en la base de datos par ver si el corro existe
 
-            var coreo = _context.usuarios1.Where(x => x.Email == email).FirstOrDefault();
+            var coreo = _context.usuarios.Where(x => x.Email == email).FirstOrDefault();
             if (coreo == null)
             {
 
 
-                Models.Data.Usuario usurios = new Usuario();
+                Models.Usuario usurios = new Usuario();
 
                 usurios.Email = email;
                 usurios.contrasena = password;
-                usurios.rol = rol;
+                usurios.RolID = RolID;
 
 
                 usurios.primer_nombre = primer_nombre;
@@ -66,6 +66,7 @@ namespace WebApp.Controllers
                 usurios.sexo = sexo;
                 usurios.matricula = matricula;
                 usurios.campus = campus;
+                usurios.EstadoId = "A";
                 _context.Add(usurios);
                 _context.SaveChanges();
 

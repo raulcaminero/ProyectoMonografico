@@ -25,8 +25,7 @@ namespace WebApp.Models
         public string contrasena { get; set; }
 
 
-        [Display(Name = "Rol")]
-        public string rol { get; set; }
+        
 
 
         [Display(Name = "Segudo Nombre")]
