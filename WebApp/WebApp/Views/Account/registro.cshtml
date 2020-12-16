@@ -1,8 +1,9 @@
-﻿@{
-    Layout = null;
+﻿
+@model WebApp.Models.Data.Usuario
+@{
+   
+    Layout = "~/Views/Shared/_Layout-Moises.cshtml";
 }
-
-@model WebApp.Models.Usuario
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,7 @@
                         <br />
                         <h2>
                             UASD<br />
-                            Sistema De Gestión de Tesis y Monográfico
+                            Sistema de Gestión de Tesis y Monográfico
                         </h2>
                     </center>
                     <hr />
@@ -94,7 +95,7 @@
                         </div>
                         <hr />
                         <div class="form-group text-center p-b-20">
-                            <h3 class="custom-control-label" for="customCheck1">INFORMACI&Oacute; PERSONAL</h3>
+                            <h3 class="custom-control-label" for="customCheck1">INFORMACI&Oacute;N PERSONAL</h3>
                         </div>
                         <hr />
                         <div class="row">
@@ -123,7 +124,7 @@
                             <div class="form-group col-md-4">
                                 <div class="col-md-12">
                                     <select class="custom-select" required="" name="tipo_identificacion">
-                                        <option value="">Seleccione Tipo Identificación</option>
+                                        <option value="">Seleccione Tipo de Identificación</option>
                                         <option value="C">C&eacute;dula</option>
                                         <option value="P">Pasaporte</option>
                                     </select>
@@ -140,7 +141,7 @@
                             <div class="form-group col-md-4">
                                 <div class="col-md-12">
                                     <select class="custom-select" name="sexo">
-                                        <option value="">Seleccione Sexo</option>
+                                        <option value=""> Sexo</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
                                     </select>
@@ -156,7 +157,7 @@
                                     <select class="custom-select" required="" name="campus">
                                         <option value="">Seleccione Campus</option>
                                         <option value="1">SEDE</option>
-                                        <option value="2">Ssntiago</option>
+                                        <option value="2">Santiago</option>
                                     </select>
                                 </div>
                             </div>
