@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebApp.Models;
 using WebApp.ViewModels.Solicitudes;
 using WebApp.Models.Data;
@@ -12,11 +9,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PerfilEstudiante.Controllers
 {
-	public class InscripcionesController : Controller
+	public class SolicitudesController : Controller
 	{
 		private readonly ApplicationDbContext _context;
 
-		public InscripcionesController(ApplicationDbContext context)
+		public SolicitudesController(ApplicationDbContext context)
 		{
 			_context = context;
 		}
@@ -61,18 +58,17 @@ namespace PerfilEstudiante.Controllers
 				usuario.fecha_nacimiento = vm.FechaNacimiento;
 
 				// Registrar la Solicitud de Inscripcion
-				var solicitud = new Solicitud()
+				var solicitud = new SolicitudServicio()
 				{
 					IdUsuario = vm.IdUsuario,
 					Fecha = DateTime.Now,
 					Estado = EstadosSolicitud.Pendiente
 				};
 
-				_context.Solicitudes.Add(solicitud);
+				_context.SolicitudesServicios.Add(solicitud);
 				_context.SaveChanges();
 
-				// ESTO ES TEMPORAL, DESCONOZCO A DONDE DEBE REDIRECCIONAR UNA VEZ EL ESTUDIANTE SOLICITA LA INSCRIPCION.
-				return RedirectToAction("Escuelas", "Index");
+				return RedirectToAction("Index");
 			}
 
 			cargarListas();
