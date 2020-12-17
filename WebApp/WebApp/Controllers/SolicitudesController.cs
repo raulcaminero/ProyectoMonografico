@@ -42,9 +42,6 @@ namespace PerfilEstudiante.Controllers
 			var facultades = _context.Facultades.ToList();
 			ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
 
-			var servicios = _context.Servicio.ToList();
-			ViewBag.Servicios = new SelectList(servicios, "Servicio_Id", "Servicio_Descripcion");
-
 			var tipoServicios = _context.TipoServicios.ToList();
 			var lstTipos = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
 			ViewBag.TiposServicios = lstTipos;

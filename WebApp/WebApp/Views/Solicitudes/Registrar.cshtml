@@ -14,7 +14,7 @@
         </div>
     </div>
 </div>
-<div class="navbar navbar-expand-lg">
+@*<div class="navbar navbar-expand-lg">
     <form>
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -25,7 +25,7 @@
             <input type="submit" class="btn btn-info form-control" value="Traer Datos">
         </div>
     </form>
-</div>
+</div>*@
 
 <div class="col-12">
     <div class="card">
@@ -34,7 +34,7 @@
         </div>
         <div class="card-content">
             <div class="card-body">
-                <form id="form_incripcion" class="steps-validation wizard-circle wizard clearfix" role="application" novalidate="novalidate">
+                <form action="Registrar"> @*id="form_incripcion" class="steps-validation wizard-circle wizard clearfix" role="application" novalidate="novalidate">*@
 
                     <!-- Step 1 -->
                     <h5 id="form_incripcion-h-0" tabindex="-1" class="title current text-primary text-center"> INFORMACIÓN PERSONAL </h5>
@@ -174,9 +174,10 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Plan de Estudio: <span class="rojo">*</span></label>
-                                    <select asp-items="@ViewBag.Servicios" asp-for="IdServicio" id="idServicio" class="form-control">
+                                    @*<select asp-items="@ViewBag.Servicios" asp-for="IdServicio" id="idServicio" class="form-control">
                                         <option value="" selected="">Seleccione una Opción</option>
-                                    </select>
+                                    </select>*@
+                                    <input asp-for="IdServicio" />
                                 </div>
                             </div>
                             <!-- <div class="col-md-12">
@@ -221,6 +222,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary ">Enviar Formulario</button>
                     </fieldset>
+
                 </form>
             </div>
         </div>
