@@ -29,6 +29,7 @@ namespace WebApp.Models
 		public virtual DbSet<Requerimiento> Requerimientos { get; set; }
 		public virtual DbSet<TipoServicio> TipoServicios { get; set; }
 		public virtual DbSet<SolicitudServicio> SolicitudesServicios { get; set; }
+		public virtual DbSet<Archivo> Archivos { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
