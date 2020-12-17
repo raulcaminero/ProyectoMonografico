@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
@@ -41,30 +42,27 @@ namespace PerfilEstudiante.Controllers
 			var facultades = _context.Facultades.ToList();
 			ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
 
+			var servicios = _context.Servicio.ToList();
+			ViewBag.Servicios = new SelectList(servicios, "Servicio_Id", "Servicio_Descripcion");
+
 			var tipoServicios = _context.TipoServicios.ToList();
 			var lstTipos = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
 			ViewBag.TiposServicios = lstTipos;
-
-			//var escuelas = _context.Escuelas.ToList();
-			//ViewBag.Escuelas = new SelectList(escuelas, "Id", "Nombre");
-
-			//var carreras = _context.Carreras.ToList();
-			//ViewBag.Carreras = new SelectList(carreras, "Id", "Nombre");
-
-			//var servicios = _context.Servicio.ToList();
-			//ViewBag.Servicios = new SelectList(servicios, "Servicio_Id", "Servicio_Codigo");
 		}
 
 		[HttpGet]
-		public ActionResult Registrar(string email)
+		public IActionResult Registrar(string email)
 		{
 			cargarListas();
 			return View();
 		}
 
 		[HttpPost]
-		public ActionResult Registrar(RegistrarSolicitudViewModel vm)
+		public async Task<IActionResult> Registrar(RegistrarSolicitudViewModel vm)
 		{
+			// TEMPORAL
+			vm.IdServicio = _context.Servicio.First().Servicio_Id;
+
 			if (ModelState.IsValid)
 			{
 				// Actualizar los campos de Usuario
@@ -93,6 +91,26 @@ namespace PerfilEstudiante.Controllers
 
 				_context.SolicitudesServicios.Add(solicitud);
 				_context.SaveChanges();
+
+				// Guardar los archivos
+				var archivos = new List<Archivo>();
+				var ctrl = new ArchivosController(_context);
+				archivos.Add(await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
+				archivos.Add(await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
+				archivos.Add(await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
+				await _context.SaveChangesAsync();
+
+				// Guardar la relación
+				foreach (var archivo in archivos)
+				{
+					var archivoSolicitud = new ArchivoSolicitud()
+					{
+						IdArchivo = archivo.Id,
+						IdSolicitud = solicitud.Id
+					};
+					_context.ArchivosSolicitudes.Add(archivoSolicitud);
+				}
+				await _context.SaveChangesAsync();
 
 				return RedirectToAction("Index");
 			}

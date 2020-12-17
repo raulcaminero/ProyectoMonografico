@@ -174,7 +174,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Plan de Estudio: <span class="rojo">*</span></label>
-                                    <select asp-for="IdServicio" id="idServicio" title="Este campo es requerido." required="" class="form-control" enabled="false">
+                                    <select asp-items="@ViewBag.Servicios" asp-for="IdServicio" id="idServicio" class="form-control">
                                         <option value="" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
@@ -203,16 +203,16 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Una (1) foto 2x2 </label>
-                                <input title="Este campo es requerido." type="file" id="foto" class="form-control" name="foto">
+                                <input title="Este campo es requerido." type="file" class="form-control" asp-for="ArchivoFoto">
                             </div>
                             <div class="col-md-6">
                                 <label>kárdex Académico </label>
-                                <input title="Este campo es requerido." type="file" id="academico" class="form-control" name="academico">
+                                <input title="Este campo es requerido." type="file" class="form-control" asp-for="ArchivoKardex">
                             </div>
                             <div class="col-md-6">
                                 <br><br>
                                 <label>Copia de la Cédula de Identidad </label>
-                                <input title="Este campo es requerido." type="file" id="identidad_copia" class="form-control" name="identidad_copia">
+                                <input title="Este campo es requerido." type="file" class="form-control" asp-for="ArchivoCedula">
                                 <br>
                             </div>
                             <div style="display: none;" class="col-md-12">

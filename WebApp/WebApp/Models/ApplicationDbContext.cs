@@ -30,6 +30,7 @@ namespace WebApp.Models
 		public virtual DbSet<TipoServicio> TipoServicios { get; set; }
 		public virtual DbSet<SolicitudServicio> SolicitudesServicios { get; set; }
 		public virtual DbSet<Archivo> Archivos { get; set; }
+		public virtual DbSet<ArchivoSolicitud> ArchivosSolicitudes { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -310,6 +311,9 @@ namespace WebApp.Models
 			modelBuilder.Entity<Campus>()
 			   .HasIndex(c => c.Codigo)
 			   .IsUnique();
+
+			modelBuilder.Entity<ArchivoSolicitud>()
+				.HasKey(x => new { x.IdArchivo, x.IdSolicitud });
 
 		}
 	}

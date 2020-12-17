@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -52,6 +53,12 @@ namespace WebApp.ViewModels.Solicitudes
 
 		[ForeignKey("IdServicio")]
 		public Servicio Servicio { get; set; }
+
+		public IFormFile ArchivoFoto { get; set; }
+
+		public IFormFile ArchivoCedula { get; set; }
+
+		public IFormFile ArchivoKardex { get; set; }
 
 	}
 }
