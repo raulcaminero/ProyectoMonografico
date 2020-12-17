@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Models;
-using WebApp.Models.Data;
 
 namespace WebApp.ViewModels.Solicitudes
 {
@@ -41,13 +40,18 @@ namespace WebApp.ViewModels.Solicitudes
 		public DateTime? FechaNacimiento { get; set; }
 
 
-		[Required]
+		[Required(ErrorMessage = "Debe indicar el campus")]
 		public int IdCampus { get; set; }
 
 		[ForeignKey("IdCampus")]
 		public Campus Campus { get; set; }
 
-		public int IdUsuario { get; set; }
+
+		[Required(ErrorMessage = "Debe indicar el plan")]
+		public int IdServicio { get; set; }
+
+		[ForeignKey("IdServicio")]
+		public Servicio Servicio { get; set; }
 
 	}
 }

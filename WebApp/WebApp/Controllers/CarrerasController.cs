@@ -357,11 +357,11 @@ namespace WebApp.Controllers
         //GetFilteredFactultades
         public async Task<List<Facultad>> GetFilteredFactultades(int idEscuela = 0, bool addEmpty = false)
         {
-            List<Facultad> facultades = new List<Facultad>();
+            var facultades = new List<Facultad>();
 
             if (addEmpty == true)
             {
-                Facultad todas = new Facultad
+                var todas = new Facultad
                 {
                     Id = 0,
                     NombreFacultad = "Todas"
@@ -369,27 +369,26 @@ namespace WebApp.Controllers
                 facultades.Add(todas);
             }
 
-            facultades.AddRange(await _context.Facultades.Where(x => x.Estado == (Estados)1).ToListAsync());
+            facultades.AddRange(await _context.Facultades.Where(x => x.Estado == Estados.Activo).ToListAsync());
 
-            var Facultad = _context.Escuelas.Include(x => x.Facultad).FirstOrDefault(x => x.Id == idEscuela);
+            var facultad = _context.Escuelas.Include(x => x.Facultad).FirstOrDefault(x => x.Id == idEscuela);
 
             if (idEscuela > 0)
             {
-                if (Facultad != null)
-                {
-                    facultades = facultades.Where(x => x.Id == Facultad.Facultad.Id || x.Id == 0).ToList();
-
-                }
+                if (facultad != null)
+                    facultades = facultades.Where(x => x.Id == facultad.Facultad.Id || x.Id == 0).ToList();
             }
+
             return facultades;
         }
+
         public async Task<List<Escuela>> GetFilteredEscuelas(int idFacultad = 0, bool addEmpty = false)
         {
-            List<Escuela> escuelas = new List<Escuela>();
+            var escuelas = new List<Escuela>();
 
             if (addEmpty == true)
             {
-                Escuela todas = new Escuela
+                var todas = new Escuela
                 {
                     Id = 0,
                     Nombre = "Todas"
@@ -397,24 +396,34 @@ namespace WebApp.Controllers
                 escuelas.Add(todas);
             }
 
-            escuelas.AddRange(await _context.Escuelas.Where(x => x.Estado == (Estados)1).ToListAsync());
+            escuelas.AddRange(await _context.Escuelas.Where(x => x.Estado == Estados.Activo).ToListAsync());
 
             if (idFacultad > 0)
-            {
                 escuelas = escuelas.Where(x => x.IdFacultad == idFacultad || x.Id == 0).ToList();
-            }
+
             return escuelas;
         }
+
+        public async Task<List<Carrera>> GetFilteredCarreras(int idEscuela = 0, bool addEmpty = false)
+        {
+            var carreras = new List<Carrera>();
+
+            if (addEmpty == true)
+            {
+                var todas = new Carrera
+                {
+                    Id = 0,
+                    Nombre = "Todas"
+                };
+                carreras.Add(todas);
+            }
+
+            carreras.AddRange(await _context.Carreras.Where(x => x.Estado == Estados.Activo).ToListAsync());
+
+            if (idEscuela > 0)
+                carreras = carreras.Where(x => x.IdEscuela == idEscuela || x.Id == 0).ToList();
+
+            return carreras;
+        }
     }
-
-    //public class TablaCarrerasViewComponent : ViewComponent
-    //{
-
-    //    public IViewComponentResult Invoke()
-    //    {
-    //        //List<Carrera> model = await  List<Carrera>();
-
-    //        return View();
-    //    }
-    //}
 }

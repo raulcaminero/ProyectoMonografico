@@ -1,6 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebApp.Models.Data;
 
 namespace WebApp.Models
 {
@@ -20,6 +20,9 @@ namespace WebApp.Models
 		[ForeignKey("IdServicio")]
 		public Servicio Servicio { get; set; }
 
-		public Enums.EstadosSolicitud Estado { get; set; }
+		public string IdEstado { get; set; }
+
+		[ForeignKey("IdEstado")]
+		public Estado Estado { get; set; }
 	}
 }

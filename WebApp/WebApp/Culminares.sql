@@ -200,12 +200,27 @@ GO
 ALTER TABLE [dbo].[Servicio] ADD  CONSTRAINT [DF_Servicio_Estado_Id]  DEFAULT ('I') FOR [Estado_Id]
 GO
 ALTER TABLE [dbo].[TipoServicio] ADD  CONSTRAINT [DF_TipoServicio_Estado_Id]  DEFAULT ('A') FOR [Estado_Id]
+GO
+
+
+
+
+
+SET IDENTITY_INSERT [dbo].[Rol] ON 
+GO
+INSERT [dbo].[Rol] ([Id], [Descripcion]) VALUES (1, N'Administrador')
+GO
+INSERT [dbo].[Rol] ([Id], [Descripcion]) VALUES (2, N'Estudiante')
+GO
+SET IDENTITY_INSERT [dbo].[Rol] OFF
 
 GO
-INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'A', N'Activo    ')
-INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'C', N'Cerrado   ')
-INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'I', N'Inactivo  ')
+INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'A', N'Activo')
+INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'C', N'Cerrado')
+INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'I', N'Inactivo')
 INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'P', N'En Proceso')
+INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'E', N'Pendiente')
+INSERT [dbo].[Estado] ([Estado_Id], [Estado_Nombre]) VALUES (N'N', N'Inscrito')
 GO
 SET IDENTITY_INSERT [dbo].[Localidad] ON 
 INSERT [dbo].[Localidad] ([Localidad_Id], [Localidad_Nombre], [Estado_Id]) VALUES (1, N'Distrito Nacional', N'A')
@@ -215,11 +230,11 @@ SET IDENTITY_INSERT [dbo].[Campus] ON
 INSERT [dbo].[Campus] ([Campus_Id], [Campus_Codigo], [Campus_Nombre], [Estado_Id], [Localidad_Id]) VALUES (1, N'SEDE      ', N'Sede Central', N'A', 1)
 SET IDENTITY_INSERT [dbo].[Campus] OFF
 GO
-INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (1, N'Juan Manuel Feliz', 1, N'A')
-INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (2, N'Eddy Brito', 3, N'A')
-INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (3, N'Carlos Caraballo', 4, N'A')
-INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (4, N'Delgado Bello', 4, N'A')
-INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [Rol_Id], [Estado_Id]) VALUES (5, N'Martha Perez', 4, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [RolId], [Estado_Id]) VALUES (1, N'Juan Manuel Feliz', 2, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [RolId], [Estado_Id]) VALUES (2, N'Eddy Brito', 1, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [RolId], [Estado_Id]) VALUES (3, N'Carlos Caraballo', 1, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [RolId], [Estado_Id]) VALUES (4, N'Delgado Bello', 1, N'A')
+INSERT [dbo].[Usuario] ([Codigo], [Usuario_Nombre], [RolId], [Estado_Id]) VALUES (5, N'Martha Perez', 1, N'A')
 GO
 
 INSERT [dbo].[Empleado] ([Codigo], [Nombre], [Salario], [FechaIngreso]) VALUES (1, N'Juan Manuel Feliz', CAST(0.00 AS Decimal(13, 2)), CAST(N'1998-06-01' AS Date))
@@ -339,8 +354,8 @@ INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion
 INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion], [Servicio_FechaInicio], [Servicio_FechaCierre], [Servicio_Costo], [UsuarioCodigo], [TipoServicio_Id], [Estado_Id], [Campus_Id], [Facultad_Id], [Escuela_Id], [Carrera_Id]) VALUES (2, N'MSEDE#12  ', N'Tesis de Biolog�a SEDE #12', CAST(N'2010-09-02T00:00:00.000' AS DateTime), CAST(N'2010-12-23T00:00:00.000' AS DateTime), CAST(12000.00 AS Decimal(12, 2)), 2, 1, N'I', 1, 1, 1, 5)
 SET IDENTITY_INSERT [dbo].[Servicio] OFF
 GO
-INSERT [dbo].[TipoServicio] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (1, N'Tesis de Grado', N'A')
-INSERT [dbo].[TipoServicio] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (2, N'Monogr�fico o Curso equivalente a Tesis.', N'A')
+INSERT [dbo].[TipoServicios] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (1, N'Tesis de Grado', N'A')
+INSERT [dbo].[TipoServicios] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (2, N'Monográfico.', N'A')
 GO
 INSERT [dbo].[Usuario] ([Codigo], [Contrasena]) VALUES (N'1', N'12345')
 GO
