@@ -355,7 +355,7 @@ INSERT [dbo].[Servicio] ([Servicio_Id], [Servicio_Codigo], [Servicio_Descripcion
 SET IDENTITY_INSERT [dbo].[Servicio] OFF
 GO
 INSERT [dbo].[TipoServicios] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (1, N'Tesis de Grado', N'A')
-INSERT [dbo].[TipoServicios] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (2, N'Monográfico.', N'A')
+INSERT [dbo].[TipoServicios] ([TipoServicio_Id], [TipoServicio_Descripcion], [Estado_Id]) VALUES (2, N'Monográfico', N'A')
 GO
 INSERT [dbo].[Usuario] ([Codigo], [Contrasena]) VALUES (N'1', N'12345')
 GO

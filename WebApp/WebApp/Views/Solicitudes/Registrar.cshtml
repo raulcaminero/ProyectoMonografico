@@ -167,7 +167,7 @@
                                     <select asp-items="@ViewBag.TiposServicios" title="Este campo es requerido." required="" id="idTipoServicio" class="form-control" enabled="false">
                                         <option value="" selected="">Seleccione una Opción</option>
                                         @*<option value="1">Tesis</option>
-                                        <option value="2">Monográfico</option>*@
+                                            <option value="2">Monográfico</option>*@
                                     </select>
                                 </div>
                             </div>
@@ -229,50 +229,57 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $("#idFacultad").change(function () {
-            var idFacultad = $(this).val();
-            $.get("/Carreras/GetFilteredEscuelas/", { "idFacultad": idFacultad }, function (data, success) {
-                var opciones = "";
-                $("#idEscuela").empty();
+<script>
+    $("#idFacultad").change(function () {
+        var idFacultad = $(this).val();
+        $.get("/Carreras/GetFilteredEscuelas/", { "idFacultad": idFacultad, addEmpty: true }, function (data, success) {
+            var opciones = "";
+            $("#idEscuela").empty();
 
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
-                }
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
+            }
 
-                $("#idEscuela").append(opciones);
-            });
+            $("#idEscuela").append(opciones);
         });
-        $("#idEscuela").change(function () {
-            var idEscuela = $(this).val();
-            $.get("/Carreras/GetFilteredCarreras/", { "idEscuela": idEscuela }, function (data, success) {
-                var opciones = "";
-                $("#idCarrera").empty();
+    });
 
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
-                }
+    $("#idEscuela").change(actualizarCarreras());
+    $("#idCarrera").change(actualizarServicios());
+    $("#idTipoServicio").change(actualizarServicios());
 
-                $("#idCarrera").append(opciones);
-            });
+    function actualizarCarreras() {
+        var idEscuela = $('#idEscuela').val();
+        $.get("/Carreras/GetFilteredCarreras/", { "idEscuela": idEscuela, addEmpty: true }, function (data, success) {
+            var opciones = "";
+            $("#idCarrera").empty();
+
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
+            }
+
+            $("#idCarrera").append(opciones);
         });
-        $("#idCarrera").change(function () {
-            var idCarrera = $("#idCarrera").val();
-            var tipo = $("#tipo").val();
+    };
 
-            $.get("/Solicitudes/GetFilteredServicios/", { "idCarrera": idCarrera, "idTipoServicio": tipo }, function (data, success) {
-                var opciones = "";
-                $("#idServicio").empty();
+    function actualizarServicios() {
+        var idCarrera = $("#idCarrera").val();
+        var tipo = $("#idTipoServicio").val();
 
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    opciones = `${opciones}<option value="${data[i].Servicio_Id}">${data[i].Servicio_Codigo}</option>`;
-                }
+        $.get("/Solicitudes/GetFilteredServicios/", { "idCarrera": idCarrera, "idTipoServicio": tipo }, function (data, success) {
+            var opciones = "";
+            $("#idServicio").empty();
 
-                $("#idServicio").append(opciones);
-            });
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                opciones = `${opciones}<option value="${data[i].Servicio_Id}">${data[i].Servicio_Codigo}</option>`;
+            }
+
+            $("#idServicio").append(opciones);
         });
-    </script>
+    };
+
+</script>
 }

@@ -42,7 +42,8 @@ namespace PerfilEstudiante.Controllers
 			ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
 
 			var tipoServicios = _context.TipoServicios.ToList();
-			ViewBag.TiposServicios = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
+			var lstTipos = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
+			ViewBag.TiposServicios = lstTipos;
 
 			//var escuelas = _context.Escuelas.ToList();
 			//ViewBag.Escuelas = new SelectList(escuelas, "Id", "Nombre");
@@ -102,11 +103,19 @@ namespace PerfilEstudiante.Controllers
 
 		public async Task<List<Servicio>> GetFilteredServicios(int idCarrera = 0, int idTipoServicio = 0, bool addEmpty = false)
 		{
-			var servicios = await _context.Servicio
-				.Where(s => s.Carrera_Id == idCarrera)
-				.Where(s => s.TipoServicio_Id == idTipoServicio)
-				.Where(s => s.Estado_Id != "E")
-				.ToListAsync();
+			var servicios = new List<Servicio>();
+
+			if (addEmpty)
+				servicios.Add(new Servicio() { Servicio_Descripcion = "Seleccione un servicio" });
+
+			if (idCarrera > 0 && idTipoServicio > 0)
+			{
+				servicios.AddRange(await _context.Servicio
+					.Where(s => s.Carrera_Id == idCarrera)
+					.Where(s => s.TipoServicio_Id == idTipoServicio)
+					.Where(s => s.Estado_Id != "E")
+					.ToListAsync());
+			}
 
 			return servicios;
 		}
