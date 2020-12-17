@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.Data.Facultad
+﻿@model WebApp.Models.Facultad
 
 @{
     ViewData["Title"] = "Editar";
@@ -14,17 +14,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label class="control-label">Nombre de la Facultad</label>
+                <label class="control-label">Nombre</label>
                 <input asp-for="NombreFacultad" class="form-control" />
                 <span asp-validation-for="NombreFacultad" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Codigo" class="control-label"></label>
+                <label asp-for="Codigo" class="control-label">Código</label>
                 <input asp-for="Codigo" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Nombre Decano</label>
+                <label class="control-label">Decano</label>
                 <input asp-for="NombreDecano" class="form-control" />
                 <span asp-validation-for="NombreDecano" class="text-danger"></span>
             </div>
@@ -34,7 +34,7 @@
                 <span asp-validation-for="Ubicación" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
+                <label asp-for="Telefono" class="control-label">Teléfono</label>
                 <input asp-for="Telefono" class="form-control" />
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>

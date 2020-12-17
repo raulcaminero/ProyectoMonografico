@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]  CULMINARE</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    
+</head>
+<body class="skin-blue fixed-layout">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Usuario @User.Identity.Name</p>
+        </div>
+    </div>
+
+
+    @RenderBody()
+
+    <!--<script src="~/plantilla/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/plantilla/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/plantilla/js/site.js" asp-append-version="true"></script>-->
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

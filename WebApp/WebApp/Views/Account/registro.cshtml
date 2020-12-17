@@ -1,8 +1,9 @@
-﻿@{
-    Layout = null;
+﻿
+@model WebApp.Models.Usuario
+@{
+   
+    Layout = "~/Views/Shared/_Layout-Moises.cshtml";
 }
-
-@model WebApp.Models.Data.Usuario
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,7 @@
                         <br />
                         <h2>
                             UASD<br />
-                            Sistema De Gestión de Tesis y Monográfico
+                            Sistema de Gestión de Tesis y Monográfico
                         </h2>
                     </center>
                     <hr />
@@ -77,8 +78,8 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <div class="col-xs-12">
-                                    <select id="rol" required="" name="rol" class="form-control" aria-required="true" placeholder="Rol">
-                                        <option value="" selected="">Seleccione</option>
+                                    <select id="rol" required="" name="RolID" class="form-control" aria-required="true" placeholder="Rol" asp-items="@ViewBag.Roles">
+                                        @*<option value="" selected="">Seleccione</option>
                                         <option value="2">Estudiante</option>
                                         <option value="7">Director</option>
                                         <option value="9">Coordinador De Monográfico</option>
@@ -87,14 +88,14 @@
                                         <option value="12">Asesor de Monográficos</option>
                                         <option value="13">Jurado de Tesis</option>
                                         <option value="14">Jurado  de Monográficos</option>
-                                        <option value="16">Empleado-COlaborador-FC</option>
+                                        <option value="16">Empleado-COlaborador-FC</option>*@
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <hr />
                         <div class="form-group text-center p-b-20">
-                            <h3 class="custom-control-label" for="customCheck1">INFORMACI&Oacute; PERSONAL</h3>
+                            <h3 class="custom-control-label" for="customCheck1">INFORMACI&Oacute;N PERSONAL</h3>
                         </div>
                         <hr />
                         <div class="row">
@@ -123,7 +124,7 @@
                             <div class="form-group col-md-4">
                                 <div class="col-md-12">
                                     <select class="custom-select" required="" name="tipo_identificacion">
-                                        <option value="">Seleccione Tipo Identificación</option>
+                                        <option value="">Seleccione Tipo de Identificación</option>
                                         <option value="C">C&eacute;dula</option>
                                         <option value="P">Pasaporte</option>
                                     </select>
@@ -140,7 +141,7 @@
                             <div class="form-group col-md-4">
                                 <div class="col-md-12">
                                     <select class="custom-select" name="sexo">
-                                        <option value="">Seleccione Sexo</option>
+                                        <option value=""> Sexo</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
                                     </select>
@@ -153,10 +154,10 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="col-md-12">
-                                    <select class="custom-select" required="" name="campus">
+                                    <select asp-items="@ViewBag.Campus" class="custom-select" required="" name="campus">
                                         <option value="">Seleccione Campus</option>
-                                        <option value="1">SEDE</option>
-                                        <option value="2">Ssntiago</option>
+                                        @*<option value="1">SEDE</option>
+                                        <option value="2">Santiago</option>*@
                                     </select>
                                 </div>
                             </div>
@@ -185,7 +186,7 @@
     <script src="../js/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="../js/popper.min.js"></script>
-    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../lib/boostrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".preloader").fadeOut();

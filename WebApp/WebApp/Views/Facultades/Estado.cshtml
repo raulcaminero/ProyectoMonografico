@@ -1,5 +1,5 @@
-﻿@model WebApp.Models.Data.Facultad
-
+﻿@model WebApp.Models.Facultad
+@using WebApp.Models.Enums;
 @{
     ViewData["Title"] = "Estado";
 }
@@ -7,13 +7,13 @@
 <h1>Estado</h1>
 
 <h3>
-    @if (Model.Estado == WebApp.Models.Data.Estados.Activo)
+    @if (Model.Estado == Estados.Activo)
     {
-        <span> ¿Esta seguro que desea inactivar esto? </span>
+        <span>¿Está seguro que desea inactivar esto?</span>
     }
     else
     {
-        <span> ¿Esta seguro que desea activar esto? </span>
+        <span>¿Está seguro que desea activar esto?</span>
 
     }
 </h3>
@@ -28,7 +28,7 @@
             @Html.DisplayFor(model => model.NombreFacultad)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Codigo)
+            Código
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Codigo)
@@ -46,7 +46,7 @@
             @Html.DisplayFor(model => model.Ubicación)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefono)
+            Teléfono
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Telefono)
@@ -61,12 +61,14 @@
     
     <form asp-action="ConfirmarEstado">
         <input type="hidden" asp-for="Id" />
-        @if (Model.Estado == WebApp.Models.Data.Estados.Activo)
+        @if (Model.Estado == Estados.Activo)
         {
+
             <input type="submit" value="Inactivar" class="btn btn-danger" />
         }
         else
         {
+
             <input type="submit" value="Activar" class="btn btn-danger" />
 
         } |

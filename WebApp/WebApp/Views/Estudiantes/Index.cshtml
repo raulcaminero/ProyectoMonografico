@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WebApp.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de Estudiantes</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               <h3>Foto</h3>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.primer_nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.RolID)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.primer_apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.segundo_apellido)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.identificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.matricula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Campus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="../plantilla/assets/images/Usuario.jpg" width="60" height="65" />
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.primer_nombre)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.RolID)
+              
+            </td>
+          
+            <td>
+                @Html.DisplayFor(modelItem => item.primer_apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.segundo_apellido)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.identificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Campus)
+            </td>
+            <td>
+
+                <a  class="btn btn-success" asp-action="Details" asp-route-id="@item.codigo"  >Detalles</a> 
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

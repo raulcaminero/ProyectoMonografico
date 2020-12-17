@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebApp.Models.Calificaciones>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+	<h1 class="display-5" style="color:blue"><i class="fa fa-list"></i> Lista De Calificaciones</h1>
+</div>
+
+<p>
+	<a class="btn btn-info" asp-action="Create">Nueva Calificaciones</a>
+</p>
+<table id="TblCalificaciones" class="table table-striped table-bordered" style="width:100%">
+	<thead>
+		<tr class="bg-info table-sm">
+			<th>
+				@Html.DisplayNameFor(model => model.Usuario)
+
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Modulo)
+
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Calificacion)
+			</th>
+			<th>
+
+				@Html.DisplayNameFor(model => model.Estado)
+			</th>
+			<th>
+				Acciones
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Usuario.primer_apellido)
+
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Modulo.Titulo)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Calificacion)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Estado.EstadoNombre)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit fa-2x"></i></a> 
+					<a asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye fa-2x"></i></a> 
+					<a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt fa-2x"></i></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+@section Scripts{
+	<!-- jQuery -->
+	<script language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+	<!-- El JavaScript de DataTables -->
+	<script language="javascript" type="text/javascript" src=" https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+	<script>
+        $(document).ready(function () {
+			$('#TblCalificaciones').DataTable();
+        });
+
+	</script>
+
+}
