@@ -1,12 +1,12 @@
-﻿@model IEnumerable<WebApp.Models.Data.Escuela>
-@using WebApp.Models.Data
+﻿@model IEnumerable<WebApp.Models.Escuela>
+@using WebApp.Models.Enums;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Escuela";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Escuela</h1>
 
 <p>
     <a asp-action="Create">Registrar Nueva</a>
@@ -15,10 +15,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CodigoEscuela)
+                Código
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Facultad)
+                <span id="sc-faculty-head">@Html.DisplayNameFor(model => model.Facultad)</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)

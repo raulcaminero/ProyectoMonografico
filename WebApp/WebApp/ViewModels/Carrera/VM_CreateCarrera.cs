@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WebApp.Models.Data;
+using WebApp.Models;
 
 namespace WebApp.ViewModels.Carrera
 {
 	public class VM_CreateCarrera
     {
         [Remote(action: "CheckExistingCarrera", controller: "Carreras", AdditionalFields = "Id")]
-        public WebApp.Models.Data.Carrera Carrera { get; set; }
+        public WebApp.Models.Carrera Carrera { get; set; }
 
 		[Required]
 		public string Codigo { get; set; }
@@ -22,5 +22,6 @@ namespace WebApp.ViewModels.Carrera
 
 		public List<Escuela> Escuelas { get; set; }
 
+		public List<Facultad> Facultades { get; set; }
     }
 }

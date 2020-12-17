@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.Models.Data;
+using WebApp.Models;
+//using WebApp.Models.Data;
+using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
@@ -67,7 +69,7 @@ namespace WebApp.Controllers
                     return View(facultad);
                 }
 
-                
+                facultad.Estado = (Estados)1;
                 _context.Add(facultad);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

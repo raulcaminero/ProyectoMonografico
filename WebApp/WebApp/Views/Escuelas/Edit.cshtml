@@ -1,12 +1,11 @@
-﻿@model WebApp.Models.Data.Escuela
-@using WebApp.Models.Data
+﻿@model WebApp.Models.Escuela
 
 @{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
 <h4>Escuela</h4>
 <hr />
@@ -16,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="CodigoEscuela" class="control-label"></label>
+                <label asp-for="CodigoEscuela" class="control-label">Código</label>
                 <input asp-for="CodigoEscuela" class="form-control" />
                 <span asp-validation-for="CodigoEscuela" class="text-danger"></span>
             </div>
@@ -40,7 +39,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Regresar a la Lista</a>
+    <a asp-action="Index">Regresar a la lista</a>
 </div>
 
 @section Scripts {

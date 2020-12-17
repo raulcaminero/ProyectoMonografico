@@ -1,0 +1,88 @@
+﻿@model WebApp.Models.Usuario
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles de @User.Identity.Name</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.primer_nombre)
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primer_nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.segundo_nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.segundo_nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.primer_apellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.primer_apellido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.segundo_apellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.segundo_apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RolID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RolID)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.identificacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.identificacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.sexo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sexo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.matricula)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.matricula)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.campus)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.campus)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+    <a class="btn btn-primary" asp-action="Index">Ir Atras</a>
+</div>

@@ -31,7 +31,7 @@ namespace WebApp
 
 			services.AddSession();
 
-			services.AddDbContext<Models.Data.ApplicationDbContext>(op =>
+			services.AddDbContext<Models.ApplicationDbContext>(op =>
 			{
 				op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 			});
@@ -65,7 +65,7 @@ namespace WebApp
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Account}/{action=Login}/{id?}");
 			});
 		}
 	}
