@@ -73,6 +73,8 @@ namespace WebApp.Controllers
 		// GET: Requerimientos/Create
 		public IActionResult Create()
 		{
+			loadLists();
+
 			return View();
 		}
 
@@ -252,6 +254,15 @@ namespace WebApp.Controllers
 
 			await _context.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
+		}
+
+		private void loadLists()
+		{
+			var schools = _context.Campus.ToList();
+			ViewBag.Schools = new SelectList(schools, "Id", "Nombre");
+
+			var serviceTypes = _context.TipoServicios.ToList();
+			ViewBag.ServiceTypes = new SelectList(serviceTypes, "TipoServicioId", "TipoServicioDescripcion");
 		}
 	}
 }
