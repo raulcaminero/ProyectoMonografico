@@ -11,6 +11,7 @@ namespace WebApp.Models
 {
     public partial class Servicio
     {
+       
         ApplicationDbContext _db = new ApplicationDbContext();
         public Servicio()
         {

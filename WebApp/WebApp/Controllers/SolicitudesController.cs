@@ -21,6 +21,7 @@ namespace PerfilEstudiante.Controllers
 			_context = context;
 		}
 
+		[HttpGet]
 		// GET: Campus
 		public async Task<IActionResult> Index()
 		{
@@ -33,7 +34,7 @@ namespace PerfilEstudiante.Controllers
 			return View(solicitudes);
 		}
 
-
+		
 		private void cargarListas()
 		{
 			var campus = _context.Campus.ToList();
@@ -56,6 +57,34 @@ namespace PerfilEstudiante.Controllers
 			cargarListas();
 			return View();
 		}
+		
+		[HttpGet]
+		public async Task<IActionResult> DetalleSolicitud(int? id)
+		{
+			//var solicitud = await _context.SolicitudesServicios.FindAsync(id);
+
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var usuario = await _context.SolicitudesServicios
+				.FirstOrDefaultAsync(m => m.IdUsuario == id);
+			if (usuario == null)
+			{
+				return NotFound();
+			}
+
+			return View(usuario);
+		}
+
+		/*
+		public IActionResult DetalleSolicitud()
+		{
+			 
+			return View();
+		}
+		*/
 
 		[HttpPost]
 		public async Task<IActionResult> Registrar(RegistrarSolicitudViewModel vm)
