@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApp.Models
 {
@@ -30,6 +31,9 @@ namespace WebApp.Models
 		public EstadoRequerimiento Estado { get; set; }
 
 		[Required]
+		public int IdTipoServicio { get; set; }
+
+		[ForeignKey("IdTipoServicio")]
 		[Display(Name = "Aplica para")]
 		public TipoServicio TipoServicio { get; set; }
 	}

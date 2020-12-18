@@ -43,9 +43,6 @@ namespace PerfilEstudiante.Controllers
 			var facultades = _context.Facultades.ToList();
 			ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
 
-			var servicios = _context.Servicio.ToList();
-			ViewBag.Servicios = new SelectList(servicios, "Servicio_Id", "Servicio_Descripcion");
-
 			var tipoServicios = _context.TipoServicios.ToList();
 			var lstTipos = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
 			ViewBag.TiposServicios = lstTipos;
@@ -124,6 +121,7 @@ namespace PerfilEstudiante.Controllers
 				// Guardar los archivos
 				var archivos = new List<Archivo>();
 				var ctrl = new ArchivosController(_context);
+
 				archivos.Add(await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
 				archivos.Add(await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
 				archivos.Add(await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"));

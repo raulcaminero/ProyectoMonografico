@@ -65,9 +65,12 @@ namespace WebApp.Controllers
 		}
 
 
-		[HttpPost]
-		public async Task<IActionResult> Descargar(Archivo archivo)
+		public async Task<IActionResult> Descargar(int idArchivo)
 		{
+			var archivo = _context.Archivos.Find(idArchivo);
+			if (archivo == null)
+				return NotFound();
+
 			if (!System.IO.File.Exists(archivo.Ruta))
 				return Content("Archivo no encontrado");
 
