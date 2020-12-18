@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -161,12 +162,12 @@ namespace WebApp.Controllers
 			return mensaje;
 		}
 
-		public Usuario getCurrentUser ()
+		public static Usuario getCurrentUser (IPrincipal user, ApplicationDbContext context)
         {
-			var user = User as ClaimsPrincipal;
-			var email = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			var usr = user as ClaimsPrincipal;
+			var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-			var currentUser = _context.usuarios.FirstOrDefault(u => u.Email == email);
+			var currentUser = context.usuarios.FirstOrDefault(u => u.Email == email);
 
 			return currentUser;
 		}
