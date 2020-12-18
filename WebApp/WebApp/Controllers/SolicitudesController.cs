@@ -92,6 +92,7 @@ namespace PerfilEstudiante.Controllers
 				// Guardar los archivos
 				var archivos = new List<Archivo>();
 				var ctrl = new ArchivosController(_context);
+
 				archivos.Add(await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
 				archivos.Add(await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
 				archivos.Add(await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
