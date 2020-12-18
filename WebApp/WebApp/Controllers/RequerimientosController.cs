@@ -25,6 +25,8 @@ namespace WebApp.Controllers
 			var reqs = await _context.Requerimientos
 				.Where(r => r.Estado != Models.EstadoRequerimiento.Eliminado)
 				.Where(r => r.Estado != Models.EstadoRequerimiento.Historico)
+				.Include(r => r.TipoServicio)
+				.Include(r => r.Escuela)
 				.ToListAsync();
 
 			return base.View(reqs);
@@ -38,6 +40,10 @@ namespace WebApp.Controllers
 
 			var req = await _context.Requerimientos
 				.Where(m => m.Id == id)
+				.Include(r => r.TipoServicio)
+				.Include(r => r.Escuela)
+				.Include(r => r.Archivo)
+				.Include(r => r.Usuario)
 				.AsNoTracking().FirstOrDefaultAsync();
 
 			if (req == null)
@@ -46,6 +52,8 @@ namespace WebApp.Controllers
 			var versiones = await _context.Requerimientos
 				.Where(r => r.Codigo == req.Codigo)
 				.Where(r => r.Id != req.Id)
+				.Include(r => r.Archivo)
+				.Include(r => r.Usuario)
 				.AsNoTracking().ToListAsync();
 
 			var model = construirViewModel(req);
@@ -60,11 +68,12 @@ namespace WebApp.Controllers
 			{
 				Id = req.Id,
 				Codigo = req.Codigo,
-				Titulo = req.Titulo,
-				Descripcion = req.Descripcion,
-				FechaCreacion = req.FechaCreacion,
 				TipoServicio = req.TipoServicio,
-				Estado = req.Estado,
+				Escuela = req.Escuela,
+				Archivo = req.Archivo,
+				FechaCreacion = req.FechaCreacion,
+				Usuario = req.Usuario,
+				Estado = req.Estado
 			};
 
 			return model;
@@ -92,11 +101,12 @@ namespace WebApp.Controllers
 				var req = new Requerimiento()
 				{
 					Codigo = codigo,
-					Titulo = modelo.Titulo,
-					Descripcion = modelo.Descripcion,
-					Estado = Models.EstadoRequerimiento.Activo,
-					TipoServicio = modelo.TipoServicio,
-					FechaCreacion = DateTime.Now
+					TipoServicioId = modelo.TipoServicio.TipoServicioId,
+					EscuelaId = modelo.Escuela.EscuelaId,
+					ArchivoId = modelo.Archivo.Id,
+					FechaCreacion = DateTime.Now,
+					UsuarioId = 0,
+					Estado = Models.EstadoRequerimiento.Activo
 				};
 
 				_context.Add(req);
@@ -140,9 +150,9 @@ namespace WebApp.Controllers
 			var modelo = new EditRequerimientoViewModel()
 			{
 				Codigo = req.Codigo,
-				Titulo = req.Titulo,
-				Descripcion = req.Descripcion,
-				TipoServicio = req.TipoServicio,
+				//Titulo = req.Titulo,
+				//Descripcion = req.Descripcion,
+				//TipoServicio = req.TipoServicio,
 			};
 
 			return View(modelo);
@@ -160,10 +170,10 @@ namespace WebApp.Controllers
 				var req = new Requerimiento()
 				{
 					Codigo = modelo.Codigo,
-					Titulo = modelo.Titulo,
-					Descripcion = modelo.Descripcion,
+					//Titulo = modelo.Titulo,
+					//Descripcion = modelo.Descripcion,
 					Estado = Models.EstadoRequerimiento.Activo,
-					TipoServicio = modelo.TipoServicio,
+					//TipoServicio = modelo.TipoServicio,
 					FechaCreacion = DateTime.Now
 				};
 
