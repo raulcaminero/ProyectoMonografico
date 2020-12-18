@@ -55,7 +55,7 @@ namespace PerfilEstudiante.Controllers
 			return View();
 		}
 		
-		[HttpGet]
+		
 		public async Task<IActionResult> DetalleSolicitud(int? id)
 		{
 			//var solicitud = await _context.SolicitudesServicios.FindAsync(id);
@@ -75,13 +75,13 @@ namespace PerfilEstudiante.Controllers
 			return View(usuario);
 		}
 
-		/*
+		
 		public IActionResult DetalleSolicitud()
 		{
 			 
 			return View();
 		}
-		*/
+		
 
 		[HttpPost]
 		public async Task<IActionResult> Registrar(RegistrarSolicitudViewModel vm)
