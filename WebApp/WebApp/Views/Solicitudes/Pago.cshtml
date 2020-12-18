@@ -1,0 +1,78 @@
+﻿@model WebApp.ViewModels.Solicitudes
+
+@{
+    ViewData["Title"] = "Pago";
+}
+
+<h1>Pago</h1>
+
+<h4>SolicitudServicio</h4>
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Servicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Usuario)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Servicio.Servicio_Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Estado.EstadoNombre)
+            </td>
+
+        </tr>
+
+    </tbody>
+
+
+
+</table>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Pago">
+
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <label> Cargar Pago  </label>
+                    <input title="Este campo es requerido." type="file" class="form-control">
+                </div>
+                <div class="4">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

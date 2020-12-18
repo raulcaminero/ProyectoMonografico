@@ -9,16 +9,18 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using WebApp.Controllers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace PerfilEstudiante.Controllers
 {
 	public class SolicitudesController : Controller
 	{
 		private readonly ApplicationDbContext _context;
-
-		public SolicitudesController(ApplicationDbContext context)
+       
+        public SolicitudesController(ApplicationDbContext context)
 		{
 			_context = context;
+			
 		}
 
 		// GET: Campus
@@ -33,7 +35,29 @@ namespace PerfilEstudiante.Controllers
 			return View(solicitudes);
 		}
 
+		[HttpGet]
+		public async Task<IActionResult> Pago()
+		{
+			var solicitudes = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado).FirstOrDefaultAsync(m=>m.IdEstado=="A");
 
+
+			return View(solicitudes);
+		}
+		// Solicitud Pago
+		[HttpPost]
+		public async Task<IActionResult> Pago(int codigo)
+		{
+			var solicitudes = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado).FirstOrDefaultAsync(p=> p.IdEstado=="A");
+				
+
+			return View(solicitudes);
+		}
 		private void cargarListas()
 		{
 			var campus = _context.Campus.ToList();
