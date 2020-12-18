@@ -27,7 +27,7 @@ namespace PerfilEstudiante.Controllers
 		{
 			var solicitudes = await _context.SolicitudesServicios
 				.Include(s => s.Usuario)
-				.Include(s => s.Servicio)
+				//.Include(s => s.Servicio)
 				.Include(s => s.Estado)
 				.ToListAsync();
 
@@ -56,7 +56,7 @@ namespace PerfilEstudiante.Controllers
 		}
 		
 		
-		public async Task<IActionResult> DetalleSolicitud(int? id)
+		public async Task<IActionResult> Detalles(int? id)
 		{
 			//var solicitud = await _context.SolicitudesServicios.FindAsync(id);
 
@@ -75,13 +75,6 @@ namespace PerfilEstudiante.Controllers
 			return View(usuario);
 		}
 
-		
-		public IActionResult DetalleSolicitud()
-		{
-			 
-			return View();
-		}
-		
 
 		[HttpPost]
 		public async Task<IActionResult> Registrar(RegistrarSolicitudViewModel vm)
