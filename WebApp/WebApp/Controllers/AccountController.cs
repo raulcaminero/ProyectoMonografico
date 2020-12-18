@@ -161,5 +161,15 @@ namespace WebApp.Controllers
 			return mensaje;
 		}
 
+		public Usuario getCurrentUser ()
+        {
+			var user = User as ClaimsPrincipal;
+			var email = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			var currentUser = _context.usuarios.FirstOrDefault(u => u.Email == email);
+
+			return currentUser;
+		}
+
 	}
 }
