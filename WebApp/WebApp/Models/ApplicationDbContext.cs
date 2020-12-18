@@ -10,8 +10,7 @@ namespace WebApp.Models
 		public ApplicationDbContext()
 		{
 		}
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-			: base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
 
 		}
