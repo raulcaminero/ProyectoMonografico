@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.usuarios.ToListAsync());
+            return View(await _context.usuarios.Include(x => x.Rol).ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)

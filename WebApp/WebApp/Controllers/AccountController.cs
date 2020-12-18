@@ -119,7 +119,7 @@ namespace WebApp.Controllers
 				bool u = HttpContext.User.Identity.IsAuthenticated;
 
 
-
+				
 				return RedirectToAction("Index", "Home");
 			}
 
