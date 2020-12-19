@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,7 +26,8 @@ namespace WebApp.Models
 
 		[ForeignKey("IdEstado")]
 		public Estado Estado { get; set; }
-		
+
+		public virtual ICollection<Proyecto> Proyectos { get; set; }
 
 	}
 }

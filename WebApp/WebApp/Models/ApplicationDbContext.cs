@@ -305,6 +305,23 @@ namespace WebApp.Models
 					.IsUnicode(false)
 					.IsFixedLength()
 					.HasDefaultValueSql("('A')");
+
+				entity.HasMany(c => c.Proyectos)
+				  .WithOne(e => e.Solicitud)
+				  .OnDelete(DeleteBehavior.NoAction);
+			});
+
+			modelBuilder.Entity<Proyecto>(entity =>
+			{
+				entity.Property(e => e.EstadoId)
+					.IsRequired()
+					.HasColumnName("EstadoId")
+					.HasMaxLength(1)
+					.IsUnicode(false)
+					.IsFixedLength()
+					.HasDefaultValueSql("('A')");
+
+			
 			});
 
 			modelBuilder.Entity<Campus>()
@@ -318,6 +335,7 @@ namespace WebApp.Models
 
 
 		public DbSet<WebApp.Models.Proyecto> Proyecto { get; set; }
+
 	}
 
 }
