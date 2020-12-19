@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Business\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\plantilla\" />
   </ItemGroup>
 
