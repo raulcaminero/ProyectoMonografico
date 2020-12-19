@@ -115,11 +115,11 @@ namespace WebApp.Controllers
 			if (usr.contrasena.Equals(password))
 			{
 				var claims = new[] {
-				new Claim(ClaimTypes.NameIdentifier,email),
-				new Claim(ClaimTypes.Name, usr.primer_nombre),
-				new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
-			   };
-
+					new Claim(ClaimTypes.NameIdentifier,email),
+					new Claim(ClaimTypes.Name, usr.primer_nombre),
+					new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
+				};
+				
 				var identity = new ClaimsIdentity(claims, "CookieAuth");
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
