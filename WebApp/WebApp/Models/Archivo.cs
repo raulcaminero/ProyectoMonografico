@@ -25,9 +25,7 @@ namespace WebApp.Models
         [MaxLength(50)]
         public string NombreArchivo { get; set; }
 
-        [Required]
-        [MaxLength(25)]
-        public string Extension{ get; set; }
+        public string Extension => NombreArchivo.Substring(NombreArchivo.LastIndexOf("."));
 
-    }
+	}
 }

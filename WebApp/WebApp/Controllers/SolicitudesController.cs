@@ -24,6 +24,10 @@ namespace PerfilEstudiante.Controllers
 		// GET: Campus
 		public async Task<IActionResult> Index()
 		{
+			// Validar que el usuario tenga acceso
+			if (!AccountController.GetUsuarioEsAdministrador(User, _context))
+				return NotFound();
+
 			var solicitudes = await _context.SolicitudesServicios
 				.Include(s => s.Usuario)
 				.Include(s => s.Servicio)
@@ -33,18 +37,19 @@ namespace PerfilEstudiante.Controllers
 			return View(solicitudes);
 		}
 
-		public async Task<IActionResult> CargarPago(int id)
+		public async Task<IActionResult> CargarDocumento(int id, TipoArchivoSolicitud tipo)
 		{
-			var pago = new PagoSolicitudViewModel() { IdSolicitud = id };
+			var pago = new CargaDocumentoSolicitudViewModel() { IdSolicitud = id, TipoDocumento = tipo };
 			return View(pago);
 		}
 		[HttpPost]
-        [ValidateAntiForgeryToken]
-		public async Task<IActionResult> CargarPago(PagoSolicitudViewModel pago)
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> CargarDocumento(CargaDocumentoSolicitudViewModel pago)
 		{
 			if (ModelState.IsValid)
 			{
-				var archivo = await new ArchivosController(_context).Cargar(pago.Archivo, "Solicitudes", "Solicitudes");
+				var idServicio = _context.SolicitudesServicios.Find(pago.IdSolicitud).IdServicio;
+				var archivo = await new ArchivosController(_context).Cargar(pago.Archivo, "Solicitudes", $"Servicios\\{idServicio}");
 
 				var archivoSolicitud = new ArchivoSolicitud()
 				{
@@ -94,6 +99,16 @@ namespace PerfilEstudiante.Controllers
 			if (solicitud == null)
 				return NotFound();
 
+			// Validar que el usuario tenga acceso
+
+			if (!User.IsInRole("Administrador")) // Los administradores pueden ver cualquier solicitud
+			{
+				// Determinar si la solicitud pertenece al estudiante.
+				var usr = AccountController.GetCurrentUser(User, _context);
+				if (solicitud.IdUsuario != usr.codigo)
+					return NotFound();
+			}
+
 			solicitud.DocumentosEntregados = _context.ArchivosSolicitudes
 				.Where(a => a.IdSolicitud == id)
 				.Include(a => a.Archivo)
@@ -125,11 +140,19 @@ namespace PerfilEstudiante.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Registrar()
+		public async Task<IActionResult> Registrar()
 		{
-			cargarListas();
-
 			var usr = AccountController.GetCurrentUser(User, _context);
+
+			var estadosValidos = new List<string>() { "A", "N", "P" }; // Activo, Inscrito, Pendiente
+			var solicitud = await _context.SolicitudesServicios
+				.Where(s => s.IdUsuario == usr.codigo)
+				.Where(s => estadosValidos.Contains(s.IdEstado))
+				.FirstOrDefaultAsync();
+
+			if (solicitud != null)
+				return RedirectToAction(nameof(Detalles), new { id = solicitud.Id });
+
 			var registrarSolicitudVM = new RegistrarSolicitudViewModel()
 			{
 				Nombre1 = usr.primer_nombre,
@@ -145,6 +168,8 @@ namespace PerfilEstudiante.Controllers
 				Nacionalidad = usr.nacionalidad,
 				FechaNacimiento = usr.fecha_nacimiento
 			};
+
+			cargarListas();
 
 			return View(registrarSolicitudVM);
 		}
@@ -193,11 +218,11 @@ namespace PerfilEstudiante.Controllers
 					archivos.Add((await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Foto));
 
 				if (vm.ArchivoCedula != null)
-				archivos.Add((await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Cedula));
-				
+					archivos.Add((await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Cedula));
+
 				if (vm.ArchivoKardex != null)
-				archivos.Add((await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Notas));
-				
+					archivos.Add((await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Notas));
+
 				await _context.SaveChangesAsync();
 
 				// Guardar la relación
