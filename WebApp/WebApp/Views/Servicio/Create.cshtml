@@ -9,35 +9,33 @@
 <h4>Nuevo Servicio</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <div class="form-row">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class=" col-md-6">
-                        <label asp-for="Servicio_Codigo" class="control-label"></label>
-                        <input asp-for="Servicio_Codigo" class="form-control" />
-                        <span asp-validation-for="Servicio_Codigo" class="text-danger"></span>
+                    <div class="col-md-4">
+                        <label asp-for="Campus_Id" class="control-label"></label>
+                        <select asp-for="Campus_Id" class="form-control" asp-items="ViewBag.Campus_Id"></select>
                     </div>
-                    <div class="col-md-6">
-                        <label asp-for="Servicio_Descripcion" class="control-label"></label>
-                        <input asp-for="Servicio_Descripcion" class="form-control" />
-                        <span asp-validation-for="Servicio_Descripcion" class="text-danger"></span>
+                    <div class="col-md-4">
+                        <label asp-for="Facultad_Id" class="control-label"></label>
+                        <select asp-for="Facultad_Id" class="form-control" asp-items="ViewBag.Facultad_Id"></select>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="UsuarioCodigo" class="control-label"></label>
-                <select asp-for="UsuarioCodigo" class="form-control" asp-items="ViewBag.UsuarioCodigo"></select>
-            </div>
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label asp-for="Escuela_Id" class="control-label"></label>
+                        <select asp-for="Escuela_Id" class="form-control" asp-items="ViewBag.Escuela_Id"></select>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Carrera_Id" class="control-label"></label>
+                        <select asp-for="Carrera_Id" class="form-control" asp-items="ViewBag.Carrera_Id"></select>
+                    </div>
+                    <div class="col-md-4">
                         <label asp-for="TipoServicio_Id" class="control-label"></label>
                         <select asp-for="TipoServicio_Id" class="form-control" asp-items="ViewBag.TipoServicio_Id"></select>
                         <span asp-validation-for="TipoServicio_Id" class="text-danger"></span>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label asp-for="Estado_Id" class="control-label"></label>
                         <select asp-for="Estado_Id" class="form-control" asp-items="ViewBag.Estado_Id"></select>
                     </div>
@@ -45,6 +43,31 @@
             </div>
             <div class="form-group">
                 <div class="form-row">
+
+                    <div class=" col-md-4">
+                        <label asp-for="Servicio_Codigo" class="control-label"></label>
+                        <input asp-for="Servicio_Codigo" class="form-control" />
+                        <span asp-validation-for="Servicio_Codigo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="Servicio_Descripcion" class="control-label"></label>
+                        <input asp-for="Servicio_Descripcion" class="form-control" />
+                        <span asp-validation-for="Servicio_Descripcion" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label asp-for="UsuarioCodigo" class="control-label"></label>
+                        <select asp-for="UsuarioCodigo" class="form-control" asp-items="ViewBag.UsuarioCodigo"></select>
+                    </div>
+                    <div class=" col-md-6">
+                        <label asp-for="Servicio_Costo" class="control-label"></label>
+                        <input asp-for="Servicio_Costo" class="form-control" />
+                        <span asp-validation-for="Servicio_Costo" class="text-danger"></span>
+                    </div>
                     <div class="col-md-6">
                         <label asp-for="Servicio_FechaInicio" class="control-label"> Fecha de inicio</label>
                         <input asp-for="Servicio_FechaInicio" type="date" class="form-control" />
@@ -55,37 +78,19 @@
                         <input asp-for="Servicio_FechaCierre" type="date" class="form-control" />
                         <span asp-validation-for="Servicio_FechaCierre" class="text-danger"></span>
                     </div>
+
                 </div>
             </div>
+
             <div class="form-group">
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label asp-for="Campus_Id" class="control-label"></label>
-                        <select asp-for="Campus_Id" class="form-control" asp-items="ViewBag.Campus_Id"></select>
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="Facultad_Id" class="control-label"></label>
-                        <select asp-for="Facultad_Id" class="form-control" asp-items="ViewBag.Facultad_Id"></select>
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="Escuela_Id" class="control-label"></label>
-                        <select asp-for="Escuela_Id" class="form-control" asp-items="ViewBag.Escuela_Id"></select>
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="Carrera_Id" class="control-label"></label>
-                        <select asp-for="Carrera_Id" class="form-control" asp-items="ViewBag.Carrera_Id"></select>
-                    </div>
-                </div>
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-</form>
+        </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Regresar al listado</a>
 </div>
 
 @section Scripts {
