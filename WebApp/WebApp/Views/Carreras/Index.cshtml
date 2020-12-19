@@ -5,67 +5,11 @@
     ViewData["Title"] = "Carreras";
 }
 
-<h1>Carreras</h1>
+<h1 class="text-center pb-2" style="color:#4863A0">Carreras</h1>
 
-@*       <div style="display: none" class="col-lg-3">
-            <div class="form-group">
-                <label class="control-label">Facultad(es):</label>
-                <select class="form-control" asp-items="@(new SelectList(Model.Facultades, "Id", "NombreFacultad"))" id="idFacultad"></select>
-            </div>
-        </div>
-        <div style="display: none" class="col-lg-3">
-            <div class="form-group">
-                <label class="control-label">Escuela:</label>
-                <select class="form-control" asp-items="@(new SelectList(Model.Escuelas, "Id", "Nombre"))" id="idEscuela"></select>
-            </div>
-        </div>
-    </div>*@
 <p>
-    <a asp-action="Create" class="btn btn-light">Registrar Nueva</a>
+    <a asp-action="Create" class="btn btn-primary mb-2">Agregar Carrera</a>
 </p>
-
-@*      <div id="target_tabla"></div>
-    @section Scripts{
-        <script>
-            $("#target_tabla").load("/Carreras/_TablaCarreras");
-            $("#idFacultad").change(function () {
-                var idFacultad = $(this).val();
-                $.get("/Carreras/GetFilteredEscuelas/", { "idFacultad": idFacultad, "addEmpty": true }, function (data, success) {
-                    var opciones = "";
-                    $("#idEscuela").empty();
-                    for (var i = 0; i < data.length; i++) {
-                        opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
-                    }
-                    $("#idEscuela").append(opciones);
-                    if (data.length == 2) {
-                        $("#idEscuela").val(data[1].id);
-                    }
-                    var idEscuela = $("#idEscuela").val();
-                    FiltrarCarreras(idFacultad, idEscuela);
-                });
-            });
-            $("#idEscuela").change(function () {
-                var idEscuela = $("#idEscuela").val();
-                $.get("/Carreras/GetFilteredFactultades/", { "idEscuela": idEscuela, "addEmpty": true }, function (data, success) {
-                    var opciones = "";
-                    $("#idFacultad").empty();
-                    for (var i = 0; i < data.length; i++) {
-                        opciones = `${opciones}<option value="${data[i].id}">${data[i].nombreFacultad}</option>`;
-                    }
-                    $("#idFacultad").append(opciones);
-                    if (data.length == 2) {
-                        $("#idFacultad").val(data[1].id);
-                    }
-                    var idFacultad = $("#idFacultad").val();
-                    FiltrarCarreras(idFacultad, idEscuela);
-                });
-            });
-            function FiltrarCarreras(idFacultad, idEscuela) {
-                $("#target_tabla").load("/Carreras/_TablaCarreras", { "idFacultad": idFacultad, "idEscuela": idEscuela }, function () {
-                });
-            }
-        </script>
-    }*@
 
 <table id="careers-tb" class="table">
     <thead>

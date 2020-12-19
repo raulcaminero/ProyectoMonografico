@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace WebApp.Models
         }
 
         [Key]
+        [DisplayName("Codigo")]
         public int codigo { set; get; }
 
         [Display(Name = "Nombre:")]
@@ -26,6 +28,7 @@ namespace WebApp.Models
         [Display(Name = "Correo")]
         public string Email { set; get; }
 
+        [DisplayName("Contraseña")]
         public string contrasena { get; set; }
 
 
