@@ -1,5 +1,4 @@
-﻿@model WebApp.Models.Data.Escuela
-@using WebApp.Models.Data
+﻿@model WebApp.Models.Escuela
 
 @{
     ViewData["Title"] = "Editar";
@@ -16,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="CodigoEscuela" class="control-label">Codigo</label>
+                <label asp-for="CodigoEscuela" class="control-label">Código</label>
                 <input asp-for="CodigoEscuela" class="form-control" />
                 <span asp-validation-for="CodigoEscuela" class="text-danger"></span>
             </div>

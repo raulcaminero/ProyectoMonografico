@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.Models.Data;
+using WebApp.Models;
+//using WebApp.Models.Data;
+using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class EscuelasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -226,6 +229,28 @@ namespace WebApp.Controllers
                 return Json("Ya existe una escuela con este codigo");
 
             return Json(true);
+        }
+
+        public async Task<List<Escuela>> GetFilteredEscuelas(int idFacultad = 0, bool addEmpty = false)
+        {
+            var escuelas = new List<Escuela>();
+
+            if (addEmpty == true)
+            {
+                var todas = new Escuela
+                {
+                    Id = 0,
+                    Nombre = "Seleccione una Carrera"
+                };
+                escuelas.Add(todas);
+            }
+
+            escuelas.AddRange(await _context.Escuelas.Where(x => x.Estado == Estados.Activo).ToListAsync());
+
+            if (idFacultad > 0)
+                escuelas = escuelas.Where(x => x.IdFacultad == idFacultad || x.Id == 0).ToList();
+
+            return escuelas;
         }
     }
 }

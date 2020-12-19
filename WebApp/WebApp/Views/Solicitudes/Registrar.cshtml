@@ -1,0 +1,327 @@
+﻿@model WebApp.ViewModels.Solicitudes.RegistrarSolicitudViewModel
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="p-3 mb-2 bg-primary text-white text-center">FORMULARIO SOLICITUD</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <form asp-action="Registrar" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!-- Step 1 -->
+                    <h5 id="form_incripcion-h-0" tabindex="-1" class="title current text-primary text-center"> INFORMACIÓN PERSONAL </h5>
+                    <hr />
+
+                    <fieldset id="form_incripcion-p-0" role="tabpanel" aria-labelledby="form_incripcion-h-0" class="body current" aria-hidden="false">
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Primer Nombre: <span class="rojo">*</span></label>
+                                    <input asp-for="Nombre1" placeholder="Primer Nombre:" class="form-control" enabled="false">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Segundo Nombre</label>
+                                    <input asp-for="Nombre2" placeholder="Segundo Nombre" class="form-control" enabled="false">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Primer Apellido: <span class="rojo">*</span></label>
+                                    <input asp-for="Apellido1" placeholder="Primer Apellido" class="form-control" enabled="false">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Segundo Apellido: </label>
+                                    <input asp-for="Apellido2" class="form-control" placeholder="Segundo Apellido" enabled="false">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Tipo Identificación: <span class="rojo">*</span></label>
+                                    <select asp-for="TipoIdentificacion" id="tipo_documento" class="form-control" enabled="false">
+                                        <option selected=""></option>
+                                        <option value="C">C&eacute;dula</option>
+                                        <option value="P">Pasaporte</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Número Identificación: <span class="rojo">*</span></label>
+                                    <input asp-for="Identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" enabled="false">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Sexo: <span class="rojo">*</span></label>
+                                    <select asp-for="Sexo" class="form-control" enabled="false">
+                                        <option value="" selected=""></option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Matricula o Código:</label>
+                                    <input asp-for="Matricula" class="form-control" placeholder="Matricula o Código" maxlength="20" enabled="false">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label" asp-format="{0:MM/dd/yyyy}">Fecha Nacimiento: <span class="rojo">*</span></label>
+                                    <input asp-for="FechaNacimiento" type="date" class="form-control enabled="false" aria-invalid="true">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Teléfono o Celular: <span class="rojo">*</span></label>
+                                    <input asp-for="Contacto" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" enabled="false" aria-invalid="false"><label id="telefono-error" class="danger" for="telefono" style="display: none;"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
+                                    <select asp-for="Nacionalidad" class="form-control" enabled="false" aria-invalid="false">
+                                        <option value="" selected=""></option>
+                                        <option value="Dominicano">Dominicano</option>
+                                        <option value="Extranjero">Extranjero</option>
+                                    </select><label id="nacionalidad-error" class="danger" for="nacionalidad" style="display: none;"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Campus: <span class="rojo">*</span></label>
+                                    <select asp-for="IdCampus" asp-items="@ViewBag.Campus" class="form-control" enabled="false" aria-invalid="false">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Step 2 -->
+                    <br />
+                    <h5 id="form_incripcion-h-1" tabindex="-1" class="title text-primary text-center"> <i class="step-icon feather icon-briefcase"></i> DATOS DE LA INCRIPCION</h5>
+                    <hr />
+                    <fieldset id="form_incripcion-p-1" role="tabpanel" aria-labelledby="form_incripcion-h-1" class="body" aria-hidden="true">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Facultad: <span class="rojo">*</span></label>
+                                    <select asp-items="@ViewBag.Facultades" id="idFacultad" class="form-control combined combined_1" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Escuela: <span class="rojo">*</span></label>
+                                    <select asp-items="@ViewBag.Escuelas" id="idEscuela" class="form-control combined combined_2" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Carrera: <span class="rojo">*</span></label>
+                                    <select id="idCarrera" class="form-control combined combined_3" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Tipo: <span class="rojo">*</span></label>
+                                    <select asp-items="@ViewBag.TiposServicios" id="idTipoServicio" class="form-control combined combined_4" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    <label class="control-label">Plan de Estudio: <span class="rojo">*</span></label>
+                                    <select asp-items="@ViewBag.Servicios" asp-for="IdServicio" id="idServicio" class="form-control combined combined_5">
+                                        <option value="0" selected="">Seleccione una Opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="margin-bottom: 10px;">
+                                <div class="row">
+                                    <div id="lista_archivos_escuela">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Step 3 -->
+                    <br />
+                    <h5 id="form_incripcion-h-2" tabindex="-1" class="title text-primary text-center"> DOCUMENTOS REQUERIDOS</h5>
+                    <hr />
+                    <fieldset id="form_incripcion-p-2" role="tabpanel" aria-labelledby="form_incripcion-h-2" class="body" aria-hidden="true">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <h6>Los documentos requeridos se deben adjuntar para completar el formulario de inscripción. Favor, adjuntar dichos documentos en formatos JPG y/o PDF.</h6>
+                                <br>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Una (1) foto 2x2 </label>
+                                <input type="file" class="form-control" asp-for="ArchivoFoto">
+                            </div>
+                            <div class="col-md-6">
+                                <label>kárdex Académico </label>
+                                <input type="file" class="form-control" asp-for="ArchivoKardex">
+                            </div>
+                            <div class="col-md-6">
+                                <br><br>
+                                <label>Copia de la Cédula de Identidad </label>
+                                <input type="file" class="form-control" asp-for="ArchivoCedula">
+                                <br>
+                            </div>
+                            <div style="display: none;" class="col-md-12">
+                                <i class="btn btn-info pull-right waves-input-wrapper waves-effect waves-light" style="color:rgb(255, 255, 255);background:rgba(0, 0, 0, 0)"><input type="submit" id="btn_submit" value="Enviar Solicitud" class="waves-button-input btn-info" name="" style="background-color:rgba(0,0,0,0);" enabled="false"></i>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-primary ">Enviar Formulario</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $(document).ready(function () {
+            //import { ADDRCONFIG } from "dns";
+            //Cuando cambie algún Facultad > Escuela > Carrera > Tipo Servicio > Servicio
+
+            $(".combined").prop("disabled", true);
+            $(".combined_1").prop("disabled", false);
+
+            $(".combined").change(function () {
+                var numeric = 0;
+
+                //Si el valor es diferente de 0 o NA
+                if ($(this).val() != 0 && $(this).val() != "NA") {
+
+                    //Determina el orden correspondiente del select cambiado y almacenar
+                    for (var i = 1; i <= 4; i++) {
+                        if ($(this).hasClass("combined_" + i)) {
+                            numeric = i;
+                            break;
+                        }
+                    }
+
+                    if (numeric != 0) {
+                        //Inhabilita los siguientes
+                        for (var i = numeric + 1; i <= 5; i++) {
+                            $(".combined_" + i).val("0");
+                            $(".combined_" + i).prop("disabled", true);
+                        }
+
+                        //Excepto el inmediatamente siguiente
+                        $(".combined_" + (numeric + 1)).prop("disabled", false);
+                    }
+
+                }
+
+                //Si es igual a 0
+                else {
+
+                    //Determina el orden correspondiente del select cambiado y almacenar
+                    for (var i = 1; i <= 4; i++) {
+                        if ($(this).hasClass("combined_" + i)) {
+                            numeric = i;
+                            break;
+                        }
+                    }
+
+                    //Inhabilita todos los demás
+                    for (var i = numeric + 1; i <= 5; i++) {
+                        $(".combined_" + i).val("0");
+                        $(".combined_" + i).prop("disabled", true);
+                    }
+                }
+
+            });
+
+            $("#idFacultad").change(function () {
+                actualizarEscuelas();
+            });
+
+            $("#idEscuela").change(function () {
+                actualizarCarreras();
+            });
+
+            $("#idCarrera, #idTipoServicio").change(function () {
+                actualizarServicios();
+            });
+
+
+
+        });
+
+        function actualizarCarreras() {
+            var idEscuela = $('#idEscuela').val();
+            $.get("/Carreras/GetFilteredCarreras/", { "idEscuela": idEscuela, addEmpty: true }, function (data, success) {
+                var opciones = "";
+                $("#idCarrera").empty();
+
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
+                }
+
+                $("#idCarrera").append(opciones);
+            });
+        };
+
+        function actualizarEscuelas() {
+            var idFacultad = $("#idFacultad").val();
+
+            $.get("/Escuelas/GetFilteredEscuelas/", { "idFacultad": idFacultad, addEmpty: true }, function (data, success) {
+                var opciones = "";
+                $("#idEscuela").empty();
+
+                console.log(data);
+
+                for (var i = 0; i < data.length; i++) {
+                    opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
+                }
+
+                $("#idEscuela").append(opciones);
+            });
+        }
+
+        function actualizarServicios() {
+            var idCarrera = $("#idCarrera").val();
+            var tipo = $("#idTipoServicio").val();
+
+            console.log(`tipo: ${tipo}`);
+
+            $.get("/Solicitudes/GetFilteredServicios/", { "idCarrera": idCarrera, "idTipoServicio": tipo, "addEmpty": true }, function (data, success) {
+                var opciones = "";
+                $("#idServicio").empty();
+
+                for (var i = 0; i < data.length; i++) {
+                    opciones = `${opciones}<option value="${data[i].servicio_Id}">${data[i].servicio_Descripcion}</option>`;
+                }
+
+                $("#idServicio").append(opciones);
+            });
+        };
+
+    </script>
+}

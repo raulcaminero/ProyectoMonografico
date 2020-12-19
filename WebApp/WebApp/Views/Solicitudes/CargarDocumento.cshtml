@@ -1,0 +1,25 @@
+﻿
+@model WebApp.ViewModels.Solicitudes.CargaDocumentoSolicitudViewModel
+
+@{
+    ViewBag.Title = "Cargar documento a solicitud";
+}
+
+<div class="row">
+    
+    @if (Model.TipoDocumento == TipoArchivoSolicitud.Pago)
+    {<h3 class="col-12">Cargar documento de pago del servicio</h3>}
+    else {<h3 class="col-12">Cargar documento requerido</h3> }
+<div class="row">
+    <form asp-action="CargarDocumento" method="post" enctype="multipart/form-data" class="container my-3 ml-4 p-2 border">
+        <input type="hidden" asp-for="IdSolicitud" />
+        <input type="hidden" asp-for="TipoDocumento" />
+        <input asp-for="Archivo">
+        <input type="submit" value="Enviar" class="btn btn-primary" />
+    </form>
+</div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

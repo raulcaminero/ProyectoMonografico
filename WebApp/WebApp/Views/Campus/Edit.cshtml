@@ -1,14 +1,12 @@
-﻿@model WebApp.Models.Data.Campus
-@using WebApp.Models.Data
+﻿@model WebApp.Models.Campus
+@using WebApp.Models.Enums;
 
 @{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Editar</h1>
-
-<h4>Campus</h4>
+<h4>Editar campus</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Codigo" class="control-label"></label>
+                <label asp-for="Codigo" class="control-label">Código</label>
                 <input asp-for="Codigo" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>

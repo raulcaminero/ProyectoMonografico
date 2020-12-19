@@ -9,19 +9,22 @@ namespace WebApp.ViewModels.Requerimientos
 	{
 		public int Id { get; set; }
 
+		[Display(Name = "Código")]
 		public string Codigo { get; set; }
-
-		[Display(Name = "Título")]
-		public string Titulo { get; set; }
-
-		[Display(Name = "Descripción")]
-		public string Descripcion { get; set; }
-
-		[Display(Name = "Fecha")]
-		public DateTime FechaCreacion { get; set; }
 
 		[Display(Name = "Aplica para")]
 		public TipoServicio TipoServicio { get; set; }
+
+		public Escuela Escuela { get; set; }
+
+		[Display(Name = "Documento")]
+		public Archivo Archivo { get; set; }
+
+		[Display(Name = "Fecha de creación")]
+		public DateTime FechaCreacion { get; set; }
+
+		[Display(Name = "Registrado por")]
+		public Usuario Usuario { get; set; }
 
 		public EstadoRequerimiento Estado { get; set; }
 

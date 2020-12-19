@@ -1,13 +1,15 @@
-﻿@model IEnumerable<WebApp.Models.Data.Facultad>
+﻿@model IEnumerable<WebApp.Models.Facultad>
+@using WebApp.Models.Enums;
 
 @{
     ViewData["Title"] = "Facultades";
 }
 
+
 <h1>Facultades</h1>
 
 <p>
-    <a asp-action="Create">Registrar Nueva</a>
+    <a asp-action="Create" class="btn btn-light">Crear Nueva</a>
 </p>
 <table id="faculties-tb" class="table">
     <thead>
@@ -16,7 +18,7 @@
                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Codigo)
+                Código
             </th>
             <th>
                 Decano
@@ -25,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.Ubicación)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                Teléfono
             </th>
             <th>
                 <span id="fc-state-head">@Html.DisplayNameFor(model => model.Estado)</span>
@@ -60,7 +62,7 @@
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
                 <a asp-action="Estado" asp-route-id="@item.Id">
 
-                    @if (item.Estado == WebApp.Models.Data.Estados.Activo)
+                    @if (item.Estado == Estados.Activo)
                     {
                         <span class="btn btn-warning"> Inactivar </span>
                     }

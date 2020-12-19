@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApp.Models.SolicitudServicio>
+
+@{
+    ViewData["Title"] = "Solicitudes";
+}
+
+<h2>Solicitudes</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Servicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.primer_nombre)
+                @Html.DisplayFor(modelItem => item.Usuario.primer_apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Servicio.Servicio_Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado.EstadoNombre)
+            </td>
+            <td>
+                <a asp-action="Detalles" asp-route-id="@item.Id" class="btn btn-info">Ver Detalles</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

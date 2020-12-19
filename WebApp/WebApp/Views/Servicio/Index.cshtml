@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebApp.Models.Servicio>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-5" style="color:blue"><i class="fa fa-list"></i> Lista De Servicios</h1>
+</div>
+
+<p>
+    <a asp-action="Create">Nuevo Servicio</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Codigo
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Tipo
+            </th>
+            <th>
+                Campus
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Facultad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Escuela)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carrera)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servicio_Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servicio_Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoServicio.TipoServicioDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Campus.Nombre)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Facultad.NombreFacultad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Escuela.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Carrera.Nombre)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Servicio_Id">Modificar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Servicio_Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Servicio_Id">Desactivar</a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

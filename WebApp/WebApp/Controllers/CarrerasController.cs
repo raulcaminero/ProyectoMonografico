@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
-using WebApp.Models.Data;
+using WebApp.Models;
+//using WebApp.Models.Data;
+using WebApp.Models.Enums;
 using WebApp.ViewModels.Carrera;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class CarrerasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,42 +27,34 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var carreras = await _context.Carreras
-                .Include(c => c.Escuela.Facultad)
-                .Where(c => c.Estado != Estados.Eliminado)
-                .ToListAsync();
+                 .Include(c => c.Escuela.Facultad)
+                 .Where(c => c.Estado != Estados.Eliminado)
+                 .ToListAsync();
             /* List<Escuela> escuelas = new List<Escuela>();
-
              Escuela todaEscuela = new Escuela
              {
                  Id = 0,
                  Nombre = "Todas"
              };
-
              escuelas.Add(todaEscuela);
-
              escuelas.AddRange(_context.Escuelas
                  .Where(e => e.Estado == Estados.Activo)
                  .Include(e => e.Facultad)
                  .ToList());
-
              Facultad todas = new Facultad
              {
                  Id = 0,
                  NombreFacultad = "Todas"
              };
-
              List<Facultad> facultades = new List<Facultad>();
              facultades.Add(todas);
-
              facultades.AddRange(_context.Facultades.Where(x => x.Estado == Estados.Activo).ToList());
-
              VM_IndexCarrera vm = new VM_IndexCarrera
              {
                  Carreras = carreras,
                  Escuelas = escuelas,
                  Facultades = facultades
              };
-
              return base.View(vm);*/
 
             return View(carreras);
@@ -363,11 +358,11 @@ namespace WebApp.Controllers
         //GetFilteredFactultades
         public async Task<List<Facultad>> GetFilteredFactultades(int idEscuela = 0, bool addEmpty = false)
         {
-            List<Facultad> facultades = new List<Facultad>();
+            var facultades = new List<Facultad>();
 
             if (addEmpty == true)
             {
-                Facultad todas = new Facultad
+                var todas = new Facultad
                 {
                     Id = 0,
                     NombreFacultad = "Todas"
@@ -375,52 +370,40 @@ namespace WebApp.Controllers
                 facultades.Add(todas);
             }
 
-            facultades.AddRange(await _context.Facultades.Where(x => x.Estado == (Estados)1).ToListAsync());
+            facultades.AddRange(await _context.Facultades.Where(x => x.Estado == Estados.Activo).ToListAsync());
 
-            var Facultad = _context.Escuelas.Include(x => x.Facultad).FirstOrDefault(x => x.Id == idEscuela);
+            var facultad = _context.Escuelas.Include(x => x.Facultad).FirstOrDefault(x => x.Id == idEscuela);
 
             if (idEscuela > 0)
             {
-                if (Facultad != null)
-                {
-                    facultades = facultades.Where(x => x.Id == Facultad.Facultad.Id || x.Id == 0).ToList();
-
-                }
+                if (facultad != null)
+                    facultades = facultades.Where(x => x.Id == facultad.Facultad.Id || x.Id == 0).ToList();
             }
+
             return facultades;
         }
-        public async Task<List<Escuela>> GetFilteredEscuelas(int idFacultad = 0, bool addEmpty = false)
+
+        
+        public async Task<List<Carrera>> GetFilteredCarreras(int idEscuela = 0, bool addEmpty = false)
         {
-            List<Escuela> escuelas = new List<Escuela>();
+            var carreras = new List<Carrera>();
 
             if (addEmpty == true)
             {
-                Escuela todas = new Escuela
+                var todas = new Carrera
                 {
                     Id = 0,
                     Nombre = "Todas"
                 };
-                escuelas.Add(todas);
+                carreras.Add(todas);
             }
 
-            escuelas.AddRange(await _context.Escuelas.Where(x => x.Estado == (Estados)1).ToListAsync());
+            carreras.AddRange(await _context.Carreras.Where(x => x.Estado == Estados.Activo).ToListAsync());
 
-            if (idFacultad > 0)
-            {
-                escuelas = escuelas.Where(x => x.IdFacultad == idFacultad || x.Id == 0).ToList();
-            }
-            return escuelas;
+            if (idEscuela > 0)
+                carreras = carreras.Where(x => x.IdEscuela == idEscuela || x.Id == 0).ToList();
+
+            return carreras;
         }
     }
-
-    //public class TablaCarrerasViewComponent : ViewComponent
-    //{
-
-    //    public IViewComponentResult Invoke()
-    //    {
-    //        //List<Carrera> model = await  List<Carrera>();
-
-    //        return View();
-    //    }
-    //}
 }
