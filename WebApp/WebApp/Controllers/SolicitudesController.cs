@@ -37,23 +37,14 @@ namespace PerfilEstudiante.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Pago(int id)
+		public async Task<IActionResult> CargarPago(int id)
 		{
-			/*var solicitudes = await _context.SolicitudesServicios
-				.Include(s => s.Usuario)
-				.Include(s => s.Servicio)
-				.Include(s => s.Estado).FirstOrDefaultAsync(m=>m.IdEstado=="A");
-			*/
-			var pago = new PagoSolicitudViewModel() {
-
-				IdSolicitud = id
-			
-			}; 
+			var pago = new PagoSolicitudViewModel() { IdSolicitud = id }; 
 			return View(pago);
 		}
 		// Solicitud Pago
 		[HttpPost]
-		public async Task<IActionResult> Pago(PagoSolicitudViewModel pago)
+		public async Task<IActionResult> CargarPago(PagoSolicitudViewModel pago)
 		{
 			var solicitudes = await _context.SolicitudesServicios
 				.Include(s => s.Usuario)

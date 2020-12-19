@@ -313,7 +313,6 @@ namespace WebApp.Models
 
 			modelBuilder.Entity<ArchivoSolicitud>()
 				.HasKey(x => new { x.IdArchivo, x.IdSolicitud });
-
 		}
 	}
 
