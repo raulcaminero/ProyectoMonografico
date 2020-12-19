@@ -10,8 +10,7 @@ namespace WebApp.Models
 		public ApplicationDbContext()
 		{
 		}
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-			: base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
 
 		}
@@ -314,7 +313,6 @@ namespace WebApp.Models
 
 			modelBuilder.Entity<ArchivoSolicitud>()
 				.HasKey(x => new { x.IdArchivo, x.IdSolicitud });
-
 		}
 	}
 

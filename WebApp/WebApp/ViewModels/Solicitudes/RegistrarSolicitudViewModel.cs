@@ -23,7 +23,7 @@ namespace WebApp.ViewModels.Solicitudes
 		public string Apellido2 { get; set; }
 
 		[Required]
-		public int TipoIdentificacion { get; set; }
+		public string TipoIdentificacion { get; set; }
 
 		[Required]
 		public string Identificacion { get; set; }
@@ -59,6 +59,5 @@ namespace WebApp.ViewModels.Solicitudes
 		public IFormFile ArchivoCedula { get; set; }
 
 		public IFormFile ArchivoKardex { get; set; }
-
 	}
 }

@@ -11,22 +11,28 @@ namespace WebApp.Models
 {
     public partial class Servicio
     {
+       
         ApplicationDbContext _db = new ApplicationDbContext();
-        public Servicio()
-        {
-            var lstcampus = _db.Campus.ToList();
-            var lstUsuario = _db.usuarios.Where(p => p.RolID > 1 && p.EstadoId == "A");
-            var facultadList = _db.Facultades.Where(x => x.CampusId == -1).ToList();
+        //public Servicio()
+        //{
+        //    var lstcampus = _db.Campus.ToList();
+        //    var lstUsuario = _db.usuarios.Where(p => p.RolID > 1 && p.EstadoId == "A");
+        //    var facultadList = _db.Facultades.Where(x => x.CampusId == -1).ToList();
 
-            this.TipoServicioList = new SelectList(_db.TipoServicios.ToList(), "TipoServicioId", "TipoServicioDescripcion");
-            this.UsuarioList = new SelectList(lstUsuario, "Codigo", "UsuarioNombre");
+        //    this.TipoServicioList = new SelectList(_db.TipoServicios.ToList(), "TipoServicioId", "TipoServicioDescripcion");
+        //    this.UsuarioList = new SelectList(lstUsuario, "Codigo", "UsuarioNombre");
 
-            this.CampusList = new SelectList(lstcampus, "CampusId", "FullName");
-            this.FacultadList = new SelectList(facultadList, "FacultaId", " FacultadNombre");
+        //    this.CampusList = new SelectList(lstcampus, "CampusId", "FullName");
+        //    this.FacultadList = new SelectList(facultadList, "FacultaId", " FacultadNombre");
 
-            this.EscuelaList = new SelectList(new List<String>());
-            this.CarreraList = new SelectList(new List<String>());
+        //    this.EscuelaList = new SelectList(new List<String>());
+        //    this.CarreraList = new SelectList(new List<String>());
+        //}
+
+        public Servicio() { 
+        
         }
+        
         public Servicio(int p_Id)
         {
             var tmp = _db.Servicio.Where(s => s.Servicio_Id == p_Id).First();
