@@ -58,6 +58,17 @@ namespace PerfilEstudiante.Controllers
 					Tipo = TipoArchivoSolicitud.Pago,
 				};
 
+				if (pago.TipoDocumento == TipoArchivoSolicitud.AnteProyecto || pago.TipoDocumento == TipoArchivoSolicitud.Proyecto) {
+					var proyecto = new Proyecto()
+					{
+						IdArchivo = archivo.Id,
+						IdSolicitud = pago.IdSolicitud,
+						EstadoId = "A",
+						Tipo = Enum.GetName(typeof(TipoArchivoSolicitud), pago.TipoDocumento),
+					};
+					_context.Proyecto.Add(proyecto);
+				}
+
 				_context.ArchivosSolicitudes.Add(archivoSolicitud);
 				await _context.SaveChangesAsync();
 			}

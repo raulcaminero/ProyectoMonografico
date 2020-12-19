@@ -31,7 +31,7 @@ namespace WebApp.Models
 		public virtual DbSet<SolicitudServicio> SolicitudesServicios { get; set; }
 		public virtual DbSet<Archivo> Archivos { get; set; }
 		public virtual DbSet<ArchivoSolicitud> ArchivosSolicitudes { get; set; }
-
+		public virtual DbSet<Proyecto> Proyecto { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -282,6 +282,17 @@ namespace WebApp.Models
 					.HasForeignKey(d => d.Estado_Id)
 					.HasConstraintName("FK_Servicio_Estado");
 			});
+
+			modelBuilder.Entity<Proyecto>(entity =>
+			{
+				entity.Property(e => e.EstadoId)
+					.HasColumnName("Estado_Id")
+					.HasMaxLength(1)
+					.IsUnicode(false)
+					.IsFixedLength()
+					.HasDefaultValueSql("('I')");
+			});
+
 			modelBuilder.Entity<TipoServicio>(entity =>
 			{
 				entity.Property(e => e.TipoServicioId)
@@ -329,7 +340,6 @@ namespace WebApp.Models
 		}
 
 
-		public DbSet<WebApp.Models.Proyecto> Proyecto { get; set; }
 	}
 
 }
