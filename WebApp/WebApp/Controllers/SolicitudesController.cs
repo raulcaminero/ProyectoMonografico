@@ -44,7 +44,7 @@ namespace PerfilEstudiante.Controllers
 				.Include(s => s.Servicio)
 				.Include(s => s.Estado).FirstOrDefaultAsync(m=>m.IdEstado=="A");
 			*/
-            var pago = new PagoSolicitudViewModel()
+            var pago = new PagoSolicitudViewModel ()
             {
 
                 IdSolicitud = id
