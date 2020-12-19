@@ -28,6 +28,7 @@ namespace WebApp.Controllers
 		{
 			ViewBag.Roles = new SelectList(_context.Rol.ToList(), "Id", "Descripcion");
 			ViewBag.Campus = new SelectList(_context.Campus.ToList(), "Id", "Nombre");
+			
 			return View();
 		}
 		[HttpPost]
@@ -65,7 +66,7 @@ namespace WebApp.Controllers
 					sexo = sexo,
 					matricula = matricula,
 					IdCampus = campus,
-					EstadoId = "A"
+					EstadoId = "1"
 				};
 
 				_context.Add(usuario);
