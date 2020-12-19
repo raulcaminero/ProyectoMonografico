@@ -20,51 +20,65 @@ namespace PerfilEstudiante.Controllers
         public SolicitudesController(ApplicationDbContext context)
 		{
 			_context = context;
-			
 		}
 
-        [HttpGet]
         // GET: Campus
         public async Task<IActionResult> Index()
         {
             var solicitudes = await _context.SolicitudesServicios
                 .Include(s => s.Usuario)
-                //.Include(s => s.Servicio)
+                .Include(s => s.Servicio)
                 .Include(s => s.Estado)
                 .ToListAsync();
 
-			return View(solicitudes);
-		}
+            return View(solicitudes);
+        }
 
 		[HttpGet]
-		public async Task<IActionResult> CargarPago(int id)
+		public IActionResult CargarPago(int id)
 		{
 			var pago = new PagoSolicitudViewModel() { IdSolicitud = id }; 
 			return View(pago);
 		}
-		// Solicitud Pago
 		[HttpPost]
 		public async Task<IActionResult> CargarPago(PagoSolicitudViewModel pago)
 		{
-			var solicitudes = await _context.SolicitudesServicios
-				.Include(s => s.Usuario)
-				.Include(s => s.Servicio)
-				.Include(s => s.Estado).FirstOrDefaultAsync(p=> p.IdEstado=="A");
-				
+            if (ModelState.IsValid)
+            {
+                var archivo = await new ArchivosController(_context).Cargar(pago.Archivo, "Solicitudes", "Solicitudes");
 
-			return View(solicitudes);
+                var archivoSolicitud = new ArchivoSolicitud()
+                {
+                    IdArchivo = archivo.Id,
+                    IdSolicitud = pago.IdSolicitud,
+                    Tipo = TipoArchivoSolicitud.Pago,
+                };
+
+                _context.ArchivosSolicitudes.Add(archivoSolicitud);
+                await _context.SaveChangesAsync();
+            }
+
+            // Regresar al detalle
+			return RedirectToAction(nameof(Detalles), new { id = pago.IdSolicitud });
 		}
-		private void cargarListas()
-		{
-			var campus = _context.Campus.ToList();
-			ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
+
+        private void cargarListas()
+        {
+            var campus = _context.Campus.ToList();
+            ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
+
+            var escuelas = _context.Escuelas.ToList();
+            ViewBag.Escuelas = new SelectList(escuelas, "Id", "Nombre");
 
             var facultades = _context.Facultades.ToList();
             ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
 
             var tipoServicios = _context.TipoServicios.ToList();
-            var lstTipos = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
-            ViewBag.TiposServicios = lstTipos;
+            ViewBag.TiposServicios = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
+
+            var servicios = _context.Servicio.ToList();
+
+            ViewBag.Servicios = new SelectList(servicios, "Servicio_Id", "Servicio_Descripcion");
         }
 
         [HttpGet]
@@ -177,6 +191,7 @@ namespace PerfilEstudiante.Controllers
             return View(vm);
         }
 
+        //public async Task<JsonResult> GetFilteredServicios(int idCarrera = 0, int idTipoServicio = 0, bool addEmpty = false)
         public async Task<List<Servicio>> GetFilteredServicios(int idCarrera = 0, int idTipoServicio = 0, bool addEmpty = false)
         {
             var servicios = new List<Servicio>();
@@ -184,14 +199,18 @@ namespace PerfilEstudiante.Controllers
             if (addEmpty)
                 servicios.Add(new Servicio() { Servicio_Descripcion = "Seleccione un servicio" });
 
-            if (idCarrera > 0 && idTipoServicio > 0)
+            servicios.AddRange(await _context.Servicio.Where(x => x.Estado_Id != "E").ToListAsync());
+
+            if (idCarrera > 0)
             {
-                servicios.AddRange(await _context.Servicio
-                    .Where(s => s.Carrera_Id == idCarrera)
-                    .Where(s => s.TipoServicio_Id == idTipoServicio)
-                    .Where(s => s.Estado_Id != "E")
-                    .ToListAsync());
+                servicios = servicios.Where(x => x.Carrera_Id == idCarrera || x.Servicio_Id == 0).ToList();
             }
+
+            if (idTipoServicio > 0)
+            {
+                servicios = servicios.Where(x => x.TipoServicio_Id == idTipoServicio || x.Servicio_Id == 0).ToList();
+            }
+
 
             return servicios;
         }
