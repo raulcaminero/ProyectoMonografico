@@ -20,7 +20,6 @@ namespace PerfilEstudiante.Controllers
         public SolicitudesController(ApplicationDbContext context)
 		{
 			_context = context;
-			
 		}
 
         [HttpGet]
@@ -37,23 +36,33 @@ namespace PerfilEstudiante.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> CargarPago(int id)
+		public IActionResult CargarPago(int id)
 		{
 			var pago = new PagoSolicitudViewModel() { IdSolicitud = id }; 
 			return View(pago);
 		}
-		// Solicitud Pago
 		[HttpPost]
 		public async Task<IActionResult> CargarPago(PagoSolicitudViewModel pago)
 		{
-			var solicitudes = await _context.SolicitudesServicios
-				.Include(s => s.Usuario)
-				.Include(s => s.Servicio)
-				.Include(s => s.Estado).FirstOrDefaultAsync(p=> p.IdEstado=="A");
-				
+            if (ModelState.IsValid)
+            {
+                var archivo = await new ArchivosController(_context).Cargar(pago.Archivo, "Solicitudes", "Solicitudes");
 
-			return View(solicitudes);
+                var archivoSolicitud = new ArchivoSolicitud()
+                {
+                    IdArchivo = archivo.Id,
+                    IdSolicitud = pago.IdSolicitud,
+                    Tipo = TipoArchivoSolicitud.Pago,
+                };
+
+                _context.ArchivosSolicitudes.Add(archivoSolicitud);
+                await _context.SaveChangesAsync();
+            }
+
+            // Regresar al detalle
+			return RedirectToAction(nameof(Detalles), new { id = pago.IdSolicitud });
 		}
+
 		private void cargarListas()
 		{
 			var campus = _context.Campus.ToList();
