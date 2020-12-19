@@ -110,12 +110,12 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost("Adjuntar")]
-        public async Task<ActionResult<Proyecto>> PostAdjuntarProyecto(Proyecto proyecto)
+        public async Task<ActionResult<Proyecto>> PostAdjuntarProyecto(IFormFile archivo, int idSolictiud)
         {
-            _context.Proyecto.Add(proyecto);
-            await _context.SaveChangesAsync();
+            //_context.Proyecto.Add(proyecto);
+            //await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProyecto", new { id = proyecto.Id }, proyecto);
+            return CreatedAtAction("GetProyecto", new { id = 1 }, 1);
         }
     }
 }
