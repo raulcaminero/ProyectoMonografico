@@ -4,78 +4,99 @@
 	ViewData["Title"] = "Creacion de Modulo";
 }
 
-<h1>Create</h1>
 
-<h4>Modulo</h4>
-<hr />
-<div class="row">
-	<div class="col-md-4">
-		<form enctype="multipart/form-data" asp-action="Create">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group label-floating">
-				<label asp-for="Titulo" class="control-label"></label>
-				<input asp-for="Titulo" class="form-control" />
-				<span asp-validation-for="Titulo" class="text-danger"></span>
+<div class="col-12">
+	<div class="card">
+		<div class="card-header">
+			<h4 class="p-3 mb-2 bg-primary text-white text-center">Crear Módulos</h4>
+		</div>
+		<div class="card-content">
+			<div class="card-body">
+				<form enctype="multipart/form-data" asp-action="Create">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col">
+								<label asp-for="Titulo" class="control-label"></label>
+								<input asp-for="Titulo" class="form-control" />
+								<span asp-validation-for="Titulo" class="text-danger"></span>
+							</div>
+							<div class="col">
+								<label asp-for="Descripcion" class="control-label"></label>
+								<input asp-for="Descripcion" class="form-control" />
+								<span asp-validation-for="Descripcion" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col">
+								<label asp-for="FechaInicio" class="control-label"> Fecha de inicio</label>
+								<input asp-for="FechaInicio" type="date" class="form-control" />
+								<span asp-validation-for="FechaInicio" class="text-danger"></span>
+							</div>
+							<div class="col">
+								<label asp-for="FechaFin" class="control-label">Fecha de finalizacion</label>
+								<input asp-for="FechaFin" type="date" class="form-control" />
+								<span asp-validation-for="FechaFin" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col">
+								<label asp-for="UsuarioCodigo" class="control-label">Profesor</label>
+								<select asp-for="UsuarioCodigo" class="form-control" asp-items="ViewBag.UsuarioCodigo"></select>
+							</div>
+							<div class="col">
+								<label asp-for="Imagen" class="control-label"></label>
+								<div class="custom-file">
+									<input asp-for="Imagen" class="custom-file-input" id="customFile">
+									<label class="custom-file-label" for="customFile">Choose file</label>
+								</div>
+								<span asp-validation-for="Imagen" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col">
+								<label asp-for="IdAdjunto" class="control-label"></label>
+								<select asp-for="IdAdjunto" class="form-control" asp-items="ViewBag.IdAdjunto"></select>
+								<span asp-validation-for="IdAdjunto" class="text-danger"></span>
+							</div>
+							<div class="col">
+								<label asp-for="EstadoId" class="control-label">Estado</label>
+								<select asp-for="EstadoId" class="form-control" asp-items="ViewBag.EstadoId"></select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col">
+								<label asp-for="ServicioId" class="control-label">Servicio</label>
+								<select asp-for="ServicioId" class="form-control" asp-items="ViewBag.ServicioId"></select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Guardar" class="btn btn-primary" />
+						<a asp-action="Index" class="btn btn-danger">Cancelar</a>
+					</div>
+				</form>
 			</div>
-			<div class="form-group label-floating">
-				<label asp-for="Descripcion" class="control-label"></label>
-				<input asp-for="Descripcion" class="form-control" />
-				<span asp-validation-for="Descripcion" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="FechaInicio" class="control-label"> Fecha de inicio</label>
-				<input asp-for="FechaInicio" type="date" class="form-control" />
-				<span asp-validation-for="FechaInicio" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="FechaFin" class="control-label">Fecha de finalizacion</label>
-				<input asp-for="FechaFin" type="date" class="form-control" />
-				<span asp-validation-for="FechaFin" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="UsuarioCodigo" class="control-label">Profesor</label>
-				<select asp-for="UsuarioCodigo" class="form-control" asp-items="ViewBag.UsuarioCodigo"></select>
-			</div>
-			<div class="form-group">
-				<label asp-for="Imagen" class="control-label"></label>
-				<div class="custom-file">
-					<input asp-for="Imagen" class="custom-file-input" id="customFile">
-					<label class="custom-file-label" for="customFile">Choose file</label>
-				</div>
-				<span asp-validation-for="Imagen" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="IdAdjunto" class="control-label"></label>
-				<select asp-for="IdAdjunto" class="form-control" asp-items="ViewBag.IdAdjunto"></select>
-				<span asp-validation-for="IdAdjunto" class="text-danger"></span>
-			</div>
-
-			<div class="form-group">
-				<label asp-for="EstadoId" class="control-label">Estado</label>
-				<select asp-for="EstadoId" class="form-control" asp-items="ViewBag.EstadoId"></select>
-			</div>
-			<div class="form-group">
-				<label asp-for="ServicioId" class="control-label">Servicio</label>
-				<select asp-for="ServicioId" class="form-control" asp-items="ViewBag.ServicioId"></select>
-			</div>
-			<div class="form-group">
-				<input type="submit" value="Create" class="btn btn-primary" />
-			</div>
-		</form>
+		</div>
 	</div>
 </div>
 
-<div>
-	<a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
 	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 	<script type="text/javascript">
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on("change", function () {
+			var fileName = $(this).val().split("\\").pop();
+			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+		});
 	</script>
 }
