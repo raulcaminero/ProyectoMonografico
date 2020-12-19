@@ -9,6 +9,7 @@ namespace WebApp.ViewModels.Requerimientos
 		[Display(Name = "Aplica para")]
 		public int TipoServicioId { get; set; }
 
+		[Display(Name = "Escuela")]
 		public int EscuelaId { get; set; }
 
 		[Required(ErrorMessage = "Debe subir el documento")]
