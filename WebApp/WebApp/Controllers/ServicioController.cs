@@ -21,7 +21,14 @@ namespace WebApp.Controllers
         // GET: Servicio
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Servicio.Include(s => s.Campus).Include(s => s.Carrera).Include(s => s.Escuela).Include(s => s.Estado).Include(s => s.Facultad).Include(s => s.Usuario);
+            var applicationDbContext = _context.Servicio
+                .Include(s => s.Campus)
+                .Include(s => s.Carrera)
+                .Include(s => s.Escuela)
+                .Include(s => s.Estado)
+                .Include(s => s.Facultad)
+                .Include(s => s.TipoServicio)
+                .Include(s => s.Usuario);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -40,6 +47,7 @@ namespace WebApp.Controllers
                 .Include(s => s.Estado)
                 .Include(s => s.Facultad)
                 .Include(s => s.Usuario)
+                .Include(s => s.TipoServicio)
                 .FirstOrDefaultAsync(m => m.Servicio_Id == id);
             if (servicio == null)
             {
@@ -165,6 +173,7 @@ namespace WebApp.Controllers
                 .Include(s => s.Estado)
                 .Include(s => s.Facultad)
                 .Include(s => s.Usuario)
+                .Include(s => s.TipoServicio)
                 .FirstOrDefaultAsync(m => m.Servicio_Id == id);
             if (servicio == null)
             {
