@@ -7,7 +7,7 @@
 <h1>Requerimientos</h1>
 
 <p>
-    <a asp-action="Create">Registrar Nuevo</a>
+    <a asp-action="Create" class="btn btn-light">Registrar Nuevo</a>
 </p>
 <table id="reqs-tb" class="table">
     <thead>
@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.Codigo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Titulo)
+                @Html.DisplayNameFor(model => model.TipoServicioId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaCreacion)
+                @Html.DisplayNameFor(model => model.EscuelaId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoServicio)
+                @Html.DisplayNameFor(model => model.ArchivoId)
             </th>
             <th>
                 <span id="rq-state-head">@Html.DisplayNameFor(model => model.Estado)</span>
@@ -33,33 +33,33 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Codigo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Titulo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaCreacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoServicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-codigo="@item.Codigo" class="btn btn-primary">Editar</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoServicio.TipoServicioDescripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Escuela.Nombre)
+            </td>
+            <td>
+                <a asp-controller="Archivos" asp-action="Descargar" asp-route-idArchivo="@item.ArchivoId">Descargar</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-codigo="@item.Codigo" class="btn btn-primary">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
 
-                    @if (item.Estado == EstadoRequerimiento.Activo)
-                    {<a asp-action="Inactivate" asp-route-id="@item.Id" class="btn btn-warning">Inactivar</a>}
-                    else
-                    {<a asp-action="Activate" asp-route-id="@item.Id" class="btn btn-success">Activar</a>}
-                </td>
-            </tr>
+                @if (item.Estado == EstadoRequerimiento.Activo)
+                {<a asp-action="Inactivate" asp-route-id="@item.Id" class="btn btn-warning">Inactivar</a>}
+                else
+                {<a asp-action="Activate" asp-route-id="@item.Id" class="btn btn-success">Activar</a>}
+            </td>
+        </tr>
         }
     </tbody>
 </table>

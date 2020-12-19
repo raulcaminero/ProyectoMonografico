@@ -9,34 +9,45 @@
 <h3>¿Está seguro que quiere eliminar el requerimiento?</h3>
 <div>
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Codigo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Codigo)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoServicioId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoServicio.TipoServicioDescripcion)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EscuelaId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Escuela.Nombre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ArchivoId)
+        </dt>
+        <dd class="col-sm-10">
+            <a asp-controller="Archivos" asp-action="Descargar" asp-route-idArchivo="@Model.ArchivoId">Descargar</a>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FechaCreacion)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FechaCreacion)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UsuarioCodigo)
+        </dt>
+        <dd class="col-sm-10">
+            @($"{Model.Usuario.primer_nombre} {Model.Usuario.primer_apellido} <{Model.Usuario.Email}>")
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Estado)
         </dd>
     </dl>

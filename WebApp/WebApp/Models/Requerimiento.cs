@@ -15,26 +15,37 @@ namespace WebApp.Models
 		public string Codigo { get; set; }
 
 		[Required]
-		[MaxLength(50)]
-		[Display(Name = "Título")]
-		public string Titulo { get; set; }
+		[Display(Name = "Aplica para")]
+		public int TipoServicioId { get; set; }
 
 		[Required]
-		[MaxLength(300)]
-		[Display(Name = "Descripción")]
-		public string Descripcion { get; set; }
+		[Display(Name = "Escuela")]
+		public int EscuelaId { get; set; }
 
 		[Required]
-		[Display(Name = "Fecha")]
+		[Display(Name = "Documento")]
+		public int ArchivoId { get; set; }
+
+		[Required]
+		[Display(Name = "Fecha de creación")]
 		public DateTime FechaCreacion { get; set; }
+
+		[Required]
+		[Display(Name = "Registrado por")]
+		public int UsuarioCodigo { get; set; }
 
 		public EstadoRequerimiento Estado { get; set; }
 
-		[Required]
-		public int IdTipoServicio { get; set; }
-
-		[ForeignKey("IdTipoServicio")]
-		[Display(Name = "Aplica para")]
+		[ForeignKey("TipoServicioId")]
 		public TipoServicio TipoServicio { get; set; }
+
+		[ForeignKey("EscuelaId")]
+		public Escuela Escuela { get; set; }
+
+		[ForeignKey("ArchivoId")]
+		public Archivo Archivo { get; set; }
+
+		[ForeignKey("UsuarioCodigo")]
+		public Usuario Usuario { get; set; }
 	}
 }

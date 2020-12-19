@@ -3,13 +3,11 @@ using System;
 using System.Linq;
 using WebApp.Models;
 using WebApp.ViewModels.Solicitudes;
-using WebApp.Models.Enums;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using WebApp.Controllers;
-using Microsoft.AspNetCore.Hosting;
 
 namespace PerfilEstudiante.Controllers
 {
@@ -23,15 +21,18 @@ namespace PerfilEstudiante.Controllers
 
         }
 
-        [HttpGet]
-        // GET: Campus
-        public async Task<IActionResult> Index()
-        {
-            var solicitudes = await _context.SolicitudesServicios
-                .Include(s => s.Usuario)
-                //.Include(s => s.Servicio)
-                .Include(s => s.Estado)
-                .ToListAsync();
+		// GET: Campus
+		public async Task<IActionResult> Index()
+		{
+			// Validar que el usuario tenga acceso
+			if (!AccountController.GetUsuarioEsAdministrador(User, _context))
+				return NotFound();
+
+			var solicitudes = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado)
+				.ToListAsync();
 
             return View(solicitudes);
         }
@@ -61,150 +62,218 @@ namespace PerfilEstudiante.Controllers
                 .Include(s => s.Servicio)
                 .Include(s => s.Estado).FirstOrDefaultAsync(p => p.IdEstado == "A");
 
+		public async Task<IActionResult> CargarDocumento(int id, TipoArchivoSolicitud tipo)
+		{
+			var pago = new CargaDocumentoSolicitudViewModel() { IdSolicitud = id, TipoDocumento = tipo };
+			return View(pago);
+		}
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> CargarDocumento(CargaDocumentoSolicitudViewModel pago)
+		{
+			if (ModelState.IsValid)
+			{
+				var idServicio = _context.SolicitudesServicios.Find(pago.IdSolicitud).IdServicio;
+				var archivo = await new ArchivosController(_context).Cargar(pago.Archivo, "Solicitudes", $"Servicios\\{idServicio}");
 
-            return View(solicitudes);
-        }
-        private void cargarListas()
-        {
-            var campus = _context.Campus.ToList();
-            ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
+				var archivoSolicitud = new ArchivoSolicitud()
+				{
+					IdArchivo = archivo.Id,
+					IdSolicitud = pago.IdSolicitud,
+					Tipo = TipoArchivoSolicitud.Pago,
+				};
 
-            var facultades = _context.Facultades.ToList();
-            ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
+				_context.ArchivosSolicitudes.Add(archivoSolicitud);
+				await _context.SaveChangesAsync();
+			}
 
-            var tipoServicios = _context.TipoServicios.ToList();
-            var lstTipos = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
-            ViewBag.TiposServicios = lstTipos;
-        }
+			// Regresar al detalle
+			return RedirectToAction(nameof(Detalles), new { id = pago.IdSolicitud });
+		}
 
-        [HttpGet]
-        public IActionResult Registrar(string email)
-        {
-            cargarListas();
-            return View();
-        }
+		private void cargarListas()
+		{
+			var campus = _context.Campus.ToList();
+			ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
 
-        [HttpGet]
-        public async Task<IActionResult> Detalles(int? id)
-        {
-            var estados = _context.Estado.ToList();
-            ViewBag.Estados = new SelectList(estados, "EstadoId", "EstadoNombre");
+			var escuelas = _context.Escuelas.ToList();
+			ViewBag.Escuelas = new SelectList(escuelas, "Id", "Nombre");
 
-            if (id == null)
-                return NotFound();
+			var facultades = _context.Facultades.ToList();
+			ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
 
+			var tipoServicios = _context.TipoServicios.ToList();
+			ViewBag.TiposServicios = new SelectList(tipoServicios, "TipoServicioId", "TipoServicioDescripcion");
 
-            var solicitud = await _context.SolicitudesServicios
-                .Include(s => s.Usuario)
-                //.Include(s => s.Servicio)
-                .Include(s => s.Estado)
-                .FirstOrDefaultAsync(m => m.Id == id);
+			var servicios = _context.Servicio.ToList();
+			ViewBag.Servicios = new SelectList(servicios, "Servicio_Id", "Servicio_Descripcion");
+		}
 
-            if (solicitud == null)
-                return NotFound();
+		[HttpGet]
+		public async Task<IActionResult> Detalles(int? id)
+		{
+			if (id == null)
+				return NotFound();
+
+			var solicitud = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado)
+				.FirstOrDefaultAsync(m => m.Id == id);
+
+			if (solicitud == null)
+				return NotFound();
+
 
             return View(solicitud);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Detalles([Bind("Id, IdEstado")] SolicitudServicio solicitud)
-        {
-            if (solicitud == null)
-            {
-                return NotFound();
-            }
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> CambiarEstado([Bind("Id, IdEstado")] SolicitudServicio solicitud)
+		{
+			if (solicitud == null)
+				return NotFound();
 
-            var original = _context.SolicitudesServicios.Find(solicitud.Id);
-            original.IdEstado = solicitud.IdEstado;
-            await _context.SaveChangesAsync();
+			var original = _context.SolicitudesServicios.Find(solicitud.Id);
+			original.IdEstado = solicitud.IdEstado;
+			await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Detalles), new { id = solicitud.Id });
+		}
 
-        }
+		[HttpGet]
+		public async Task<IActionResult> Registrar()
+		{
+			var usr = AccountController.GetCurrentUser(User, _context);
 
-        [HttpPost]
-        public async Task<IActionResult> Registrar(RegistrarSolicitudViewModel vm)
-        {
-            // TEMPORAL
-            vm.IdServicio = _context.Servicio.First().Servicio_Id;
+			var estadosValidos = new List<string>() { "A", "N", "P" }; // Activo, Inscrito, Pendiente
+			var solicitud = await _context.SolicitudesServicios
+				.Where(s => s.IdUsuario == usr.codigo)
+				.Where(s => estadosValidos.Contains(s.IdEstado))
+				.FirstOrDefaultAsync();
 
-            if (ModelState.IsValid)
-            {
-                // Actualizar los campos de Usuario
-                var email = User.Identity.Name;
-                var usuario = _context.usuarios.FirstOrDefault(u => u.Email == email);
-                if (usuario == null)
-                    return NotFound();
+			if (solicitud != null)
+				return RedirectToAction(nameof(Detalles), new { id = solicitud.Id });
 
-                usuario.matricula = vm.Matricula;
-                usuario.sexo = vm.Sexo;
-                usuario.primer_nombre = vm.Nombre1;
-                usuario.segundo_nombre = vm.Nombre2;
-                usuario.primer_apellido = vm.Apellido1;
-                usuario.segundo_apellido = vm.Apellido2;
-                usuario.contacto = vm.Contacto;
-                usuario.nacionalidad = vm.Nacionalidad;
-                usuario.fecha_nacimiento = vm.FechaNacimiento;
+			var registrarSolicitudVM = new RegistrarSolicitudViewModel()
+			{
+				Nombre1 = usr.primer_nombre,
+				Nombre2 = usr.segundo_nombre,
+				Apellido1 = usr.primer_apellido,
+				Apellido2 = usr.segundo_apellido,
+				Identificacion = usr.identificacion,
+				TipoIdentificacion = usr.tipo_identificacion,
+				IdCampus = usr.IdCampus ?? 0,
+				Matricula = usr.matricula,
+				Contacto = usr.contacto,
+				Sexo = usr.sexo,
+				Nacionalidad = usr.nacionalidad,
+				FechaNacimiento = usr.fecha_nacimiento
+			};
 
-                // Registrar la Solicitud de Inscripcion
-                var solicitud = new SolicitudServicio()
-                {
-                    IdUsuario = usuario.codigo,
-                    Fecha = DateTime.Now,
-                    IdEstado = "A"
-                };
+			cargarListas();
 
-                _context.SolicitudesServicios.Add(solicitud);
-                _context.SaveChanges();
+			return View(registrarSolicitudVM);
+		}
 
-                // Guardar los archivos
-                var archivos = new List<Archivo>();
-                var ctrl = new ArchivosController(_context);
+		[HttpPost]
+		public async Task<IActionResult> Registrar(RegistrarSolicitudViewModel vm)
+		{
+			if (ModelState.IsValid)
+			{
+				// Actualizar los campos de Usuario
+				var usuario = AccountController.GetCurrentUser(User, _context);
+				if (usuario == null)
+					return NotFound();
 
-                archivos.Add(await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
-                archivos.Add(await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
-                archivos.Add(await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"));
-                await _context.SaveChangesAsync();
+				usuario.matricula = vm.Matricula;
+				usuario.sexo = vm.Sexo;
+				usuario.primer_nombre = vm.Nombre1;
+				usuario.segundo_nombre = vm.Nombre2;
+				usuario.primer_apellido = vm.Apellido1;
+				usuario.segundo_apellido = vm.Apellido2;
+				usuario.identificacion = vm.Identificacion;
+				usuario.tipo_identificacion = vm.TipoIdentificacion;
+				usuario.contacto = vm.Contacto;
+				usuario.nacionalidad = vm.Nacionalidad;
+				usuario.fecha_nacimiento = vm.FechaNacimiento;
 
-                // Guardar la relación
-                foreach (var archivo in archivos)
-                {
-                    var archivoSolicitud = new ArchivoSolicitud()
-                    {
-                        IdArchivo = archivo.Id,
-                        IdSolicitud = solicitud.Id
-                    };
-                    _context.ArchivosSolicitudes.Add(archivoSolicitud);
-                }
-                await _context.SaveChangesAsync();
+				// Registrar la Solicitud de Inscripcion
+				var solicitud = new SolicitudServicio()
+				{
+					IdUsuario = usuario.codigo,
+					IdServicio = vm.IdServicio,
+					Fecha = DateTime.Now,
+					IdEstado = "A"
+				};
 
-                return RedirectToAction("Index");
-            }
-
-            cargarListas();
-            return View(vm);
-        }
-
-        public async Task<List<Servicio>> GetFilteredServicios(int idCarrera = 0, int idTipoServicio = 0, bool addEmpty = false)
-        {
-            var servicios = new List<Servicio>();
-
-            if (addEmpty)
-                servicios.Add(new Servicio() { Servicio_Descripcion = "Seleccione un servicio" });
-
-            if (idCarrera > 0 && idTipoServicio > 0)
-            {
-                servicios.AddRange(await _context.Servicio
-                    .Where(s => s.Carrera_Id == idCarrera)
-                    .Where(s => s.TipoServicio_Id == idTipoServicio)
-                    .Where(s => s.Estado_Id != "E")
-                    .ToListAsync());
-            }
-
-            return servicios;
-        }
+				await _context.SolicitudesServicios.AddAsync(solicitud);
+				await _context.SaveChangesAsync();
 
 
-    }
+				// Guardar los archivos
+
+				var archivos = new List<(Archivo Archivo, TipoArchivoSolicitud Tipo)>();
+				var ctrl = new ArchivosController(_context);
+
+				if (vm.ArchivoFoto != null)
+					archivos.Add((await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Foto));
+
+				if (vm.ArchivoCedula != null)
+					archivos.Add((await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Cedula));
+
+				if (vm.ArchivoKardex != null)
+					archivos.Add((await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Notas));
+
+				await _context.SaveChangesAsync();
+
+				// Guardar la relación
+				foreach (var archivo in archivos)
+				{
+					var archivoSolicitud = new ArchivoSolicitud()
+					{
+						IdArchivo = archivo.Archivo.Id,
+						IdSolicitud = solicitud.Id,
+						Tipo = archivo.Tipo
+					};
+					_context.ArchivosSolicitudes.Add(archivoSolicitud);
+				}
+				await _context.SaveChangesAsync();
+
+				return RedirectToAction(nameof(Detalles), new { id = solicitud.Id });
+			}
+
+			var errores = ModelState.ToList();
+
+			cargarListas();
+			return View(vm);
+		}
+
+		//public async Task<JsonResult> GetFilteredServicios(int idCarrera = 0, int idTipoServicio = 0, bool addEmpty = false)
+		public async Task<List<Servicio>> GetFilteredServicios(int idCarrera = 0, int idTipoServicio = 0, bool addEmpty = false)
+		{
+			var servicios = new List<Servicio>();
+
+			if (addEmpty)
+				servicios.Add(new Servicio() { Servicio_Descripcion = "Seleccione un servicio" });
+
+			servicios.AddRange(await _context.Servicio.Where(x => x.Estado_Id != "E").ToListAsync());
+
+			if (idCarrera > 0)
+			{
+				servicios = servicios.Where(x => x.Carrera_Id == idCarrera || x.Servicio_Id == 0).ToList();
+			}
+
+			if (idTipoServicio > 0)
+			{
+				servicios = servicios.Where(x => x.TipoServicio_Id == idTipoServicio || x.Servicio_Id == 0).ToList();
+			}
+
+
+			return servicios;
+		}
+
+
+	}
 }
