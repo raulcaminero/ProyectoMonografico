@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Edit";
 
-@*     var rutaFoto = "/imagenes/" + (Model.RutaFoto ?? "avatar.jpg"); *@
+    var rutaFoto = "/imagenes/" + (Model.RutaFoto ?? "avatar.jpg");
 }
 
 <div class="pace-activity"></div>
@@ -65,7 +65,7 @@
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <input type="hidden" asp-for="codigo" />
-                                                            @* <img src="@rutaFoto" id="mostrar_imagen" width="201" height="177"> *@
+                                                            <img src="@rutaFoto" id="mostrar_imagen" width="201" height="177">
                                                             <br><br>
                                                             <div id="div_img" style="padding: 1px; width: 150px; background-color: #17a2b8; position: relative; border-radius: 5px; box-shadow: 0px 3px 0px #1a71a9; margin-left:30px">
                                                                 <p style="text-align: center;  color: white;">Subir Foto</p>

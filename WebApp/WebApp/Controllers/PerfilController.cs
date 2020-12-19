@@ -247,7 +247,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Edit","Perfil", new { @id=users.codigo});
 
         }
-  /*       public async Task<IActionResult> CargarImagen(VM_CargarImagen img)
+        public async Task<IActionResult> CargarImagen(VM_CargarImagen img)
         {
             var db = new ApplicationDbContext();
             var users = await _context.usuarios.FindAsync(img.Codigo);
@@ -261,14 +261,14 @@ namespace WebApp.Controllers
                 
             }
 
-/*             users.RutaFoto = guidImagen; */
-         /*    _context.usuarios.Update(users);
+            users.RutaFoto = guidImagen;
+            _context.usuarios.Update(users);
             await _context.SaveChangesAsync();
 
             TempData["Msg_Success_img"] = "Imagen Cambiada";
-            return RedirectToAction("Edit", "Perfil", new { @id = users.codigo }); */
+            return RedirectToAction("Edit", "Perfil", new { @id = users.codigo });
 
-       /*  } */ 
+        } 
 
         private bool UsuarioExists(int id)
         {
