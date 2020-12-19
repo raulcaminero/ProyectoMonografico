@@ -1,32 +1,5 @@
 ﻿@model WebApp.ViewModels.Solicitudes.RegistrarSolicitudViewModel
 
-<div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-    <div class="form-group breadcrum-right">
-        <div class="dropdown">
-
-        </div>
-    </div>
-</div>
-
-<div class="content-header-right text-md-right col-md-12 col-12 d-md-block d-none">
-    <div class="form-group breadcrum-right">
-        <div class="dropdown">
-        </div>
-    </div>
-</div>
-@*<div class="navbar navbar-expand-lg">
-        <form>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-            </div>
-
-            <div class="input-group">
-                <input type="submit" class="btn btn-info form-control" value="Traer Datos">
-            </div>
-        </form>
-    </div>*@
-
 <div class="col-12">
     <div class="card">
         <div class="card-header">
@@ -34,11 +7,12 @@
         </div>
         <div class="card-content">
             <div class="card-body">
-                <form action="Registrar">
-                    @*id="form_incripcion" class="steps-validation wizard-circle wizard clearfix" role="application" novalidate="novalidate">*@
+                <form asp-action="Registrar" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <!-- Step 1 -->
                     <h5 id="form_incripcion-h-0" tabindex="-1" class="title current text-primary text-center"> INFORMACIÓN PERSONAL </h5>
+                    <hr />
 
                     <fieldset id="form_incripcion-p-0" role="tabpanel" aria-labelledby="form_incripcion-h-0" class="body current" aria-hidden="false">
 
@@ -46,7 +20,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Primer Nombre: <span class="rojo">*</span></label>
-                                    <input asp-for="Nombre1" title="Este campo es requerido." required="" placeholder="Primer Nombre:" class="form-control" enabled="false">
+                                    <input asp-for="Nombre1" placeholder="Primer Nombre:" class="form-control" enabled="false">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -58,7 +32,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Primer Apellido: <span class="rojo">*</span></label>
-                                    <input asp-for="Apellido1" title="Este campo es requerido." required="" placeholder="Primer Apellido" class="form-control" enabled="false">
+                                    <input asp-for="Apellido1" placeholder="Primer Apellido" class="form-control" enabled="false">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -70,27 +44,26 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Tipo Identificación: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="tipo_documento" name="tipo_documento" class="form-control" enabled="false">
+                                    <select asp-for="TipoIdentificacion" id="tipo_documento" class="form-control" enabled="false">
                                         <option selected=""></option>
-                                        <option value="0">Cédula</option>
-                                        <option value="1">Pasaporte</option>
+                                        <option value="C">C&eacute;dula</option>
+                                        <option value="P">Pasaporte</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Número Identificación: <span class="rojo">*</span></label>
-                                    <input title="Este campo es requerido." required="" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" name="cedula" id="cedula" enabled="false">
-                                    <input type="hidden" name="cedula_vieja" id="cedula_vieja" value="402-2424929-8">
+                                    <input asp-for="Identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" enabled="false">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Sexo: <span class="rojo">*</span></label>
-                                    <select asp-for="Sexo" title="Este campo es requerido." required="" class="form-control" enabled="false">
+                                    <select asp-for="Sexo" class="form-control" enabled="false">
                                         <option value="" selected=""></option>
-                                        <option value="0">Masculino</option>
-                                        <option value="1">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
                                     </select>
                                 </div>
                             </div>
@@ -98,36 +71,34 @@
                                 <div class="form-group label-floating">
                                     <label class="control-label">Matricula o Código:</label>
                                     <input asp-for="Matricula" class="form-control" placeholder="Matricula o Código" maxlength="20" enabled="false">
-                                    <input type="hidden" name="matricula_vieja" id="matricula_vieja" value="100270904">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
-                                    <label class="control-label">Fecha Nacimiento: <span class="rojo">*</span></label>
-                                    <input asp-for="FechaNacimiento" title="Este campo es requerido." required="" type="date" class="form-control enabled="false" aria-invalid="true">
-                                    <label id="fecha-error" class="danger" for="fecha"></label>
+                                    <label class="control-label" asp-format="{0:MM/dd/yyyy}">Fecha Nacimiento: <span class="rojo">*</span></label>
+                                    <input asp-for="FechaNacimiento" type="date" class="form-control enabled="false" aria-invalid="true">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Teléfono o Celular: <span class="rojo">*</span></label>
-                                    <input asp-for="Contacto" title="Este campo es requerido." required="" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" enabled="false" aria-invalid="false"><label id="telefono-error" class="danger" for="telefono" style="display: none;"></label>
+                                    <input asp-for="Contacto" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" enabled="false" aria-invalid="false"><label id="telefono-error" class="danger" for="telefono" style="display: none;"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
-                                    <select asp-for="Nacionalidad" title="Este campo es requerido." required="" class="form-control" enabled="false" aria-invalid="false">
+                                    <select asp-for="Nacionalidad" class="form-control" enabled="false" aria-invalid="false">
                                         <option value="" selected=""></option>
-                                        <option value="0">Dominicano</option>
-                                        <option value="1">Extranjero</option>
+                                        <option value="Dominicano">Dominicano</option>
+                                        <option value="Extranjero">Extranjero</option>
                                     </select><label id="nacionalidad-error" class="danger" for="nacionalidad" style="display: none;"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Campus: <span class="rojo">*</span></label>
-                                    <select asp-for="IdCampus" asp-items="@ViewBag.Campus" title="Este campo es requerido." required="" class="form-control" enabled="false" aria-invalid="false">
+                                    <select asp-for="IdCampus" asp-items="@ViewBag.Campus" class="form-control" enabled="false" aria-invalid="false">
                                     </select>
                                 </div>
                             </div>
@@ -135,13 +106,15 @@
                     </fieldset>
 
                     <!-- Step 2 -->
+                    <br />
                     <h5 id="form_incripcion-h-1" tabindex="-1" class="title text-primary text-center"> <i class="step-icon feather icon-briefcase"></i> DATOS DE LA INCRIPCION</h5>
+                    <hr />
                     <fieldset id="form_incripcion-p-1" role="tabpanel" aria-labelledby="form_incripcion-h-1" class="body" aria-hidden="true">
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Facultad: <span class="rojo">*</span></label>
-                                    <select asp-items="@ViewBag.Facultades" title="Este campo es requerido." required="" id="idFacultad" class="form-control combined combined_1" enabled="false">
+                                    <select asp-items="@ViewBag.Facultades" id="idFacultad" class="form-control combined combined_1" enabled="false">
                                         <option value="0" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
@@ -149,7 +122,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Escuela: <span class="rojo">*</span></label>
-                                    <select asp-items="@ViewBag.Escuelas" title="Este campo es requerido." required="" id="idEscuela" class="form-control combined combined_2" enabled="false">
+                                    <select asp-items="@ViewBag.Escuelas" id="idEscuela" class="form-control combined combined_2" enabled="false">
                                         <option value="0" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
@@ -157,7 +130,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Carrera: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="idCarrera" class="form-control combined combined_3" enabled="false">
+                                    <select id="idCarrera" class="form-control combined combined_3" enabled="false">
                                         <option value="0" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
@@ -165,10 +138,8 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Tipo: <span class="rojo">*</span></label>
-                                    <select asp-items="@ViewBag.TiposServicios" title="Este campo es requerido." required="" id="idTipoServicio" class="form-control combined combined_4" enabled="false">
+                                    <select asp-items="@ViewBag.TiposServicios" id="idTipoServicio" class="form-control combined combined_4" enabled="false">
                                         <option value="0" selected="">Seleccione una Opción</option>
-                                        @*<option value="1">Tesis</option>
-                                            <option value="2">Monográfico</option>*@
                                     </select>
                                 </div>
                             </div>
@@ -178,12 +149,8 @@
                                     <select asp-items="@ViewBag.Servicios" asp-for="IdServicio" id="idServicio" class="form-control combined combined_5">
                                         <option value="0" selected="">Seleccione una Opción</option>
                                     </select>
-                                    @*<input asp-for="IdServicio" />*@
                                 </div>
                             </div>
-                            <!-- <div class="col-md-12">
-                                <input type="submit" id="btn_submit" value="Enviar Solicitud" class="btn btn-info pull-right" name="">
-                            </div> -->
                             <div class="col-md-12" style="margin-bottom: 10px;">
                                 <div class="row">
                                     <div id="lista_archivos_escuela">
@@ -195,7 +162,9 @@
                     </fieldset>
 
                     <!-- Step 3 -->
+                    <br />
                     <h5 id="form_incripcion-h-2" tabindex="-1" class="title text-primary text-center"> DOCUMENTOS REQUERIDOS</h5>
+                    <hr />
                     <fieldset id="form_incripcion-p-2" role="tabpanel" aria-labelledby="form_incripcion-h-2" class="body" aria-hidden="true">
                         <div class="row">
                             <div class="col-md-12">
@@ -205,25 +174,25 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Una (1) foto 2x2 </label>
-                                <input title="Este campo es requerido." type="file" class="form-control" asp-for="ArchivoFoto">
+                                <input type="file" class="form-control" asp-for="ArchivoFoto">
                             </div>
                             <div class="col-md-6">
                                 <label>kárdex Académico </label>
-                                <input title="Este campo es requerido." type="file" class="form-control" asp-for="ArchivoKardex">
+                                <input type="file" class="form-control" asp-for="ArchivoKardex">
                             </div>
                             <div class="col-md-6">
                                 <br><br>
                                 <label>Copia de la Cédula de Identidad </label>
-                                <input title="Este campo es requerido." type="file" class="form-control" asp-for="ArchivoCedula">
+                                <input type="file" class="form-control" asp-for="ArchivoCedula">
                                 <br>
                             </div>
                             <div style="display: none;" class="col-md-12">
                                 <i class="btn btn-info pull-right waves-input-wrapper waves-effect waves-light" style="color:rgb(255, 255, 255);background:rgba(0, 0, 0, 0)"><input type="submit" id="btn_submit" value="Enviar Solicitud" class="waves-button-input btn-info" name="" style="background-color:rgba(0,0,0,0);" enabled="false"></i>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary ">Enviar Formulario</button>
                     </fieldset>
 
+                    <button type="submit" class="btn btn-primary ">Enviar Formulario</button>
                 </form>
             </div>
         </div>
@@ -238,8 +207,8 @@
             //import { ADDRCONFIG } from "dns";
             //Cuando cambie algún Facultad > Escuela > Carrera > Tipo Servicio > Servicio
 
-            $(".combined").prop("disabled",true);
-            $(".combined_1").prop("disabled",false);
+            $(".combined").prop("disabled", true);
+            $(".combined_1").prop("disabled", false);
 
             $(".combined").change(function () {
                 var numeric = 0;
@@ -255,7 +224,7 @@
                         }
                     }
 
-                    if (numeric!=0) {
+                    if (numeric != 0) {
                         //Inhabilita los siguientes
                         for (var i = numeric + 1; i <= 5; i++) {
                             $(".combined_" + i).val("0");
@@ -265,7 +234,7 @@
                         //Excepto el inmediatamente siguiente
                         $(".combined_" + (numeric + 1)).prop("disabled", false);
                     }
-                    
+
                 }
 
                 //Si es igual a 0
@@ -300,8 +269,8 @@
                 actualizarServicios();
             });
 
-            
-            
+
+
         });
 
         function actualizarCarreras() {
@@ -342,7 +311,7 @@
 
             console.log(`tipo: ${tipo}`);
 
-            $.get("/Solicitudes/GetFilteredServicios/", { "idCarrera": idCarrera, "idTipoServicio": tipo, "addEmpty" : true }, function (data, success) {
+            $.get("/Solicitudes/GetFilteredServicios/", { "idCarrera": idCarrera, "idTipoServicio": tipo, "addEmpty": true }, function (data, success) {
                 var opciones = "";
                 $("#idServicio").empty();
 

@@ -72,6 +72,13 @@ namespace WebApp.Models
 
         public virtual Estado Estado { get; set; }
 
+        [NotMapped]
+        public string NombreCompleto
+        {
+            get { return primer_nombre.Trim() + " " + primer_apellido; }
+        }
+
+        //tabla intermedia para calificaciones, profesores en modulos, servicios y de estudiantes
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
         
         public virtual ICollection<Modulo> Modulo { get; set; }

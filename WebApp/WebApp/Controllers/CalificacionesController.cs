@@ -9,6 +9,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class CalificacionesController : Controller
     {
         private readonly ApplicationDbContext _context;

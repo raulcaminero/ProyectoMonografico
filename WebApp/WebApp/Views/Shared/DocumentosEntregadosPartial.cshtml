@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebApp.ViewModels.Solicitudes.DocumentoEntregadoViewModel>
+
+<table class="table tb">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreArchivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th></th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var archivo in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => archivo.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => archivo.NombreArchivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => archivo.Tipo)
+                </td>
+                <td>
+                    <a asp-action="Descargar" asp-controller="Archivos" asp-route-id="@archivo.IdArchivo" class="btn btn-success">Descargar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

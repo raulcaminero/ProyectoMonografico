@@ -31,7 +31,7 @@
             @Html.DisplayNameFor(model => model.Archivo)
         </dt>
         <dd class="col-sm-10">
-            <a asp-controller="Archivo" asp-action="Descargar" asp-route-id="@Model.Archivo.Id">Ver documento</a>
+            <a asp-controller="Archivos" asp-action="Descargar" asp-route-idArchivo="@Model.Archivo.Id">Descargar</a>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FechaCreacion)
         </dt>
@@ -42,7 +42,7 @@
             @Html.DisplayNameFor(model => model.UsuarioCodigo)
         </dt>
         <dd class="col-sm-10">
-            @($"{Model.Usuario.primer_nombre} {Model.Usuario.primer_nombre} <{Model.Usuario.Email}>")
+            @($"{Model.Usuario.primer_nombre} {Model.Usuario.primer_apellido} <{Model.Usuario.Email}>")
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
