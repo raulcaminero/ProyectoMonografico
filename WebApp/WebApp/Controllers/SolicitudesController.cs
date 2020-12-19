@@ -11,15 +11,15 @@ using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
-	public class SolicitudesController : Controller
-	{
-		private readonly ApplicationDbContext _context;
+    public class SolicitudesController : Controller
+    {
+        private readonly ApplicationDbContext _context;
 
-		public SolicitudesController(ApplicationDbContext context)
-		{
-			_context = context;
-		}
+        public SolicitudesController(ApplicationDbContext context)
+        {
+            _context = context;
+
+        }
 
 		// GET: Campus
 		public async Task<IActionResult> Index()
@@ -34,8 +34,33 @@ namespace PerfilEstudiante.Controllers
 				.Include(s => s.Estado)
 				.ToListAsync();
 
-			return View(solicitudes);
-		}
+            return View(solicitudes);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Pago(int id)
+        {
+            /*var solicitudes = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado).FirstOrDefaultAsync(m=>m.IdEstado=="A");
+			*/
+            var pago = new PagoSolicitudViewModel ()
+            {
+
+                IdSolicitud = id
+
+            };
+            return View(pago);
+        }
+        // Solicitud Pago
+        [HttpPost]
+        public async Task<IActionResult> Pago(PagoSolicitudViewModel pago)
+        {
+            var solicitudes = await _context.SolicitudesServicios
+                .Include(s => s.Usuario)
+                .Include(s => s.Servicio)
+                .Include(s => s.Estado).FirstOrDefaultAsync(p => p.IdEstado == "A");
 
 		public async Task<IActionResult> CargarDocumento(int id, TipoArchivoSolicitud tipo)
 		{
@@ -110,31 +135,9 @@ namespace PerfilEstudiante.Controllers
 			if (solicitud == null)
 				return NotFound();
 
-			// Validar que el usuario tenga acceso
 
-			if (!User.IsInRole("Administrador")) // Los administradores pueden ver cualquier solicitud
-			{
-				// Determinar si la solicitud pertenece al estudiante.
-				var usr = AccountController.GetCurrentUser(User, _context);
-				if (solicitud.IdUsuario != usr.codigo)
-					return NotFound();
-			}
-
-			solicitud.DocumentosEntregados = _context.ArchivosSolicitudes
-				.Where(a => a.IdSolicitud == id)
-				.Include(a => a.Archivo)
-				.ToList()
-				.Select(a => new DocumentoEntregadoViewModel()
-				{
-					IdArchivo = a.IdArchivo,
-					Fecha = a.Archivo.Fecha,
-					NombreArchivo = a.Archivo.NombreArchivo,
-					Tipo = a.Tipo
-
-				}).ToList();
-
-			return View(solicitud);
-		}
+            return View(solicitud);
+        }
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
