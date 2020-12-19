@@ -112,6 +112,7 @@ namespace WebApp.Controllers
         [HttpPost("Adjuntar")]
         public async Task<ActionResult<Proyecto>> PostAdjuntarProyecto(IFormFile archivo, int idSolictiud)
         {
+            //Cargar(archivo)
             //_context.Proyecto.Add(proyecto);
             //await _context.SaveChangesAsync();
 
