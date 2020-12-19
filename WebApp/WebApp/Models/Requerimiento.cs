@@ -32,7 +32,7 @@ namespace WebApp.Models
 
 		[Required]
 		[Display(Name = "Registrado por")]
-		public int UsuarioId { get; set; }
+		public int UsuarioCodigo { get; set; }
 
 		public EstadoRequerimiento Estado { get; set; }
 
@@ -45,7 +45,7 @@ namespace WebApp.Models
 		[ForeignKey("ArchivoId")]
 		public Archivo Archivo { get; set; }
 
-		[ForeignKey("UsuarioId")]
+		[ForeignKey("UsuarioCodigo")]
 		public Usuario Usuario { get; set; }
 	}
 }

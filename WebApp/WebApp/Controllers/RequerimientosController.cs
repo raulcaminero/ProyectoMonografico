@@ -105,7 +105,7 @@ namespace WebApp.Controllers
 					EscuelaId = modelo.Escuela.EscuelaId,
 					ArchivoId = modelo.Archivo.Id,
 					FechaCreacion = DateTime.Now,
-					UsuarioId = 0,
+					UsuarioCodigo = AccountController.getCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
 				};
 
@@ -140,6 +140,9 @@ namespace WebApp.Controllers
 
 			var req = await _context.Requerimientos
 				.Where(c => c.Codigo == codigo)
+				.Include(c => c.TipoServicio)
+				.Include(c => c.Escuela)
+				.Include(c => c.Archivo)
 				.OrderByDescending(c => c.Estado) // Intentar tomar el que está activo.
 				.ThenBy(c => c.FechaCreacion)
 				.FirstOrDefaultAsync();
@@ -150,9 +153,9 @@ namespace WebApp.Controllers
 			var modelo = new EditRequerimientoViewModel()
 			{
 				Codigo = req.Codigo,
-				//Titulo = req.Titulo,
-				//Descripcion = req.Descripcion,
-				//TipoServicio = req.TipoServicio,
+				TipoServicio = req.TipoServicio,
+				Escuela = req.Escuela,
+				Archivo = req.Archivo
 			};
 
 			return View(modelo);
@@ -170,11 +173,12 @@ namespace WebApp.Controllers
 				var req = new Requerimiento()
 				{
 					Codigo = modelo.Codigo,
-					//Titulo = modelo.Titulo,
-					//Descripcion = modelo.Descripcion,
-					Estado = Models.EstadoRequerimiento.Activo,
-					//TipoServicio = modelo.TipoServicio,
-					FechaCreacion = DateTime.Now
+					TipoServicioId = modelo.TipoServicio.TipoServicioId,
+					EscuelaId = modelo.Escuela.EscuelaId,
+					ArchivoId = modelo.Archivo.Id,
+					FechaCreacion = DateTime.Now,
+					UsuarioCodigo = AccountController.getCurrentUser(User, _context).codigo,
+					Estado = Models.EstadoRequerimiento.Activo
 				};
 
 				// Poner las demas versiones del mismo requerimiento como historicos
