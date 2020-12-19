@@ -14,10 +14,12 @@ namespace WebApp.Controllers
 	public class RequerimientosController : Controller
 	{
 		private readonly ApplicationDbContext _context;
+		private ArchivosController archivosController;
 
 		public RequerimientosController(ApplicationDbContext context)
 		{
 			_context = context;
+			archivosController = new ArchivosController(context);
 		}
 
 		// GET: Requerimientos
@@ -101,9 +103,9 @@ namespace WebApp.Controllers
 				var req = new Requerimiento()
 				{
 					Codigo = codigo,
-					TipoServicioId = modelo.TipoServicio.TipoServicioId,
-					EscuelaId = modelo.Escuela.EscuelaId,
-					ArchivoId = modelo.Archivo.Id,
+					TipoServicioId = modelo.TipoServicioId,
+					EscuelaId = modelo.EscuelaId,
+					ArchivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos//{codigo}").Id,
 					FechaCreacion = DateTime.Now,
 					UsuarioCodigo = AccountController.GetCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
@@ -140,9 +142,6 @@ namespace WebApp.Controllers
 
 			var req = await _context.Requerimientos
 				.Where(c => c.Codigo == codigo)
-				.Include(c => c.TipoServicio)
-				.Include(c => c.Escuela)
-				.Include(c => c.Archivo)
 				.OrderByDescending(c => c.Estado) // Intentar tomar el que está activo.
 				.ThenBy(c => c.FechaCreacion)
 				.FirstOrDefaultAsync();
@@ -153,9 +152,8 @@ namespace WebApp.Controllers
 			var modelo = new EditRequerimientoViewModel()
 			{
 				Codigo = req.Codigo,
-				TipoServicio = req.TipoServicio,
-				Escuela = req.Escuela,
-				Archivo = req.Archivo
+				TipoServicioId = req.TipoServicioId,
+				EscuelaId = req.EscuelaId
 			};
 
 			return View(modelo);
@@ -173,9 +171,9 @@ namespace WebApp.Controllers
 				var req = new Requerimiento()
 				{
 					Codigo = modelo.Codigo,
-					TipoServicioId = modelo.TipoServicio.TipoServicioId,
-					EscuelaId = modelo.Escuela.EscuelaId,
-					ArchivoId = modelo.Archivo.Id,
+					TipoServicioId = modelo.TipoServicioId,
+					EscuelaId = modelo.EscuelaId,
+					ArchivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos//{modelo.Codigo}").Id,
 					FechaCreacion = DateTime.Now,
 					UsuarioCodigo = AccountController.GetCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
@@ -204,6 +202,10 @@ namespace WebApp.Controllers
 			var requerimiento = await _context.Requerimientos
 				.Where(r => r.Estado != Models.EstadoRequerimiento.Eliminado)
 				.Where(r => r.Estado != Models.EstadoRequerimiento.Historico)
+				.Include(r => r.TipoServicio)
+				.Include(r => r.Escuela)
+				.Include(r => r.Archivo)
+				.Include(r => r.Usuario)
 				.FirstOrDefaultAsync(m => m.Id == id);
 
 			if (requerimiento == null)
@@ -232,6 +234,10 @@ namespace WebApp.Controllers
 
 			var requerimiento = await _context.Requerimientos
 				.Where(r => r.Estado == Models.EstadoRequerimiento.Activo)
+				.Include(r => r.TipoServicio)
+				.Include(r => r.Escuela)
+				.Include(r => r.Archivo)
+				.Include(r => r.Usuario)
 				.FirstOrDefaultAsync(m => m.Id == id);
 
 			if (requerimiento == null)
@@ -272,7 +278,7 @@ namespace WebApp.Controllers
 
 		private void loadLists()
 		{
-			var schools = _context.Campus.ToList();
+			var schools = _context.Escuelas.ToList();
 			ViewBag.Schools = new SelectList(schools, "Id", "Nombre");
 
 			var serviceTypes = _context.TipoServicios.ToList();
