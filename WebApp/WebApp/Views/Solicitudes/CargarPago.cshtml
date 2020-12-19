@@ -1,15 +1,5 @@
 ﻿@model WebApp.ViewModels.Solicitudes.PagoSolicitudViewModel
 
-@{
-    ViewData["Title"] = "Pago";
-}
-
-
-
-
-
-
-
 <div class="row">
     <div class="col-md-12">
         <form asp-action="Pago">
@@ -17,18 +7,15 @@
             <div class="col-md-12">
                 <div class="col-md-8">
                     <label> Cargar Pago  </label>
-                    <input title="Este campo es requerido." asp-for="Archivo" class="form-control">
+                    <input title="Debe seleccionar un archivo" asp-for="Archivo" class="form-control">
                 </div>
                 <div class="4">
-                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                    <input type="submit" value="Enviar" class="btn btn-primary" />
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
