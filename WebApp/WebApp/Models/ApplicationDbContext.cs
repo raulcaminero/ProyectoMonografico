@@ -315,6 +315,9 @@ namespace WebApp.Models
 				.HasKey(x => new { x.IdArchivo, x.IdSolicitud });
 
 		}
+
+
+		public DbSet<WebApp.Models.Proyecto> Proyecto { get; set; }
 	}
 
 }
