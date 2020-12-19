@@ -16,10 +16,10 @@
 }
 
 <div class="text-center">
-    <h1 class="display-5" style="color:blue"><i class="fa fa-list"></i> Lista De Servicio</h1>
+    <h1 class="display-5"><i class="fa fa-list"></i> Lista De Servicio</h1>
 </div>
 <div>
-    <a href="/Servicio/Crear" class="btn btn-info" role="button"><i class="fa fa-graduation-cap"></i> Nuevo Servicio</a>
+    <a href="/Servicio/Crear" class="btn btn-light" role="button"><i class="fa fa-graduation-cap"></i> Nuevo Servicio</a>
 </div>
 @*<br />
     <div id="demo_info" class="box"></div>*@
@@ -34,11 +34,11 @@
     </div>
     <br />*@
 
-<div class="text-center">
+
     @*<table class="table table-hover" id="TblServicio">*@
-    <table id="TblServicio" class="display" style="width:100%">
+    <table id="faculties-tb" class="table">
         <thead>
-            <tr class="bg-info table-sm">
+            <tr>
                 <td>Codigo</td>
                 <td>Descripcion </td>
                 <td>Tipo</td>
@@ -64,11 +64,12 @@
                     <td>@serv.Escuela.Nombre</td>
                     <td>@serv.Carrera.Nombre</td>
                     <td>
-                        <a href="/Servicio/Detalle/@serv.Servicio_Id"><i class="fa fa-eye fa-2x"></i> </a>
+                        <a href="/Servicio/Detalle/@serv.Servicio_Id" class="btn btn-info"><i class="fa fa-eye fa-2x"></i> </a>
                         |
                         @if (serv.Estado_Id == "I")
                         {
-                            <a href="/Servicio/Editar/@serv.Servicio_Id"><i class="fa fa-edit fa-2x"></i> </a>
+                            <a href="/Servicio/Editar/@serv.Servicio_Id" class="btn btn-primary"><i class="fa fa-edit fa-2x"></i> </a>
+                        
                         }
                         else
                         {
@@ -77,7 +78,7 @@
                         |
                         @if (serv.Estado_Id == "I")
                         {
-                            <a href="/Servicio/Eliminar/@serv.Servicio_Id"><i class="fa fa-trash-o fa-w-18 fa-2x" style="color:red"></i> </a>
+                            <a href="/Servicio/Eliminar/@serv.Servicio_Id" class="btn btn-danger"><i class="fa fa-trash-o fa-w-18 fa-2x"></i> </a>
                         }
                         else
                         {
@@ -90,10 +91,10 @@
             }
         </tbody>
     </table>
-</div>
+
 <hr />
 @*<div><span style="color:red">@Html.ValidationSummary("NoListado")</span></div><br />*@
-<div class="text-center"><h3>@Html.ValidationSummary(false, "", new { @class = "text-danger" })</h3></div>
+
 
 @section Scripts{
     <!-- jQuery -->
@@ -102,11 +103,6 @@
     <!-- El JavaScript de DataTables -->
     <script language="javascript" type="text/javascript" src=" https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#TblServicio').DataTable();
-        });
-
-    </script>
+   
 
 }

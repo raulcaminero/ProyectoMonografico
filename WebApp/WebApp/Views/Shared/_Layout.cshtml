@@ -21,17 +21,17 @@
 
     <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">-->
-            @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Culminare</a>*@
-            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">-->
-                    @*<li class="nav-item">
+    @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Culminare</a>*@
+    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+        <ul class="navbar-nav flex-grow-1">-->
+    @*<li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
         </li>*@
-                    <!--<li class="nav-item">
+    <!--<li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Campus" asp-action="Index">Campus</a>
                     </li>
                     <li class="nav-item">
@@ -59,14 +59,14 @@
 
     <div class="container">
         <main role="main" class="pb-3">
-            
+
         </main>
     </div>-->
 </head>
 <body style="padding: 0px">
     <header>
         <div>
-            <img src="https://ciencias.uasd.edu.do/theme/uasdvirtual/pix/facultades/bg/CI_bg.jpg?v=1" class="img-fluid" alt="Responsive image">
+            <img src="https://ciencias.uasd.edu.do/theme/uasdvirtual/pix/facultades/bg/CI_bg.jpg?v=1" class="img-fluid" style="width: 100%" alt="Responsive image">
         </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
 
@@ -77,46 +77,61 @@
             </button>
 
 
-            
+
             <ul class="nav navbar-nav ml-auto">
                 <a class="nav-link">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpYhZKw5Ww7Tg_9YFAB63f-x5NHb0vTpANQ&usqp=CAU"
                          class="rounded-circle" alt="Responsive image" width=" 35" height="30">
-                    </a>
-                    <li class="nav-item">
-                        <a class="nav-link">@User.Identity.Name</a>
-                    </li>
+                </a>
+                <li class="nav-item">
+                    <a class="nav-link">@User.Identity.Name</a>
+                </li>
 
-                    @*<li class="nav-item">
-            <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpYhZKw5Ww7Tg_9YFAB63f-x5NHb0vTpANQ&usqp=CAU" alt="" width="30" height="24">
-        </li>*@
+                @*<li class="nav-item">
+                        <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpYhZKw5Ww7Tg_9YFAB63f-x5NHb0vTpANQ&usqp=CAU" alt="" width="30" height="24">
+                    </li>*@
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">sign out</a>
-                    </li>
-
-
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">sign out</a>
+                </li>
 
 
 
-</ul>
+
+
+            </ul>
         </nav>
     </header>
-    
-        <div class="row">
-            <div id="nav-drawer" data-region="drawer" class="col-lg-3">
-                <nav class="list-group" aria-label="Monografio">
-                    <ul style="list-style: none;padding-left:20px;">
+
+    <div class="row mr-2">
+        <div id="nav-drawer" data-region="drawer" class="col-lg-2">
+            <nav class="list-group" aria-label="Monografio">
+                <ul style="list-style: none;padding-left:20px;">
+                    <li>
+                        <a class="list-group-item list-group-item-action bg-primary text-white" href="#">
+                            <div class="ml-0">
+                                <div class="media">
+                                    <span class="media-left">
+                                        <i class="icon fa fa-graduation-cap fa-fw mr-3" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="media-body font-weight-bold">
+                                        <span class="media-body ">Monográfico</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                    @if (User.IsInRole("Administrador"))
+                    {
                         <li>
-                            <a class="list-group-item list-group-item-action bg-primary text-white" href="#">
+                            <a class="list-group-item list-group-item-action " asp-controller="Servicio" asp-action="Index">
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-graduation-cap fa-fw mr-3" aria-hidden="true"></i>
+                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
-                                        <span class="media-body font-weight-bold">
-                                            <span class="media-body ">Monográfico</span>
-                                        </span>
+                                        <span class="media-body ">Servicios</span>
                                     </div>
                                 </div>
                             </a>
@@ -134,18 +149,6 @@
                             </a>
                         </li>
                         <li>
-                            <a class="list-group-item list-group-item-action " asp-controller="Servicio" asp-action="Index">
-                                <div class="ml-0">
-                                    <div class="media">
-                                        <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
-                                        </span>
-                                        <span class="media-body ">Servicios</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
                             <a class="list-group-item list-group-item-action " asp-controller="Calificaciones" asp-action="Index">
                                 <div class="ml-0">
                                     <div class="media">
@@ -153,6 +156,18 @@
                                             <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Calificaciones</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="list-group-item list-group-item-action " asp-controller="Campus" asp-action="Index">
+                                <div class="ml-0">
+                                    <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="media-body ">Campus</span>
                                     </div>
                                 </div>
                             </a>
@@ -193,9 +208,20 @@
                                 </div>
                             </a>
                         </li>
-
                         <li>
-                            <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Index">
+                            <a class="list-group-item list-group-item-action " asp-controller="Requerimientos" asp-action="Index">
+                                <div class="ml-0">
+                                    <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="media-body ">Requerimientos</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Registrar">
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
@@ -206,24 +232,39 @@
                                 </div>
                             </a>
                         </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Registrar">
+                                <div class="ml-0">
+                                    <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="media-body ">Solicitar inscripción</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
 
-
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-9 col-md-6">
-                
-
-                    @RenderBody()
-
-                
-            </div>
+                </ul>
+            </nav>
         </div>
-    
+        <div class="col-lg-10 col-md-6">
+
+
+            @RenderBody()
+
+
+        </div>
+    </div>
+
 
     @*      lol   *@
 
-   
+
 
     <!--<script src="~/plantilla/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/plantilla/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

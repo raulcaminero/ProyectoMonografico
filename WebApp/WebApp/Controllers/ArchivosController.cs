@@ -8,6 +8,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
 	public class ArchivosController : Controller
 	{
 		private readonly ApplicationDbContext _context;
@@ -38,8 +39,8 @@ namespace WebApp.Controllers
 			// Guardar el registro en la DB.
 			var registro = new Archivo()
 			{
+				Fecha = DateTime.Now,
 				NombreArchivo = file.FileName,
-				Extension = file.ContentType,
 				Modulo = modulo,
 				Ruta = archivo
 			};
