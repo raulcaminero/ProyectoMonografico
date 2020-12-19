@@ -99,14 +99,14 @@ namespace WebApp.Controllers
 				var codigo = generarCodigo();
 
 				var archivosController = new ArchivosController(_context);
-				var archivo = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos\\{codigo}");
+				var archivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos\\{codigo}").Result.Id;	
 
 				var req = new Requerimiento()
 				{
 					Codigo = codigo,
 					TipoServicioId = modelo.TipoServicioId,
 					EscuelaId = modelo.EscuelaId,
-					ArchivoId = archivo.Result.Id,
+					ArchivoId = archivoId,
 					FechaCreacion = DateTime.Now,
 					UsuarioCodigo = AccountController.GetCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
