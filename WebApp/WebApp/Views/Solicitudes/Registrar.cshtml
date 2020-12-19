@@ -1,33 +1,5 @@
 ﻿@model WebApp.ViewModels.Solicitudes.RegistrarSolicitudViewModel
 
-<div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-    <div class="form-group breadcrum-right">
-        <div class="dropdown">
-
-        </div>
-    </div>
-</div>
-
-<div class="content-header-right text-md-right col-md-12 col-12 d-md-block d-none">
-    <div class="form-group breadcrum-right">
-        <div class="dropdown">
-        </div>
-    </div>
-</div>
-@*<div class="navbar navbar-expand-lg">
-        <form>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-            </div>
-
-            <div class="input-group">
-                <input type="submit" class="btn btn-info form-control" value="Traer Datos">
-            </div>
-        </form>
-    </div>*@
-
-
 <div class="col-12">
     <div class="card">
         <div class="card-header">
@@ -35,11 +7,12 @@
         </div>
         <div class="card-content">
             <div class="card-body">
-                <form asp-action="Registrar">
+                <form asp-action="Registrar" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <!-- Step 1 -->
                     <h5 id="form_incripcion-h-0" tabindex="-1" class="title current text-primary text-center"> INFORMACIÓN PERSONAL </h5>
+                    <hr />
 
                     <fieldset id="form_incripcion-p-0" role="tabpanel" aria-labelledby="form_incripcion-h-0" class="body current" aria-hidden="false">
 
@@ -104,7 +77,6 @@
                                 <div class="form-group label-floating">
                                     <label class="control-label" asp-format="{0:MM/dd/yyyy}">Fecha Nacimiento: <span class="rojo">*</span></label>
                                     <input asp-for="FechaNacimiento" type="date" class="form-control enabled="false" aria-invalid="true">
-                                    <label id="fecha-error" class="danger" for="fecha"></label>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -134,7 +106,9 @@
                     </fieldset>
 
                     <!-- Step 2 -->
+                    <br />
                     <h5 id="form_incripcion-h-1" tabindex="-1" class="title text-primary text-center"> <i class="step-icon feather icon-briefcase"></i> DATOS DE LA INCRIPCION</h5>
+                    <hr />
                     <fieldset id="form_incripcion-p-1" role="tabpanel" aria-labelledby="form_incripcion-h-1" class="body" aria-hidden="true">
                         <div class="row">
                             <div class="col-sm-4">
@@ -188,7 +162,9 @@
                     </fieldset>
 
                     <!-- Step 3 -->
+                    <br />
                     <h5 id="form_incripcion-h-2" tabindex="-1" class="title text-primary text-center"> DOCUMENTOS REQUERIDOS</h5>
+                    <hr />
                     <fieldset id="form_incripcion-p-2" role="tabpanel" aria-labelledby="form_incripcion-h-2" class="body" aria-hidden="true">
                         <div class="row">
                             <div class="col-md-12">

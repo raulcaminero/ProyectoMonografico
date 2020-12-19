@@ -41,7 +41,6 @@ namespace WebApp.Controllers
 			{
 				Fecha = DateTime.Now,
 				NombreArchivo = file.FileName,
-				Extension = file.ContentType,
 				Modulo = modulo,
 				Ruta = archivo
 			};

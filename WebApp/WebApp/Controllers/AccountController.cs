@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -17,6 +18,7 @@ namespace WebApp.Controllers
 	public class AccountController : Controller
 	{
 		private readonly ApplicationDbContext _context;
+
 		public AccountController(ApplicationDbContext context)
 		{
 			_context = context;
@@ -98,28 +100,29 @@ namespace WebApp.Controllers
 		public async Task<ActionResult> Login(string email, string password)
 		{
 			// var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
-			var c = _context.usuarios.Where(x => x.Email == email).FirstOrDefault();
+			var usr = await _context.usuarios
+				.Where(u => u.Email == email)
+				.Include(u => u.Rol)
+				.FirstOrDefaultAsync();
+
 			//var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
-			if (c == null)
+			if (usr == null)
 			{
 
 				ViewBag.Login = "El usuario indicado no existe";
 				return View();
 			}
-			if (c.contrasena.Equals(password))
+			if (usr.contrasena.Equals(password))
 			{
 				var claims = new[] {
 				new Claim(ClaimTypes.NameIdentifier,email),
-				new Claim(ClaimTypes.Name, c.primer_nombre)
+				new Claim(ClaimTypes.Name, usr.primer_nombre),
+				new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
 			   };
 
 				var identity = new ClaimsIdentity(claims, "CookieAuth");
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
-
-				bool u = HttpContext.User.Identity.IsAuthenticated;
-
-
 
 				return RedirectToAction("Index", "Home");
 			}
@@ -170,10 +173,19 @@ namespace WebApp.Controllers
 			var usr = user as ClaimsPrincipal;
 			var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-			var currentUser = context.usuarios.FirstOrDefault(u => u.Email == email);
+			var currentUser = context.usuarios
+				.Include(u => u.Rol)
+				.FirstOrDefault(u => u.Email == email);
 
 			return currentUser;
 		}
 
+		public static bool GetUsuarioEsAdministrador(IPrincipal user, ApplicationDbContext context)
+		{
+			var usr = GetCurrentUser(user, context);
+			var rol = usr.Rol?.Descripcion?.ToLower();
+			var esAdmin = (rol == "administrador");
+			return esAdmin;
+		}
 	}
 }
