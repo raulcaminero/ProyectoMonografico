@@ -59,6 +59,6 @@ namespace WebApp.ViewModels.Solicitudes
 		public IFormFile ArchivoCedula { get; set; }
 
 		public IFormFile ArchivoKardex { get; set; }
-
+		public IFormFile ArchivoPago { get; set; }
 	}
 }

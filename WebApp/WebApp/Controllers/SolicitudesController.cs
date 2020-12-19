@@ -9,17 +9,19 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using WebApp.Controllers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace PerfilEstudiante.Controllers
 {
-    public class SolicitudesController : Controller
-    {
-        private readonly ApplicationDbContext _context;
-
+	public class SolicitudesController : Controller
+	{
+		private readonly ApplicationDbContext _context;
+       
         public SolicitudesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		{
+			_context = context;
+			
+		}
 
         [HttpGet]
         // GET: Campus
@@ -31,14 +33,40 @@ namespace PerfilEstudiante.Controllers
                 .Include(s => s.Estado)
                 .ToListAsync();
 
-            return View(solicitudes);
-        }
+			return View(solicitudes);
+		}
 
+		[HttpGet]
+		public async Task<IActionResult> Pago(int id)
+		{
+			/*var solicitudes = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado).FirstOrDefaultAsync(m=>m.IdEstado=="A");
+			*/
+			var pago = new PagoSolicitudViewModel() {
 
-        private void cargarListas()
-        {
-            var campus = _context.Campus.ToList();
-            ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
+				IdSolicitud = id
+			
+			}; 
+			return View(pago);
+		}
+		// Solicitud Pago
+		[HttpPost]
+		public async Task<IActionResult> Pago(PagoSolicitudViewModel pago)
+		{
+			var solicitudes = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado).FirstOrDefaultAsync(p=> p.IdEstado=="A");
+				
+
+			return View(solicitudes);
+		}
+		private void cargarListas()
+		{
+			var campus = _context.Campus.ToList();
+			ViewBag.Campus = new SelectList(campus, "Id", "Nombre");
 
             var facultades = _context.Facultades.ToList();
             ViewBag.Facultades = new SelectList(facultades, "Id", "NombreFacultad");
