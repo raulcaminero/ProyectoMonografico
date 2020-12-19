@@ -5,23 +5,42 @@
 }
 
 <h1>Editar requerimiento</h1>
+<br />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoServicioDescripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoServicioDescripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EscuelaNombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EscuelaNombre)
+        </dd>
+    </dl>
+</div>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <input type="hidden" asp-for="Codigo" />
+                <input type="hidden" asp-for="Codigo" />
+                <input type="hidden" asp-for="TipoServicioId" />
+                <input type="hidden" asp-for="EscuelaId" />
 
-            <div class="form-group">
-                <label>Documento de requerimientos</label>
-                <input title="Este campo es requerido." type="file" class="form-control" asp-for="Archivo">
-                <span asp-validation-for="Archivo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label>Documento de requerimientos</label>
+                    <input title="Este campo es requerido." type="file" class="form-control" asp-for="Archivo">
+                    <span asp-validation-for="Archivo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </form>
     </div>
 </div>
 
