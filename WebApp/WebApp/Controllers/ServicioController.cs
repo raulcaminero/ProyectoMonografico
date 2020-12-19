@@ -52,12 +52,13 @@ namespace WebApp.Controllers
         // GET: Servicio/Create
         public IActionResult Create()
         {
-            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Codigo");
-            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Codigo");
-            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "CodigoEscuela");
-            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoId");
-            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "Codigo");
+            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Nombre");
+            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Nombre");
+            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre");
+            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
+            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad");
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto");
+            ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion");
             return View();
         }
 
@@ -74,12 +75,13 @@ namespace WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Codigo", servicio.Campus_Id);
-            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Codigo", servicio.Carrera_Id);
-            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "CodigoEscuela", servicio.Escuela_Id);
-            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoId", servicio.Estado_Id);
-            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "Codigo", servicio.Facultad_Id);
+            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Nombre", servicio.Campus_Id);
+            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Nombre", servicio.Carrera_Id);
+            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre", servicio.Escuela_Id);
+            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", servicio.Estado_Id);
+            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad", servicio.Facultad_Id);
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", servicio.UsuarioCodigo);
+            ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion", servicio.TipoServicio_Id);
             return View(servicio);
         }
 
@@ -96,12 +98,13 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Codigo", servicio.Campus_Id);
-            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Codigo", servicio.Carrera_Id);
-            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "CodigoEscuela", servicio.Escuela_Id);
-            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoId", servicio.Estado_Id);
-            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "Codigo", servicio.Facultad_Id);
+            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Nombre", servicio.Campus_Id);
+            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Nombre", servicio.Carrera_Id);
+            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre", servicio.Escuela_Id);
+            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", servicio.Estado_Id);
+            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad", servicio.Facultad_Id);
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", servicio.UsuarioCodigo);
+            ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion", servicio.TipoServicio_Id);
             return View(servicio);
         }
 
@@ -137,12 +140,13 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Codigo", servicio.Campus_Id);
-            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Codigo", servicio.Carrera_Id);
-            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "CodigoEscuela", servicio.Escuela_Id);
-            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoId", servicio.Estado_Id);
-            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "Codigo", servicio.Facultad_Id);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "EstadoId", servicio.UsuarioCodigo);
+            ViewData["Campus_Id"] = new SelectList(_context.Campus, "Id", "Nombre", servicio.Campus_Id);
+            ViewData["Carrera_Id"] = new SelectList(_context.Carreras, "Id", "Nombre", servicio.Carrera_Id);
+            ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre", servicio.Escuela_Id);
+            ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", servicio.Estado_Id);
+            ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad", servicio.Facultad_Id);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", servicio.UsuarioCodigo);
+            ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion", servicio.TipoServicio_Id);
             return View(servicio);
         }
 
