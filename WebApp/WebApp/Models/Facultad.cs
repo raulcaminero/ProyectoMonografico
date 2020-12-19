@@ -11,6 +11,7 @@ namespace WebApp.Models
         {
             Carrera = new HashSet<Carrera>();
             Escuela = new HashSet<Escuela>();
+            Servicio = new HashSet<Servicio>();
         }
 
         [Key]
@@ -41,5 +42,6 @@ namespace WebApp.Models
         public virtual Campus Campus { get; set; }
         public virtual ICollection<Carrera> Carrera { get; set; }
         public virtual ICollection<Escuela> Escuela { get; set; }
+        public virtual ICollection<Servicio> Servicio { get; set; }
     }
 }

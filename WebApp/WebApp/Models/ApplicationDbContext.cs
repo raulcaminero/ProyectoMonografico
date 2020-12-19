@@ -14,6 +14,7 @@ namespace WebApp.Models
 		{
 
 		}
+
 		public virtual DbSet<Usuario> usuarios { get; set; }
 		public virtual DbSet<AdjuntoMaterial> AdjuntoMaterial { get; set; }
 		public virtual DbSet<Calificaciones> Calificaciones { get; set; }
@@ -258,11 +259,23 @@ namespace WebApp.Models
 					.OnDelete(DeleteBehavior.ClientSetNull)
 					.HasConstraintName("FK_Servicio_Carrera");
 
+				entity.HasOne(d => d.TipoServicio)
+					.WithMany(p => p.Servicio)
+					.HasForeignKey(d => d.TipoServicio_Id)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_Servicio_Tiposervicio");
+
 				entity.HasOne(d => d.Escuela)
 					.WithMany(p => p.Servicio)
 					.HasForeignKey(d => d.Escuela_Id)
 					.OnDelete(DeleteBehavior.ClientSetNull)
 					.HasConstraintName("FK_Servicio_Escuela");
+
+				entity.HasOne(d => d.Facultad)
+					.WithMany(p => p.Servicio)
+					.HasForeignKey(d => d.Facultad_Id)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_Servicio_Facultad");
 
 				entity.HasOne(d => d.Estado)
 					.WithMany(p => p.Servicio)
