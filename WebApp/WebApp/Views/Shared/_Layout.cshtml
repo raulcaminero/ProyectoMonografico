@@ -76,10 +76,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-
-
             <ul class="nav navbar-nav ml-auto">
-                <a class="nav-link">
+                <a asp-action="Edit" asp-controller="Perfiles" class="nav-link">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpYhZKw5Ww7Tg_9YFAB63f-x5NHb0vTpANQ&usqp=CAU"
                          class="rounded-circle" alt="Responsive image" width=" 35" height="30">
                 </a>
@@ -94,10 +92,6 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">sign out</a>
                 </li>
-
-
-
-
 
             </ul>
         </nav>
@@ -124,6 +118,18 @@
 
                     @if (User.IsInRole("Administrador"))
                     {
+                        <li>
+                            <a class="list-group-item list-group-item-action " asp-controller="Perfiles" asp-action="Index">
+                                <div class="ml-0">
+                                    <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="media-body ">Perfiles de usuario</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                         <li>
                             <a class="list-group-item list-group-item-action " asp-controller="Servicio" asp-action="Index">
                                 <div class="ml-0">
@@ -221,7 +227,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Registrar">
+                            <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Index">
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">

@@ -39,14 +39,16 @@ namespace WebApp.Models
         public string segundo_apellido { set; get; }
 
         public string tipo_identificacion { set; get; }
+        public string TipoIdentificacion => tipo_identificacion == "C" ? "Cédula" : "Pasaporte";
 
         [Display(Name = "Identificación")]
         public string identificacion { set; get; }
 
         [Display(Name = "Sexo")]
         public string sexo { set; get; }
+        public string Sexo => sexo == "M" ? "Masculino" : "Femenino";
 
-        [Display(Name = "Matrícula")]
+		[Display(Name = "Matrícula")]
         public string matricula { set; get; }
 
         [MaxLength(30)]

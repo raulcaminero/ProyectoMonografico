@@ -1,13 +1,13 @@
 ﻿@model WebApp.Models.Usuario
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Eliminar";
 }
 
-<h1>Details</h1>
+<h1>Eliminar usuario</h1>
 
+<h3>Está seguro que quiere eliminar el usuario?</h3>
 <div>
-    <h4>Usuario</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -83,8 +83,10 @@
             @Html.DisplayFor(model => model.campus)
         </dd> *@
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.codigo">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="codigo" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index">Ir a la lista de usuarios</a>
+    </form>
 </div>

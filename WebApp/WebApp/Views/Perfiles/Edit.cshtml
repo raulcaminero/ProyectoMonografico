@@ -1,9 +1,7 @@
 ﻿@model WebApp.Models.Usuario
 
-
 @{
-    ViewData["Title"] = "Edit";
-
+    ViewData["Title"] = "Datos personales";
     var rutaFoto = "/imagenes/" + (Model.RutaFoto ?? "avatar.jpg");
 }
 
@@ -36,18 +34,6 @@
                                     Cambia la contraseña
                                 </a>
                             </li>
-                            <!-- <li class="nav-item">
-                                 <a class="nav-link d-flex py-75" id="account-pill-social" data-toggle="pill" href="" aria-expanded="false">
-                                     <i class="feather icon-camera mr-50 font-medium-3"></i>
-                                     Social links
-                                 </a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link d-flex py-75" id="account-pill-info" data-toggle="pill" href="" aria-expanded="false">
-                                     <i class="feather icon-info mr-50 font-medium-3"></i>
-                                     Subir Archivos
-                                 </a>
-                             </li> -->
 
                         </ul>
                     </div>
@@ -59,7 +45,7 @@
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="v-pills-profil" aria-labelledby="account-pill-general" aria-expanded="true">
                                             <div class="" id="v-pills-profil">
-                                                
+
                                                 <form id="form_imagenes" enctype="multipart/form-data" asp-action="CargarImagen">
 
                                                     <div class="row">
@@ -240,7 +226,7 @@
     <script src="~/js/Jquery.min.js"></script>
     <script src="~/js/toastr.js"></script>
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
             var mensaje_save_pass = $('#Msg_Success').text();
             var mensaje_error_pass = $('#Msg_Error_pass').text();
             var mensaje_save_img = $('#Msg_Success_img').text();
@@ -255,7 +241,7 @@
                 toastr.success(mensaje_save_img);
             }
         });
-    
+
         function Validar() {
             var old_pass, new_pass, confirm_pass;
             new_pass = document.getElementById("new_pass").value;
