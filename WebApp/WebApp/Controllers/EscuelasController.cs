@@ -11,6 +11,7 @@ using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class EscuelasController : Controller
     {
         private readonly ApplicationDbContext _context;

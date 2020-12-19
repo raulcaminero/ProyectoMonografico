@@ -12,6 +12,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class ModuloController : Controller
     {
         private readonly ApplicationDbContext _context;

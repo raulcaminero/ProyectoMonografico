@@ -10,6 +10,7 @@ using WebApp.ViewModels.Requerimientos;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
 	public class RequerimientosController : Controller
 	{
 		private readonly ApplicationDbContext _context;
@@ -83,7 +84,6 @@ namespace WebApp.Controllers
 		public IActionResult Create()
 		{
 			loadLists();
-
 			return View();
 		}
 
@@ -108,7 +108,7 @@ namespace WebApp.Controllers
 					EscuelaId = modelo.EscuelaId,
 					ArchivoId = archivo.Result.Id,
 					FechaCreacion = DateTime.Now,
-					UsuarioCodigo = AccountController.getCurrentUser(User, _context).codigo,
+					UsuarioCodigo = AccountController.GetCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
 				};
 
@@ -176,7 +176,7 @@ namespace WebApp.Controllers
 					EscuelaId = modelo.EscuelaId,
 					//ArchivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos//{modelo.Codigo}").Id,
 					FechaCreacion = DateTime.Now,
-					UsuarioCodigo = AccountController.getCurrentUser(User, _context).codigo,
+					UsuarioCodigo = AccountController.GetCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
 				};
 

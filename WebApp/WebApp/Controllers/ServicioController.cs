@@ -13,6 +13,7 @@ using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class ServicioController : Controller
     {
         public string _draw = "";
