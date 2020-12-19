@@ -23,7 +23,7 @@ namespace WebApp.Models
         public string NombreArchivo { get; set; }
 
         [Required]
-        [MaxLength(5)]
+        [MaxLength(25)]
         public string Extension{ get; set; }
 
     }

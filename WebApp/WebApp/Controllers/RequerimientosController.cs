@@ -13,12 +13,10 @@ namespace WebApp.Controllers
 	public class RequerimientosController : Controller
 	{
 		private readonly ApplicationDbContext _context;
-		private ArchivosController archivosController;
 
 		public RequerimientosController(ApplicationDbContext context)
 		{
 			_context = context;
-			archivosController = new ArchivosController(context);
 		}
 
 		// GET: Requerimientos
@@ -100,12 +98,15 @@ namespace WebApp.Controllers
 			{
 				var codigo = generarCodigo();
 
+				var archivosController = new ArchivosController(_context);
+				var archivo = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos\\{codigo}");
+
 				var req = new Requerimiento()
 				{
 					Codigo = codigo,
 					TipoServicioId = modelo.TipoServicioId,
 					EscuelaId = modelo.EscuelaId,
-					ArchivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos//{codigo}").Id,
+					ArchivoId = archivo.Result.Id,
 					FechaCreacion = DateTime.Now,
 					UsuarioCodigo = AccountController.getCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
@@ -173,7 +174,7 @@ namespace WebApp.Controllers
 					Codigo = modelo.Codigo,
 					TipoServicioId = modelo.TipoServicioId,
 					EscuelaId = modelo.EscuelaId,
-					ArchivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos//{modelo.Codigo}").Id,
+					//ArchivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos//{modelo.Codigo}").Id,
 					FechaCreacion = DateTime.Now,
 					UsuarioCodigo = AccountController.getCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
