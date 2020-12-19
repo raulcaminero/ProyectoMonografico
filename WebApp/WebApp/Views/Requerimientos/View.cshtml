@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WebApp.ViewModels.Requerimientos.ViewRequerimientoViewModel>
+
+@{
+    ViewData["Title"] = "Requerimientos para " + ViewBag.TipoServicio;
+}
+
+<center>
+    <h2>Universidad Autónoma de Santo Domingo</h2>
+    <h3>Requerimientos para @ViewBag.TipoServicio</h3>
+</center>
+
+<hr />
+
+@foreach (var item in Model)
+{
+    <div class="fa-group">
+        <div class="col-form-label">
+            <h6>•  @Html.DisplayFor(modelItem => item.Titulo)</h6>
+            <i>@Html.DisplayFor(modelItem => item.Descripcion)</i>
+        </div>
+        <hr />
+    </div>
+}
