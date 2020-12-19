@@ -7,13 +7,24 @@ namespace WebApp.Models
 {
     public class GeneralPurpose
     {
+        private readonly ApplicationDbContext _context;
         public GeneralPurpose() { 
         
         }
 
         public string GetUserPicture(string usr)
         {
-            return "https://tribunalsitestorage.blob.core.windows.net/media/24005/whatsapp-image-2020-11-27-at-93025-pm.jpeg";
+
+            var fotos = _context.usuarios.FirstOrDefault(x=> x.Email == usr);
+            if (fotos == null)
+            {
+                return "";
+            }
+            else
+            {
+            return fotos.RutaFoto;
+
+            }
         }
     }
 }
