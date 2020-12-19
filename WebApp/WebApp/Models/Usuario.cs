@@ -57,6 +57,9 @@ namespace WebApp.Models
 
         public DateTime? fecha_nacimiento { get; set; }
 
+//añadiendo RutaFoto
+        public string? RutaFoto { set; get; }
+        //tabla intermedia para calificaciones, profesores en modulos, servicios y de estudiantes
         public int? IdCampus { set; get; }
         [ForeignKey("IdCampus")]
 		public Campus Campus { get; set; }
