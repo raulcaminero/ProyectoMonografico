@@ -4,69 +4,68 @@
 @{ 
     Layout = null;
 }
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Código
-            </th>
-            <th>
-                Escuela
-            </th>
-            <th>
-                Carrera
-            </th>
-            <th>
-                Estado
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table id="careers-tb" class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Codigo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Escuela.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    @if (item.Estado == Estados.Eliminado)
-                    {
-                        <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
-                    }
-                    else
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                        <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                        if (item.Estado == ((Estados)1))
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    <span id="cr-faculty-head">Facultad</span>
+                </th>
+                <th>
+                    <span id="cr-school-head">Escuela</span>
+                </th>
+                <th>
+                    Carrera
+                </th>
+                <th>
+                    <span id="cr-state-head">Estado</span>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Escuela.Facultad.NombreFacultad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Escuela.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td>
+                        @if (item.Estado == Estados.Eliminado)
                         {
-                            <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
                         }
                         else
                         {
-                            <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                            if (item.Estado == ((Estados)1))
+                            {
+                                <a asp-action="Inactivate" asp-route-id="@item.Id">Inactivar</a>
+                            }
+                            else
+                            {
+                                <a asp-action="Activate" asp-route-id="@item.Id">Activar</a>
+                            }
                         }
-                    }
 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

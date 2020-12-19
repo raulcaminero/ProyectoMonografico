@@ -79,6 +79,21 @@ namespace WebApp.Controllers
 			return model;
 		}
 
+		public async Task<ActionResult> View(int intTipoServicio)
+		{
+			var tipoServicio = (Models.TipoServicio)intTipoServicio;
+
+			var reqs = _context.Requerimientos
+				.Where(r => r.Estado == Models.EstadoRequerimiento.Activo)
+				.Where(r => r.TipoServicio == Models.TipoServicio.Ambos || r.TipoServicio == tipoServicio)
+				.ToList();
+
+			var list = reqs.Select(r => construirViewModel(r)).ToList();
+
+			ViewBag.TipoServicio = tipoServicio;
+			return View(list);
+		}
+
 		// GET: Requerimientos/Create
 		public IActionResult Create()
 		{
