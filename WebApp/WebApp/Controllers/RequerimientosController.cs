@@ -101,19 +101,12 @@ namespace WebApp.Controllers
 				var archivosController = new ArchivosController(_context);
 				var archivo = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos\\{codigo}");	
 
-				while (!archivo.IsCompletedSuccessfully)
-                {
-					await Task.Delay(500);
-                }
-
-				var archivoId = archivo.Result.Id;
-
 				var req = new Requerimiento()
 				{
 					Codigo = codigo,
 					TipoServicioId = modelo.TipoServicioId,
 					EscuelaId = modelo.EscuelaId,
-					ArchivoId = archivoId,
+					ArchivoId = archivo.Result.Id,
 					FechaCreacion = DateTime.Now,
 					UsuarioCodigo = AccountController.GetCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo
