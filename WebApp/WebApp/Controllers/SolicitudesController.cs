@@ -37,6 +37,31 @@ namespace PerfilEstudiante.Controllers
             return View(solicitudes);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Pago(int id)
+        {
+            /*var solicitudes = await _context.SolicitudesServicios
+				.Include(s => s.Usuario)
+				.Include(s => s.Servicio)
+				.Include(s => s.Estado).FirstOrDefaultAsync(m=>m.IdEstado=="A");
+			*/
+            var pago = new PagoSolicitudViewModel ()
+            {
+
+                IdSolicitud = id
+
+            };
+            return View(pago);
+        }
+        // Solicitud Pago
+        [HttpPost]
+        public async Task<IActionResult> Pago(PagoSolicitudViewModel pago)
+        {
+            var solicitudes = await _context.SolicitudesServicios
+                .Include(s => s.Usuario)
+                .Include(s => s.Servicio)
+                .Include(s => s.Estado).FirstOrDefaultAsync(p => p.IdEstado == "A");
+
 		public async Task<IActionResult> CargarDocumento(int id, TipoArchivoSolicitud tipo)
 		{
 			var pago = new CargaDocumentoSolicitudViewModel() { IdSolicitud = id, TipoDocumento = tipo };
@@ -99,20 +124,8 @@ namespace PerfilEstudiante.Controllers
 			if (solicitud == null)
 				return NotFound();
 
-			solicitud.DocumentosEntregados = _context.ArchivosSolicitudes
-				.Where(a => a.IdSolicitud == id)
-				.Include(a => a.Archivo)
-				.ToList()
-				.Select(a => new DocumentoEntregadoViewModel()
-				{
-					IdArchivo = a.IdArchivo,
-					Fecha = a.Archivo.Fecha,
-					NombreArchivo = a.Archivo.NombreArchivo,
-					Tipo = a.Tipo
 
-				}).ToList();
-
-			return View(solicitud);
+            return View(solicitud);
         }
 
 		[HttpPost]
