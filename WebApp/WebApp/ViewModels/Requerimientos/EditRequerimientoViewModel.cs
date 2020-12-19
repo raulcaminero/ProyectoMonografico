@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 using WebApp.Models;
 
 namespace WebApp.ViewModels.Requerimientos
@@ -17,6 +18,6 @@ namespace WebApp.ViewModels.Requerimientos
 
 		[Required(ErrorMessage = "Debe subir el documento")]
 		[Display(Name = "Documento")]
-		public Archivo Archivo { get; set; }
+		public IFormFile Archivo { get; set; }
 	}
 }
