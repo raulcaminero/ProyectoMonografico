@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WebApp.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.primer_nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.contrasena)
+            </th>
+@*             <th>
+                @Html.DisplayNameFor(model => model.rol)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.segundo_nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.primer_apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.segundo_apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo_identificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.identificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.matricula)
+            </th>
+@*             <th>
+                @Html.DisplayNameFor(model => model.campus)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.primer_nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contrasena)
+            </td>
+@*             <td>
+                @Html.DisplayFor(modelItem => item.rol)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.segundo_nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.primer_apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.segundo_apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo_identificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.identificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.matricula)
+            </td>
+@*             <td>
+                @Html.DisplayFor(modelItem => item.campus)
+            </td> *@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.codigo">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.codigo">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.codigo">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

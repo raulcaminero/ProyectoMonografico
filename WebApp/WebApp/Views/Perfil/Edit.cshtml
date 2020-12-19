@@ -1,0 +1,299 @@
+﻿@model WebApp.Models.Usuario
+
+
+@{
+    ViewData["Title"] = "Edit";
+
+@*     var rutaFoto = "/imagenes/" + (Model.RutaFoto ?? "avatar.jpg"); *@
+}
+
+<div class="pace-activity"></div>
+<span id="Msg_Success" class="d-none">@TempData["Msg_Success"]</span>
+<span id="Msg_Error_pass" class="d-none">@TempData["Msg_Error_pass"]</span>
+<span id="Msg_Success_img" class="d-none">@TempData["Msg_Success_img"]</span>
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+
+        <div class="content-body">
+            <!-- account setting page start -->
+            <section id="page-account-settings">
+                <div class="row">
+                    <!-- left menu section -->
+                    <div class="col-md-3 mb-2 mb-md-0">
+                        <ul class="nav nav-pills flex-column mt-md-0 mt-1">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex py-75 active" id="" data-toggle="pill" href="#v-pills-profil" aria-expanded="false">
+                                    <i class="feather icon-globe mr-50 font-medium-3"></i>
+                                    General
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex py-75" id="account-pill-password" data-toggle="pill" href="#v-pills-password" aria-expanded="false">
+                                    <i class="feather icon-lock mr-50 font-medium-3"></i>
+                                    Cambia la contraseña
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                 <a class="nav-link d-flex py-75" id="account-pill-social" data-toggle="pill" href="" aria-expanded="false">
+                                     <i class="feather icon-camera mr-50 font-medium-3"></i>
+                                     Social links
+                                 </a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link d-flex py-75" id="account-pill-info" data-toggle="pill" href="" aria-expanded="false">
+                                     <i class="feather icon-info mr-50 font-medium-3"></i>
+                                     Subir Archivos
+                                 </a>
+                             </li> -->
+
+                        </ul>
+                    </div>
+                    <!-- right content section -->
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="v-pills-profil" aria-labelledby="account-pill-general" aria-expanded="true">
+                                            <div class="" id="v-pills-profil">
+                                                
+                                                <form id="form_imagenes" enctype="multipart/form-data" asp-action="CargarImagen">
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <input type="hidden" asp-for="codigo" />
+                                                            @* <img src="@rutaFoto" id="mostrar_imagen" width="201" height="177"> *@
+                                                            <br><br>
+                                                            <div id="div_img" style="padding: 1px; width: 150px; background-color: #17a2b8; position: relative; border-radius: 5px; box-shadow: 0px 3px 0px #1a71a9; margin-left:30px">
+                                                                <p style="text-align: center;  color: white;">Subir Foto</p>
+                                                                <input type="file" id="files" name="Foto" as-for="Foto" multiple="multiple" accept="image/*" onchange="readURL(this);" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;opacity: 0;border-radius: 5px;">
+                                                            </div>
+                                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                                                <input type="submit" id="true_submit_imagenes" name="" style="display:none" class=" btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <br><br>
+                                                            <h5>Esta foto es para asuntos academicos y administrativos. 2x2, de frente, personal, formal, parecidad a la usuada en pasaportes.</h5>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                            <hr>
+                                            <form id="form_registro">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Primer Nombre: <span class="rojo">*</span></label>
+                                                            <input title="" type="text" asp-for="primer_nombre" placeholder="Primer Nombre:" class="form-control" name="pNombre" id="pNombre" disabled="disabled">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Segundo Nombre</label>
+                                                            <input type="text" asp-for="segundo_nombre" class="form-control" name="sNombre" id="sNombre" disabled="disabled">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Primer Apellido: <span class="rojo">*</span></label>
+                                                            <input title="" type="text" asp-for="primer_apellido" class="form-control" name="PApellido" id="PApellido" disabled="disabled">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Segundo Apellido: </label>
+                                                            <input type="text" class="form-control" asp-for="segundo_apellido" name="sApellido" id="sApellido" disabled="disabled">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Tipo Identificación: <span class="rojo">*</span></label>
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListIdentificacionTipo, "Value", "Text", ViewBag.identificacion), new { @class = "form-control", @disabled = "disabled" })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Número Identificación: <span class="rojo">*</span></label>
+                                                            <input title="Este campo es requerido." asp-for="identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" name="cedula" id="cedula" disabled="disabled">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Sexo: <span class="rojo">*</span></label>
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListGenero, "Value", "Text", ViewBag.SelectSexo), new { @class = "form-control", @disabled = "disabled" })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Matricula o Código:</label>
+                                                            <input type="text" class="form-control" asp-for="matricula" placeholder="Matricula o Código" maxlength="20" name="matricula" id="matricula" disabled="disabled">
+                                                            <input type="hidden" name="matricula_vieja" id="matricula_vieja" value="AE4961">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Fecha Nacimiento: <span class="rojo">*</span></label>
+                                                            <input title="Este campo es requerido." type="date" class="form-control" name="fecha" id="fecha" disabled="disabled">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Teléfono o Celular: <span class="rojo">*</span></label>
+                                                            <input title="Este campo es requerido." asp-for="contacto" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" name="contacto" id="contacto" disabled="disabled">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListNacionaliad, "Value", "Text", ViewBag.nacionalidad), new { @class = "form-control", @disabled = "disabled" })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Campus: <span class="rojo">*</span></label>
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListCampus, "Value", "Text", ViewBag.campus), new { @class = "form-control", @disabled = "disabled" })
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
+                                            <form id="cambio_password" asp-action="CambiarClave" onsubmit="return Validar()">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <div class="controls col-6">
+                                                                <input type="hidden" asp-for="codigo" />
+                                                                <label for="account-old-password">Contraseña anterior <span class="rojo">*</span></label>
+                                                                <input type="password" class="form-control" as-for="old_pass" name="old_pass" value="" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <div class="controls col-6">
+                                                                <label for="account-new-password">Nueva contraseña <span class="rojo">*</span></label>
+                                                                <input type="password" id="new_pass" class="form-control" as-for="new_pass" name="new_pass" value="" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <div class="controls col-6">
+                                                                <label for="account-retype-new-password">
+                                                                    Reescriba nueva
+                                                                    Contraseña <span class="rojo">*</span>
+                                                                </label>
+                                                                <input type="password" id="confirm_pass" class="form-control" as-for="confirm_pass" name="confirm_pass" value="" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                                        <button type="submit" id="cambiar_clave" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
+                                                            Guardar Cambios
+                                                        </button>
+                                                        <button type="reset" class="btn btn-outline-warning waves-effect waves-light">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="tab-pane fade " id="account-vertical-social" role="tabpanel" aria-labelledby="account-pill-social" aria-expanded="false">
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- account setting page end -->
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<link href="~/css/CustomPerfil.css" rel="stylesheet" />
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Jquery.min.js"></script>
+    <script src="~/js/toastr.js"></script>
+    <script>
+        $(document).ready(function (){
+            var mensaje_save_pass = $('#Msg_Success').text();
+            var mensaje_error_pass = $('#Msg_Error_pass').text();
+            var mensaje_save_img = $('#Msg_Success_img').text();
+
+            if (mensaje_save_pass !== '') {
+                toastr.success(mensaje_save_pass);
+            }
+            if (mensaje_error_pass !== '') {
+                toastr.error(mensaje_error_pass);
+            }
+            if (mensaje_save_img !== '') {
+                toastr.success(mensaje_save_img);
+            }
+        });
+    
+        function Validar() {
+            var old_pass, new_pass, confirm_pass;
+            new_pass = document.getElementById("new_pass").value;
+            confirm_pass = document.getElementById("confirm_pass").value;
+            if (new_pass != confirm_pass) {
+                alert("No coinciden");
+                return false;
+            }
+        }
+        function archivo(evt) {
+            alert('valor');
+            var files = evt.target.files;
+            if (files.length > 1) {
+
+                alert("Solo se permite seleccionar un archivo");
+            } else {
+                alert("Validar");
+                $("#true_submit_imagenes").click();
+            }
+
+
+        }
+
+    </script>
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#mostrar_imagen')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+                $("#true_submit_imagenes").click();
+            }
+        }
+    </script>
+}
