@@ -13,5 +13,7 @@ namespace WebApp.Models
 
 		[ForeignKey("IdSolicitud")]
 		public SolicitudServicio Solicitud { get; set; }
+
+		public TipoArchivoSolicitud Tipo { get; set; }
 	}
 }

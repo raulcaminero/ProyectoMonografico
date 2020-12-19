@@ -66,7 +66,7 @@ namespace WebApp.Controllers
 					sexo = sexo,
 					matricula = matricula,
 					IdCampus = campus,
-					EstadoId = "1"
+					EstadoId = "A"
 				};
 
 				_context.Add(usuario);

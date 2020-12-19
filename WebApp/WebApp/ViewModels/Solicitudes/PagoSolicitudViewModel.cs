@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.ViewModels.Solicitudes
 {
-    public class PagoSolicitudViewModel
+	public class PagoSolicitudViewModel
     {
+        [Required]
         public int IdSolicitud { get; set; }
+
+        [Required]
         public IFormFile Archivo { get; set; }
+        
     }
 }

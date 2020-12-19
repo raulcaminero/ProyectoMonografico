@@ -15,17 +15,17 @@
     </div>
 </div>
 @*<div class="navbar navbar-expand-lg">
-    <form>
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="email" type="text" class="form-control" name="email" placeholder="Email">
-        </div>
+        <form>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+            </div>
 
-        <div class="input-group">
-            <input type="submit" class="btn btn-info form-control" value="Traer Datos">
-        </div>
-    </form>
-</div>*@
+            <div class="input-group">
+                <input type="submit" class="btn btn-info form-control" value="Traer Datos">
+            </div>
+        </form>
+    </div>*@
 
 <div class="col-12">
     <div class="card">
@@ -34,7 +34,8 @@
         </div>
         <div class="card-content">
             <div class="card-body">
-                <form action="Registrar"> @*id="form_incripcion" class="steps-validation wizard-circle wizard clearfix" role="application" novalidate="novalidate">*@
+                <form action="Registrar">
+                    @*id="form_incripcion" class="steps-validation wizard-circle wizard clearfix" role="application" novalidate="novalidate">*@
 
                     <!-- Step 1 -->
                     <h5 id="form_incripcion-h-0" tabindex="-1" class="title current text-primary text-center"> INFORMACIÓN PERSONAL </h5>
@@ -140,32 +141,32 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Facultad: <span class="rojo">*</span></label>
-                                    <select asp-items="@ViewBag.Facultades" title="Este campo es requerido." required="" id="idFacultad" class="form-control" enabled="false">
-                                        <option value="NA" selected="">Seleccione una Opción</option>
+                                    <select asp-items="@ViewBag.Facultades" title="Este campo es requerido." required="" id="idFacultad" class="form-control combined combined_1" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Escuela: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="idEscuela" class="form-control" enabled="false">
-                                        <option value="NA" selected="">Seleccione una Opción</option>
+                                    <select asp-items="@ViewBag.Escuelas" title="Este campo es requerido." required="" id="idEscuela" class="form-control combined combined_2" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Carrera: <span class="rojo">*</span></label>
-                                    <select title="Este campo es requerido." required="" id="idCarrera" class="form-control" enabled="false">
-                                        <option value="NA" selected="">Seleccione una Opción</option>
+                                    <select title="Este campo es requerido." required="" id="idCarrera" class="form-control combined combined_3" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Tipo: <span class="rojo">*</span></label>
-                                    <select asp-items="@ViewBag.TiposServicios" title="Este campo es requerido." required="" id="idTipoServicio" class="form-control" enabled="false">
-                                        <option value="" selected="">Seleccione una Opción</option>
+                                    <select asp-items="@ViewBag.TiposServicios" title="Este campo es requerido." required="" id="idTipoServicio" class="form-control combined combined_4" enabled="false">
+                                        <option value="0" selected="">Seleccione una Opción</option>
                                         @*<option value="1">Tesis</option>
                                             <option value="2">Monográfico</option>*@
                                     </select>
@@ -174,10 +175,10 @@
                             <div class="col-sm-4">
                                 <div class="form-group label-floating">
                                     <label class="control-label">Plan de Estudio: <span class="rojo">*</span></label>
-                                    @*<select asp-items="@ViewBag.Servicios" asp-for="IdServicio" id="idServicio" class="form-control">
-                                        <option value="" selected="">Seleccione una Opción</option>
-                                    </select>*@
-                                    <input asp-for="IdServicio" />
+                                    <select asp-items="@ViewBag.Servicios" asp-for="IdServicio" id="idServicio" class="form-control combined combined_5">
+                                        <option value="0" selected="">Seleccione una Opción</option>
+                                    </select>
+                                    @*<input asp-for="IdServicio" />*@
                                 </div>
                             </div>
                             <!-- <div class="col-md-12">
@@ -231,57 +232,127 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
-    $("#idFacultad").change(function () {
-        var idFacultad = $(this).val();
-        $.get("/Carreras/GetFilteredEscuelas/", { "idFacultad": idFacultad, addEmpty: true }, function (data, success) {
-            var opciones = "";
-            $("#idEscuela").empty();
+    <script>
 
-            console.log(data);
-            for (var i = 0; i < data.length; i++) {
-                opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
-            }
+        $(document).ready(function () {
+            //import { ADDRCONFIG } from "dns";
+            //Cuando cambie algún Facultad > Escuela > Carrera > Tipo Servicio > Servicio
 
-            $("#idEscuela").append(opciones);
+            $(".combined").prop("disabled",true);
+            $(".combined_1").prop("disabled",false);
+
+            $(".combined").change(function () {
+                var numeric = 0;
+
+                //Si el valor es diferente de 0 o NA
+                if ($(this).val() != 0 && $(this).val() != "NA") {
+
+                    //Determina el orden correspondiente del select cambiado y almacenar
+                    for (var i = 1; i <= 4; i++) {
+                        if ($(this).hasClass("combined_" + i)) {
+                            numeric = i;
+                            break;
+                        }
+                    }
+
+                    if (numeric!=0) {
+                        //Inhabilita los siguientes
+                        for (var i = numeric + 1; i <= 5; i++) {
+                            $(".combined_" + i).val("0");
+                            $(".combined_" + i).prop("disabled", true);
+                        }
+
+                        //Excepto el inmediatamente siguiente
+                        $(".combined_" + (numeric + 1)).prop("disabled", false);
+                    }
+                    
+                }
+
+                //Si es igual a 0
+                else {
+
+                    //Determina el orden correspondiente del select cambiado y almacenar
+                    for (var i = 1; i <= 4; i++) {
+                        if ($(this).hasClass("combined_" + i)) {
+                            numeric = i;
+                            break;
+                        }
+                    }
+
+                    //Inhabilita todos los demás
+                    for (var i = numeric + 1; i <= 5; i++) {
+                        $(".combined_" + i).val("0");
+                        $(".combined_" + i).prop("disabled", true);
+                    }
+                }
+
+            });
+
+            $("#idFacultad").change(function () {
+                actualizarEscuelas();
+            });
+
+            $("#idEscuela").change(function () {
+                actualizarCarreras();
+            });
+
+            $("#idCarrera, #idTipoServicio").change(function () {
+                actualizarServicios();
+            });
+
+            
+            
         });
-    });
 
-    $("#idEscuela").change(actualizarCarreras());
-    $("#idCarrera").change(actualizarServicios());
-    $("#idTipoServicio").change(actualizarServicios());
+        function actualizarCarreras() {
+            var idEscuela = $('#idEscuela').val();
+            $.get("/Carreras/GetFilteredCarreras/", { "idEscuela": idEscuela, addEmpty: true }, function (data, success) {
+                var opciones = "";
+                $("#idCarrera").empty();
 
-    function actualizarCarreras() {
-        var idEscuela = $('#idEscuela').val();
-        $.get("/Carreras/GetFilteredCarreras/", { "idEscuela": idEscuela, addEmpty: true }, function (data, success) {
-            var opciones = "";
-            $("#idCarrera").empty();
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
+                }
 
-            console.log(data);
-            for (var i = 0; i < data.length; i++) {
-                opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
-            }
+                $("#idCarrera").append(opciones);
+            });
+        };
 
-            $("#idCarrera").append(opciones);
-        });
-    };
+        function actualizarEscuelas() {
+            var idFacultad = $("#idFacultad").val();
 
-    function actualizarServicios() {
-        var idCarrera = $("#idCarrera").val();
-        var tipo = $("#idTipoServicio").val();
+            $.get("/Escuelas/GetFilteredEscuelas/", { "idFacultad": idFacultad, addEmpty: true }, function (data, success) {
+                var opciones = "";
+                $("#idEscuela").empty();
 
-        $.get("/Solicitudes/GetFilteredServicios/", { "idCarrera": idCarrera, "idTipoServicio": tipo }, function (data, success) {
-            var opciones = "";
-            $("#idServicio").empty();
+                console.log(data);
 
-            console.log(data);
-            for (var i = 0; i < data.length; i++) {
-                opciones = `${opciones}<option value="${data[i].Servicio_Id}">${data[i].Servicio_Codigo}</option>`;
-            }
+                for (var i = 0; i < data.length; i++) {
+                    opciones = `${opciones}<option value="${data[i].id}">${data[i].nombre}</option>`;
+                }
 
-            $("#idServicio").append(opciones);
-        });
-    };
+                $("#idEscuela").append(opciones);
+            });
+        }
 
-</script>
+        function actualizarServicios() {
+            var idCarrera = $("#idCarrera").val();
+            var tipo = $("#idTipoServicio").val();
+
+            console.log(`tipo: ${tipo}`);
+
+            $.get("/Solicitudes/GetFilteredServicios/", { "idCarrera": idCarrera, "idTipoServicio": tipo, "addEmpty" : true }, function (data, success) {
+                var opciones = "";
+                $("#idServicio").empty();
+
+                for (var i = 0; i < data.length; i++) {
+                    opciones = `${opciones}<option value="${data[i].servicio_Id}">${data[i].servicio_Descripcion}</option>`;
+                }
+
+                $("#idServicio").append(opciones);
+            });
+        };
+
+    </script>
 }

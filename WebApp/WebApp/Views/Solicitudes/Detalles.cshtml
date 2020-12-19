@@ -1,7 +1,7 @@
 ﻿@model WebApp.Models.SolicitudServicio
 
 @{
-    ViewData["Title"] = "Detalles Solicitud";
+    ViewData["Title"] = "Detalles de solicitud";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -11,6 +11,7 @@
 <div>
     <h4>Detalle</h4>
     <hr />
+
     <dl class="row">
 
         <dt class="col-sm-2">
@@ -52,7 +53,7 @@
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <select asp-items="@ViewBag.Estados" asp-for="IdEstado" class="form-control-sm"></select>
-</div>
+                </div>
                 <div class="form-group">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
                 </div>
@@ -60,8 +61,14 @@
         </dd>
 
     </dl>
+
+    @* Div para cargar el pago *@
+    <div id="pago">
+        @{await Html.RenderPartialAsync("CargarPago", model: new WebApp.ViewModels.Solicitudes.PagoSolicitudViewModel() { IdSolicitud = Model.Id });}
+    </div>
+
 </div>
 <div>
-   
+
     <a asp-action="Index">Regresar a la lista</a>
 </div>
