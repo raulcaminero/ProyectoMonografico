@@ -15,6 +15,16 @@ namespace WebApp.Models
 		{
 
 		}
+		//Esto corrige el erro en servicio
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		//{
+		//	if (!optionsBuilder.IsConfigured)
+		//	{
+		//		optionsBuilder.UseSqlServer(@"Server = .\SQLEXPRESS; Database = CULMINARE_DB1; Trusted_Connection = true; ConnectRetryCount = 0; ");
+		//	}
+
+		//}
+
 		public virtual DbSet<Usuario> usuarios { get; set; }
 		public virtual DbSet<AdjuntoMaterial> AdjuntoMaterial { get; set; }
 		public virtual DbSet<Calificaciones> Calificaciones { get; set; }
@@ -264,6 +274,12 @@ namespace WebApp.Models
 					.HasForeignKey(d => d.Escuela_Id)
 					.OnDelete(DeleteBehavior.ClientSetNull)
 					.HasConstraintName("FK_Servicio_Escuela");
+
+				entity.HasOne(d => d.Facultad)
+					.WithMany(p => p.Servicio)
+					.HasForeignKey(d => d.Facultad_Id)
+					.OnDelete(DeleteBehavior.ClientSetNull)
+					.HasConstraintName("FK_Servicio_Facultad");
 
 				entity.HasOne(d => d.Estado)
 					.WithMany(p => p.Servicio)

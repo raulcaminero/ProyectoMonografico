@@ -1,0 +1,89 @@
+﻿@model WebApp.Models.Servicio
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Servicio</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Servicio_Id" />
+            <div class="form-group">
+                <label asp-for="Servicio_Codigo" class="control-label"></label>
+                <input asp-for="Servicio_Codigo" class="form-control" />
+                <span asp-validation-for="Servicio_Codigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servicio_Descripcion" class="control-label"></label>
+                <input asp-for="Servicio_Descripcion" class="form-control" />
+                <span asp-validation-for="Servicio_Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servicio_FechaInicio" class="control-label"></label>
+                <input asp-for="Servicio_FechaInicio" class="form-control" />
+                <span asp-validation-for="Servicio_FechaInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servicio_FechaCierre" class="control-label"></label>
+                <input asp-for="Servicio_FechaCierre" class="form-control" />
+                <span asp-validation-for="Servicio_FechaCierre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servicio_Costo" class="control-label"></label>
+                <input asp-for="Servicio_Costo" class="form-control" />
+                <span asp-validation-for="Servicio_Costo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsuarioCodigo" class="control-label"></label>
+                <select asp-for="UsuarioCodigo" class="form-control" asp-items="ViewBag.UsuarioCodigo"></select>
+                <span asp-validation-for="UsuarioCodigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoServicio_Id" class="control-label"></label>
+                <input asp-for="TipoServicio_Id" class="form-control" />
+                <span asp-validation-for="TipoServicio_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado_Id" class="control-label"></label>
+                <select asp-for="Estado_Id" class="form-control" asp-items="ViewBag.Estado_Id"></select>
+                <span asp-validation-for="Estado_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Campus_Id" class="control-label"></label>
+                <select asp-for="Campus_Id" class="form-control" asp-items="ViewBag.Campus_Id"></select>
+                <span asp-validation-for="Campus_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Facultad_Id" class="control-label"></label>
+                <select asp-for="Facultad_Id" class="form-control" asp-items="ViewBag.Facultad_Id"></select>
+                <span asp-validation-for="Facultad_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Escuela_Id" class="control-label"></label>
+                <select asp-for="Escuela_Id" class="form-control" asp-items="ViewBag.Escuela_Id"></select>
+                <span asp-validation-for="Escuela_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Carrera_Id" class="control-label"></label>
+                <select asp-for="Carrera_Id" class="form-control" asp-items="ViewBag.Carrera_Id"></select>
+                <span asp-validation-for="Carrera_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebApp.Models;
 
 namespace WebApp
 {
@@ -31,11 +32,13 @@ namespace WebApp
 
 			services.AddSession();
 
-			services.AddDbContext<Models.ApplicationDbContext>(op =>
-			{
-				op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-			});
-
+			//services.AddDbContext<Models.ApplicationDbContext>(op =>
+			//{
+			//op.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+			//});
+			var connection = @"Server= .\SQLEXPRESS; Database = CULMINARE_DB2; Trusted_Connection = true; ConnectRetryCount= 0; ";
+			services.AddDbContext<ApplicationDbContext
+			>(options => options.UseSqlServer(connection));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
