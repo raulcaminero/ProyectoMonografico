@@ -31,7 +31,7 @@
             @Html.DisplayNameFor(model => model.Archivo)
         </dt>
         <dd class="col-sm-10">
-            <a asp-controller="Archivos" asp-action="Descargar" asp-route-id="@Model.Archivo.Id">Ver documento</a>
+            <a asp-controller="Archivos" asp-action="Descargar" asp-route-idArchivo="@Model.Archivo.Id">Descargar</a>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FechaCreacion)
         </dt>

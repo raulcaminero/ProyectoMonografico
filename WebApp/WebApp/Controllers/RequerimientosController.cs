@@ -143,6 +143,8 @@ namespace WebApp.Controllers
 
 			var req = await _context.Requerimientos
 				.Where(c => c.Codigo == codigo)
+				.Include(c => c.TipoServicio)
+				.Include(c => c.Escuela)
 				.OrderByDescending(c => c.Estado) // Intentar tomar el que está activo.
 				.ThenBy(c => c.FechaCreacion)
 				.FirstOrDefaultAsync();
@@ -154,8 +156,10 @@ namespace WebApp.Controllers
 			{
 				Codigo = req.Codigo,
 				TipoServicioId = req.TipoServicioId,
-				EscuelaId = req.EscuelaId
-			};
+				EscuelaId = req.EscuelaId,
+				TipoServicioDescripcion = req.TipoServicio.TipoServicioDescripcion,
+				EscuelaNombre = req.Escuela.Nombre
+ 			};
 
 			return View(modelo);
 		}
@@ -169,12 +173,15 @@ namespace WebApp.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				var archivosController = new ArchivosController(_context);
+				var archivo = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos\\{modelo.Codigo}");
+
 				var req = new Requerimiento()
 				{
 					Codigo = modelo.Codigo,
 					TipoServicioId = modelo.TipoServicioId,
 					EscuelaId = modelo.EscuelaId,
-					//ArchivoId = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos//{modelo.Codigo}").Id,
+					ArchivoId = archivo.Result.Id,
 					FechaCreacion = DateTime.Now,
 					UsuarioCodigo = AccountController.GetCurrentUser(User, _context).codigo,
 					Estado = Models.EstadoRequerimiento.Activo

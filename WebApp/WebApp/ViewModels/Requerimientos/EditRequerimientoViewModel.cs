@@ -12,9 +12,13 @@ namespace WebApp.ViewModels.Requerimientos
 		public string Codigo { get; set; }
 
 		[Display(Name = "Aplica para")]
+		public string TipoServicioDescripcion { get; set; }
+
 		public int TipoServicioId { get; set; }
 
 		[Display(Name = "Escuela")]
+		public string EscuelaNombre { get; set; }
+
 		public int EscuelaId { get; set; }
 
 		[Required(ErrorMessage = "Debe subir el documento")]
