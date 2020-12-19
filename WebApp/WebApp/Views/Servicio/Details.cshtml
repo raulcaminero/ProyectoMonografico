@@ -1,0 +1,91 @@
+﻿@model WebApp.Models.Servicio
+
+@{
+    ViewData["Title"] = "Detalles del Servicio";
+}
+
+<h1>Servicio</h1>
+
+<h4>Detalles del Servicio @Html.DisplayFor(model => model.Servicio_Codigo)</h4>
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Codigo
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Servicio_Codigo)
+        </dd>
+        <dt class="col-sm-2">
+            Descripcion
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Servicio_Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            Fecha de Inicio
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Servicio_FechaInicio)
+        </dd>
+        <dt class="col-sm-2">
+            Fecha de Cierre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Servicio_FechaCierre)
+        </dd>
+        <dt class="col-sm-2">
+            Costo
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Servicio_Costo)
+        </dd>
+        <dt class="col-sm-2">
+            Tipo de Servicio
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoServicio.TipoServicioDescripcion)
+        </dd>
+        <dt class="col-sm-2">
+            Campus
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Campus.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            Carrera
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carrera.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            Facultad
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Facultad.NombreFacultad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Escuela)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Escuela.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estado.EstadoNombre)
+        </dd>
+        <dt class="col-sm-2">
+            Profesor Encargado
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Usuario.NombreCompleto)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Servicio_Id">Editar</a> |
+    <a asp-action="Index">Regresar al listado</a>
+</div>

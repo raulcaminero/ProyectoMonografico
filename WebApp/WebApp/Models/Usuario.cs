@@ -62,14 +62,24 @@ namespace WebApp.Models
 		public Campus Campus { get; set; }
 
 		public int RolID { get; set; }
+        
         public virtual Rol Rol { get; set; }
 
         public string EstadoId { set; get; }
+
         public virtual Estado Estado { get; set; }
+
+        [NotMapped]
+        public string NombreCompleto
+        {
+            get { return primer_nombre.Trim() + " " + primer_apellido; }
+        }
 
         //tabla intermedia para calificaciones, profesores en modulos, servicios y de estudiantes
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
+        
         public virtual ICollection<Modulo> Modulo { get; set; }
+        
         public virtual ICollection<SolicitudServicio> Solicitudes { get; set; }
 
         public override string ToString() => Email;
