@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,7 +26,8 @@ namespace WebApp.Models
 
 		[ForeignKey("IdEstado")]
 		public Estado Estado { get; set; }
-		
 
+		[NotMapped]
+		public List<ViewModels.Solicitudes.DocumentoEntregadoViewModel> DocumentosEntregados { get; set; }
 	}
 }

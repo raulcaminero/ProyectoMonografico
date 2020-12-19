@@ -6,7 +6,7 @@
 
 }
 
-<h1>Detalles Solicitud</h1>
+<h1>Detalles de solicitud</h1>
 
 <div>
     <h4>Detalle</h4>
@@ -49,23 +49,55 @@
             @Html.DisplayNameFor(model => model.Servicio.Estado)
         </dt>
         <dd class="col-sm-10">
-            <form asp-action="Detalles" asp-route-id="2">
+
+            <form asp-action="CambiarEstado" asp-route-id="2">
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
-                    <select asp-items="@ViewBag.Estados" asp-for="IdEstado" class="form-control-sm"></select>
+                    <select asp-for="IdEstado" class="form-control-sm">
+                        <option value="P">Pendiente de documentos</option>
+                        <option value="N">Aceptar solicitud (inscribir)</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
                 </div>
             </form>
+
         </dd>
 
     </dl>
 
-    @* Div para cargar el pago *@
-    <div id="pago">
-        @{await Html.RenderPartialAsync("CargarPago", model: new WebApp.ViewModels.Solicitudes.PagoSolicitudViewModel() { IdSolicitud = Model.Id });}
-    </div>
+    <h3>Documentos entregados</h3>
+    <a asp-action="CargarPago" class="btn btn-success">Cargar documento de pago</a>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Archivo</th>
+                <th></th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var archivo in Model.DocumentosEntregados)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => archivo.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => archivo.NombreArchivo)
+                    </td>
+                    <td>
+                        <a asp-action="Descargar" asp-controller="Archivos" asp-route-id="@archivo.IdArchivo" class="btn btn-success">Descargar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 
 </div>
 <div>

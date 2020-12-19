@@ -28,7 +28,7 @@ namespace WebApp.Controllers
 		{
 			ViewBag.Roles = new SelectList(_context.Rol.ToList(), "Id", "Descripcion");
 			ViewBag.Campus = new SelectList(_context.Campus.ToList(), "Id", "Nombre");
-			
+
 			return View();
 		}
 		[HttpPost]
@@ -120,7 +120,7 @@ namespace WebApp.Controllers
 				bool u = HttpContext.User.Identity.IsAuthenticated;
 
 
-				
+
 				return RedirectToAction("Index", "Home");
 			}
 
@@ -128,6 +128,8 @@ namespace WebApp.Controllers
 			ViewBag.Message = "Contraseña incorrecta";
 			return View();
 		}
+
+		[Microsoft.AspNetCore.Authorization.Authorize]
 		public async Task<ActionResult> LogOff()
 		{
 			await HttpContext.SignOutAsync();
@@ -163,8 +165,8 @@ namespace WebApp.Controllers
 			return mensaje;
 		}
 
-		public static Usuario getCurrentUser (IPrincipal user, ApplicationDbContext context)
-        {
+		public static Usuario GetCurrentUser(IPrincipal user, ApplicationDbContext context)
+		{
 			var usr = user as ClaimsPrincipal;
 			var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

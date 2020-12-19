@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace PerfilEstudiante.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class GeneralController : Controller
     {
         // GET: GeneralController
