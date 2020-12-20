@@ -125,7 +125,7 @@ namespace WebApp.Controllers
 					new Claim(ClaimTypes.Name, usr.primer_nombre),
 					new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
 				};
-				
+
 				var identity = new ClaimsIdentity(claims, "CookieAuth");
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
@@ -205,10 +205,13 @@ namespace WebApp.Controllers
 			var requerimiento = await _context.Requerimientos
 				.Where(r => r.Estado == EstadoRequerimiento.Activo && r.TipoServicioId == tipoServicioId && r.EscuelaId == escuelaId)
 				.FirstOrDefaultAsync();
-			
+
 			var archivosController = new ArchivosController(_context);
 
-			return await archivosController.Descargar(requerimiento.ArchivoId);
+			if (requerimiento != null)
+				return await archivosController.Descargar(requerimiento.ArchivoId);
+
+			return RedirectToAction("Login", "Account");
 		}
 	}
 }
