@@ -23,5 +23,7 @@ namespace WebApp.Models
         public virtual ICollection<Usuario> Usuario { get; set; }
         public virtual ICollection<Servicio> Servicio { get; set; }
         public virtual ICollection<TipoServicio> TipoServicio { get; set; }
+        public virtual ICollection<Proyecto> Proyectos { get; set; }
+
     }
 }

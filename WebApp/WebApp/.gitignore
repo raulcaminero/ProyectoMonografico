@@ -338,3 +338,7 @@ Migrations/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+
+wwwroot/Servicios
+wwwroot/Solicitudes

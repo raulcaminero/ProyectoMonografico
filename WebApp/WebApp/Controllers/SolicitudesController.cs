@@ -11,15 +11,15 @@ using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
-	public class SolicitudesController : Controller
-	{
-		private readonly ApplicationDbContext _context;
+    public class SolicitudesController : Controller
+    {
+        private readonly ApplicationDbContext _context;
 
-		public SolicitudesController(ApplicationDbContext context)
-		{
-			_context = context;
-		}
+        public SolicitudesController(ApplicationDbContext context)
+        {
+            _context = context;
+
+        }
 
 		// GET: Campus
 		public async Task<IActionResult> Index()
@@ -34,8 +34,8 @@ namespace PerfilEstudiante.Controllers
 				.Include(s => s.Estado)
 				.ToListAsync();
 
-			return View(solicitudes);
-		}
+            return View(solicitudes);
+        }
 
 		public async Task<IActionResult> CargarDocumento(int id, TipoArchivoSolicitud tipo)
 		{
@@ -57,6 +57,17 @@ namespace PerfilEstudiante.Controllers
 					IdSolicitud = pago.IdSolicitud,
 					Tipo = TipoArchivoSolicitud.Pago,
 				};
+
+				if (pago.TipoDocumento == TipoArchivoSolicitud.AnteProyecto || pago.TipoDocumento == TipoArchivoSolicitud.Proyecto) {
+					var proyecto = new Proyecto()
+					{
+						IdArchivo = archivo.Id,
+						IdSolicitud = pago.IdSolicitud,
+						EstadoId = "A",
+						Tipo = Enum.GetName(typeof(TipoArchivoSolicitud), pago.TipoDocumento),
+					};
+					_context.Proyecto.Add(proyecto);
+				}
 
 				_context.ArchivosSolicitudes.Add(archivoSolicitud);
 				await _context.SaveChangesAsync();
@@ -99,16 +110,6 @@ namespace PerfilEstudiante.Controllers
 			if (solicitud == null)
 				return NotFound();
 
-			// Validar que el usuario tenga acceso
-
-			if (!User.IsInRole("Administrador")) // Los administradores pueden ver cualquier solicitud
-			{
-				// Determinar si la solicitud pertenece al estudiante.
-				var usr = AccountController.GetCurrentUser(User, _context);
-				if (solicitud.IdUsuario != usr.codigo)
-					return NotFound();
-			}
-
 			solicitud.DocumentosEntregados = _context.ArchivosSolicitudes
 				.Where(a => a.IdSolicitud == id)
 				.Include(a => a.Archivo)
@@ -123,7 +124,7 @@ namespace PerfilEstudiante.Controllers
 				}).ToList();
 
 			return View(solicitud);
-		}
+        }
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
