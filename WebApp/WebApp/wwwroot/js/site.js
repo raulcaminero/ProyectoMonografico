@@ -153,6 +153,16 @@ $(document).ready(function () {
                 yadcf.init(reqsTB,
                     [
                         {
+                            column_number: 1,
+                            filter_type: "select",
+                            filter_default_label: "Todas"
+                        },
+                        {
+                            column_number: 2,
+                            filter_type: "select",
+                            filter_default_label: "Todas"
+                        },
+                        {
                             column_number: 4,
                             filter_type: "select",
                             filter_default_label: "Todos",
@@ -165,6 +175,8 @@ $(document).ready(function () {
                     }
                 );
 
+                $("#yadcf-filter-wrapper--reqs-tb-1").insertBefore("#rq-type-head");
+                $("#yadcf-filter-wrapper--reqs-tb-2").insertBefore("#rq-school-head");
                 $("#yadcf-filter-wrapper--reqs-tb-4").insertBefore("#rq-state-head");
 
                 $(".yadcf-filter-reset-button").remove();

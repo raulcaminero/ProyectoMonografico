@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebApp.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h3>Usuarios</h3>
+
+<table class="table tb">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Correo
+            </th>
+            <th>
+                Rol
+            </th>
+            <th>
+                Tipo documento
+            </th>
+            <th>
+                Documento identificación
+            </th>
+            <th>
+                Sexo
+            </th>
+            <th>
+                Campus
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Rol.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoIdentificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.identificacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexo)
+            </td>
+          <td>
+                @Html.DisplayFor(modelItem => item.Campus.Nombre)
+            </td>
+            <td>
+                @*<a asp-action="Details" asp-route-id="@item.codigo" class="btn btn-info">Detalles</a>*@
+                <a asp-action="Delete" asp-route-id="@item.codigo" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

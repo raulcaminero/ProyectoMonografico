@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -76,15 +77,16 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-
-
             <ul class="nav navbar-nav ml-auto">
-                <a class="nav-link">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpYhZKw5Ww7Tg_9YFAB63f-x5NHb0vTpANQ&usqp=CAU"
-                         class="rounded-circle" alt="Responsive image" width=" 35" height="30">
-                </a>
+                <li>
+
+                    <a class="nav-link" asp-action="Edit" asp-controller="Perfiles">
+                        @*<img src="../wwwroot/imagenes/@GeneralPurpose.Ruta" class="rounded-circle" alt="Responsive image" width=" 35" height="30">*@
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpYhZKw5Ww7Tg_9YFAB63f-x5NHb0vTpANQ&usqp=CAU" class="rounded-circle" alt="Responsive image" width=" 35" height="30">
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link">@User.Identity.Name</a>
+                    <a class="nav-link" asp-action="Edit" asp-controller="Perfiles">@User.Identity.Name</a>
                 </li>
 
                 @*<li class="nav-item">
@@ -94,10 +96,6 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">sign out</a>
                 </li>
-
-
-
-
 
             </ul>
         </nav>
@@ -125,11 +123,23 @@
                     @if (User.IsInRole("Administrador"))
                     {
                         <li>
-                            <a class="list-group-item list-group-item-action " asp-controller="Servicio" asp-action="Index">
+                            <a class="list-group-item list-group-item-action " asp-controller="Perfiles" asp-action="Index">
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
                                             <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="media-body ">Perfiles de usuario</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="list-group-item list-group-item-action " asp-controller="Servicio" asp-action="Index">
+                                <div class="ml-0">
+                                    <div class="media">
+                                        <span class="media-left">
+                                            <i style="color:lightskyblue" class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Servicios</span>
                                     </div>
@@ -141,7 +151,7 @@
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-box fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Modulos</span>
                                     </div>
@@ -153,7 +163,7 @@
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-file-alt fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Calificaciones</span>
                                     </div>
@@ -165,7 +175,7 @@
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-building fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Campus</span>
                                     </div>
@@ -177,7 +187,7 @@
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-book fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Facultades</span>
                                     </div>
@@ -189,7 +199,7 @@
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-school fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Escuelas</span>
                                     </div>
@@ -201,7 +211,7 @@
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-running fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Carreras</span>
                                     </div>
@@ -213,7 +223,7 @@
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-check-circle fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Requerimientos</span>
                                     </div>
@@ -221,11 +231,11 @@
                             </a>
                         </li>
                         <li>
-                            <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Registrar">
+                            <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Index">
                                 <div class="ml-0">
                                     <div class="media">
                                         <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
+                                            <i style="color:lightskyblue" class="icon fa fa-file-archive fa-fw  mr-3" aria-hidden="true"></i>
                                         </span>
                                         <span class="media-body ">Solicitudes</span>
                                     </div>
