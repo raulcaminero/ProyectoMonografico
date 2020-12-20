@@ -11,11 +11,11 @@ using WebApp.ViewModels.Requerimientos;
 namespace WebApp.Controllers
 {
 	[Microsoft.AspNetCore.Authorization.Authorize]
-	public class RequerimientosController : Controller
+	public class RequerimientosController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
 
-		public RequerimientosController(ApplicationDbContext context)
+		public RequerimientosController(ApplicationDbContext context):base(context)
 		{
 			_context = context;
 		}

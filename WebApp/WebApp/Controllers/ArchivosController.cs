@@ -9,11 +9,11 @@ using WebApp.Models;
 namespace WebApp.Controllers
 {
 	[Microsoft.AspNetCore.Authorization.Authorize]
-	public class ArchivosController : Controller
+	public class ArchivosController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
 
-		public ArchivosController(ApplicationDbContext context)
+		public ArchivosController(ApplicationDbContext context):base(context)
 		{
 			_context = context;
 		}

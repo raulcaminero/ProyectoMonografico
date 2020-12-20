@@ -11,11 +11,12 @@ namespace WebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProyectosController : ControllerBase
+    //public class ProyectosController : ControllerBase
+    public class ProyectosController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public ProyectosController(ApplicationDbContext context)
+        public ProyectosController(ApplicationDbContext context):base(context)
         {
             _context = context;
         }

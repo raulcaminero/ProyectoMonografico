@@ -15,11 +15,11 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	public class AccountController : Controller
+	public class AccountController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
 
-		public AccountController(ApplicationDbContext context)
+		public AccountController(ApplicationDbContext context):base(context)
 		{
 			_context = context;
 		}
@@ -130,7 +130,7 @@ namespace WebApp.Controllers
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
 
-				GeneralPurpose.Ruta = usr.RutaFoto == null? "avatar.jpg" : usr.RutaFoto;
+				//GeneralPurpose.Ruta = usr.RutaFoto == null? "avatar.jpg" : usr.RutaFoto;
 
 				return RedirectToAction("Index", "Home");
 			}
