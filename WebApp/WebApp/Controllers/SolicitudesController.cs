@@ -11,11 +11,11 @@ using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
-    public class SolicitudesController : Controller
+    public class SolicitudesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public SolicitudesController(ApplicationDbContext context)
+        public SolicitudesController(ApplicationDbContext context):base(context)
         {
             _context = context;
 
