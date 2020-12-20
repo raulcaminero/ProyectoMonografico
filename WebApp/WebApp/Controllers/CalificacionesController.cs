@@ -50,7 +50,7 @@ namespace WebApp.Controllers
         // GET: Calificaciones/Create
         public IActionResult Create()
         {
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId");
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto");
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo");
             return View();
@@ -67,7 +67,7 @@ namespace WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId", calificaciones.EstadoId);
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
