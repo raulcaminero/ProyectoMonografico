@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using WebApp.Models.Enums;
 
@@ -23,6 +24,7 @@ namespace WebApp.Models
 
         [Required(ErrorMessage = "Debe Introducir el Codigo de la facultad")]
         [StringLength(8, ErrorMessage = "No puede tener mas de 8 digitos")]
+        [DisplayName("Código")]
         public string Codigo { get; set; }
 
         [Required(ErrorMessage = "Debe Introducir el nombre del decano de la facultad")]
@@ -32,6 +34,7 @@ namespace WebApp.Models
         public string Ubicación { get; set; }
 
         [Required]
+        [DisplayName("Teléfono")]
         [DataType(DataType.PhoneNumber)]
         public string Telefono { get; set; }
 

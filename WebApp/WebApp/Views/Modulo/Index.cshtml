@@ -5,15 +5,16 @@
 }
 <div class="container-fluid ">
     <div class="row text-center">
-        <h4 class="display-4 col-md-12">Modulos</h4>
+        <h1 class="display-4 col-md-12 text-center pb-3" style="color:#4863A0">Modulos</h1>
     </div>
-    <p>
+    <div class="row">
         <a asp-action="Create">
             <span class="media-left">
-                <i class="fas fa-plus-circle fa-fw mr-3 fa-2x" aria-hidden="true"></i>
+                <i class="fas fa-plus-circle fa-fw mr-2 fa-2x" aria-hidden="true"></i>
             </span>
         </a>
-    </p>
+        <h5>Agregar Modulo</h5>
+        </div>
     <ul style="list-style: none;padding-left:20px;" class="row">
         @foreach (var item in Model)
         {
@@ -30,20 +31,22 @@
                     <span class="media-body font-weight-bold col-md-1">
                         @Html.DisplayFor(modelItem => item.Titulo)
                     </span>
-                    <spam><strong>Inicio</strong>
+                    <spam>
+                        <strong>Inicio</strong>
                         @Html.DisplayFor(modelItem => item.FechaInicio)
                     </spam>
-                    <spam><strong>Fin</strong>
+                    <spam>
+                        <strong>Fin</strong>
                         @Html.DisplayFor(modelItem => item.FechaFin)
                     </spam>
 
 
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="col-md-1">
+                    <a asp-action="Edit" asp-route-id="@item.Id" style="margin-top: 8px">
                         <span class="media-left">
                             <i class="fas fa-edit fa-fw mr-3 fa-2x" aria-hidden="true"></i>
                         </span>
                     </a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="col-md-1">
+                    <a asp-action="Delete" asp-route-id="@item.Id" style="margin-top: 8px">
                         <span class="media-left">
                             <i class="fas fa-trash-alt fa-fw mr-3 fa-2x" aria-hidden="true"></i>
                         </span>

@@ -6,6 +6,8 @@
 		Cedula = 2,
 		Notas = 3,
 		Pago = 4,
-		Otro = 5
+		Otro = 5,
+		Proyecto = 6,
+		AnteProyecto = 7
 	}
 }

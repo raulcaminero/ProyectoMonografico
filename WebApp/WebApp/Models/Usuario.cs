@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace WebApp.Models
         }
 
         [Key]
+        [DisplayName("Codigo")]
         public int codigo { set; get; }
 
         [Display(Name = "Nombre:")]
@@ -26,6 +28,7 @@ namespace WebApp.Models
         [Display(Name = "Correo")]
         public string Email { set; get; }
 
+        [DisplayName("Contraseña")]
         public string contrasena { get; set; }
 
 
@@ -39,14 +42,16 @@ namespace WebApp.Models
         public string segundo_apellido { set; get; }
 
         public string tipo_identificacion { set; get; }
+        public string TipoIdentificacion => tipo_identificacion == "C" ? "Cédula" : "Pasaporte";
 
         [Display(Name = "Identificación")]
         public string identificacion { set; get; }
 
         [Display(Name = "Sexo")]
         public string sexo { set; get; }
+        public string Sexo => sexo == "M" ? "Masculino" : "Femenino";
 
-        [Display(Name = "Matrícula")]
+		[Display(Name = "Matrícula")]
         public string matricula { set; get; }
 
         [MaxLength(30)]
@@ -57,6 +62,9 @@ namespace WebApp.Models
 
         public DateTime? fecha_nacimiento { get; set; }
 
+//añadiendo RutaFoto
+        public string? RutaFoto { set; get; }
+        //tabla intermedia para calificaciones, profesores en modulos, servicios y de estudiantes
         public int? IdCampus { set; get; }
         [ForeignKey("IdCampus")]
 		public Campus Campus { get; set; }

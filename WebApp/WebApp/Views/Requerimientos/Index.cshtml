@@ -4,10 +4,10 @@
     ViewData["Title"] = "Requerimientos";
 }
 
-<h1>Requerimientos</h1>
+<h1 class="text-center pb-2" style="color:#4863A0">Requerimientos</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-light">Registrar Nuevo</a>
+    <a asp-action="Create" class="btn btn-primary mb-2">Agregar Requerimiento</a>
 </p>
 <table id="reqs-tb" class="table">
     <thead>
@@ -16,10 +16,10 @@
                 @Html.DisplayNameFor(model => model.Codigo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoServicioId)
+                <span id="rq-type-head">@Html.DisplayNameFor(model => model.TipoServicioId)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EscuelaId)
+                <span id="rq-school-head">@Html.DisplayNameFor(model => model.EscuelaId)</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ArchivoId)
@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.Escuela.Nombre)
             </td>
             <td>
-                <a asp-controller="Archivos" asp-action="Descargar" asp-route-id="@item.ArchivoId">Ver documento</a>
+                <a asp-controller="Archivos" asp-action="Descargar" asp-route-idArchivo="@item.ArchivoId">Descargar</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)

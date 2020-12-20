@@ -30,7 +30,7 @@
             @Html.DisplayNameFor(model => model.Archivo)
         </dt>
         <dd class="col-sm-10">
-            <a asp-controller="Archivos" asp-action="Descargar" asp-route-id="@Model.Archivo.Id">Ver documento</a>
+            <a asp-controller="Archivos" asp-action="Descargar" asp-route-idArchivo="@Model.Archivo.Id">Descargar</a>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FechaCreacion)
         </dt>
@@ -56,7 +56,7 @@
     @Html.ActionLink("Editar", "Edit", new { codigo = Model.Codigo }) |
     <a asp-action="Index">Regresar a la lista</a>
 </div>
-
+<br />
 <div>
     <h3>Versiones anteriores</h3>
     <table class="table">
@@ -78,13 +78,13 @@
             {
                 <tr>
                     <td>
-                       <a asp-controller="Archivo" asp-action="Descargar" asp-route-id="@Model.Archivo.Id">Ver documento</a>
+                       <a asp-controller="Archivos" asp-action="Descargar" asp-route-idArchivo="@item.Archivo.Id">Descargar</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FechaCreacion)
                     </td>
                     <td>
-                        @($"{Model.Usuario.primer_nombre} {Model.Usuario.primer_nombre} <{Model.Usuario.Email}>")
+                        @($"{item.Usuario.primer_nombre} {item.Usuario.primer_apellido} <{item.Usuario.Email}>")
                     </td>
                 </tr>
             }

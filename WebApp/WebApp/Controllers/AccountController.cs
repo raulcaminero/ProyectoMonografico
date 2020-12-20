@@ -94,6 +94,12 @@ namespace WebApp.Controllers
 		public ActionResult Login()
 		{
 			LogOff();
+
+			ViewBag.ServiceTypes = _context.TipoServicios.ToList();
+
+			var schools = _context.Escuelas.ToList();
+			ViewBag.Schools = new SelectList(schools, "Id", "Nombre");
+
 			return View();
 		}
 		[HttpPost]
@@ -115,14 +121,16 @@ namespace WebApp.Controllers
 			if (usr.contrasena.Equals(password))
 			{
 				var claims = new[] {
-				new Claim(ClaimTypes.NameIdentifier,email),
-				new Claim(ClaimTypes.Name, usr.primer_nombre),
-				new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
-			   };
+					new Claim(ClaimTypes.NameIdentifier,email),
+					new Claim(ClaimTypes.Name, usr.primer_nombre),
+					new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
+				};
 
 				var identity = new ClaimsIdentity(claims, "CookieAuth");
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
+
+				GeneralPurpose.Ruta = usr.RutaFoto;
 
 				return RedirectToAction("Index", "Home");
 			}
@@ -186,6 +194,24 @@ namespace WebApp.Controllers
 			var rol = usr.Rol?.Descripcion?.ToLower();
 			var esAdmin = (rol == "administrador");
 			return esAdmin;
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Modal(string serviceType, string school)
+		{
+			int tipoServicioId = int.Parse(serviceType);
+			int escuelaId = int.Parse(school);
+
+			var requerimiento = await _context.Requerimientos
+				.Where(r => r.Estado == EstadoRequerimiento.Activo && r.TipoServicioId == tipoServicioId && r.EscuelaId == escuelaId)
+				.FirstOrDefaultAsync();
+
+			var archivosController = new ArchivosController(_context);
+
+			if (requerimiento != null)
+				return await archivosController.Descargar(requerimiento.ArchivoId);
+
+			return RedirectToAction("Login", "Account");
 		}
 	}
 }

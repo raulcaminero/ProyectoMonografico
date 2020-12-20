@@ -21,6 +21,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../plantilla/assets/images/favicon.png">
     <title>CULMINARES</title>
 
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <!-- page css -->
     <link href="~/plantilla/university/dist/css/pages/login-register-lock.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -54,7 +55,7 @@
                         Orientación, Formalización, Asesoramiento, Seguimiento, Evaluación, Calidad, Publicación y Culminación
                     </p>
                     <a href="javascript:void(0)" class="db">
-                        <img src="../plantilla/assets/images/universidad.png" alt="Home" width="50" /><br />
+                        <center><img src="../plantilla/assets/images/universidad.png" alt="Home" width="50" /></center>
                     </a>
                     @if (ViewBag.Login != null)
                     {
@@ -119,19 +120,45 @@
                 <p>
                     Requisitos Básicos
                     <br />
-                    <a href="~/plantilla/assets/Requisitos Básicos Para Monográficos.pdf" target="_blank">
-                        •	 Inscripción Monográfico (link)
-                    </a>
-                    <br />
-                    <a href="~/plantilla/assets/Requisitos Básicos Para Tesis de Grado.pdf" target="_blank">
-                        •	Inscripción Tesis de Grado (link)
-                    </a>
-                    <br />
+
+                    @foreach (var serviceType in ViewBag.ServiceTypes)
+                    {
+                        <a href="#" id="@serviceType.TipoServicioId" class="btnShowModal btn-link">
+                            •	 Inscripción de @serviceType.TipoServicioDescripcion
+                        </a>
+                        <br />
+                    }
 
                 </p>
             </div>
         </div>
     </section>
+
+    <div class="modal fade" tabindex="-1" id="loginModal"
+         data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="text-align: center">
+                <div class="modal-header">
+                    <h4 class="modal-title">Requerimientos  Básicos</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post"  asp-page-handler="Modal" id="loginModalForm">
+                        <input type="hidden" id="service-type" name="serviceType"/>
+                        <div class="form-group">
+                            <label class="control-label">Escuela</label>
+                            <select asp-items="@ViewBag.Schools" name="school"></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="modalSubmit" form="loginModalForm" formaction="@Url.Action("Modal")" class="btn btn-primary">Descargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ============================================================== -->
     <!-- All Jquery -->
@@ -154,6 +181,18 @@
         $('#to-recover').on("click", function () {
             $("#loginform").slideUp();
             $("#recoverform").fadeIn();
+        });
+
+        $(document).ready(function () {
+            $(".btnShowModal").click(function () {
+                $("#loginModal").modal('show');
+
+                $("#service-type").val($(this).attr("id"));
+            });
+
+            $("#modalSubmit").click(function () {
+                $("#loginModal").modal('hide');
+            });
         });
     </script>
 
