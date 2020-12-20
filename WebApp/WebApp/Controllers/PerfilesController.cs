@@ -229,7 +229,7 @@ namespace WebApp.Controllers
             users.RutaFoto = guidImagen;
             _context.usuarios.Update(users);
             await _context.SaveChangesAsync();
-
+            GeneralPurpose.Ruta = guidImagen;
             TempData["Msg_Success_img"] = "Imagen Cambiada";
             return RedirectToAction("Edit", "Perfiles", new { @id = users.codigo });
         }

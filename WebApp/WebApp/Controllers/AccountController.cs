@@ -130,7 +130,7 @@ namespace WebApp.Controllers
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
 
-				GeneralPurpose.Ruta = usr.RutaFoto;
+				GeneralPurpose.Ruta = usr.RutaFoto == null? "avatar.jpg" : usr.RutaFoto;
 
 				return RedirectToAction("Index", "Home");
 			}
