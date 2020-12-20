@@ -7,24 +7,20 @@ namespace WebApp.Models
 {
     public class GeneralPurpose
     {
-        private readonly ApplicationDbContext _context;
-        public GeneralPurpose() { 
+		public static string Ruta { get; set; }
+
+		public GeneralPurpose() { 
         
         }
 
-        public string GetUserPicture(string usr)
-        {
+   //     public string GetUserPicture()
+   //     {
+   //         var usr = Controllers.AccountController.GetCurrentUser();
 
-            var fotos = _context.usuarios.FirstOrDefault(x=> x.Email == usr);
-            if (fotos == null)
-            {
-                return "";
-            }
-            else
-            {
-            return fotos.RutaFoto;
+			//if (usr == null)
+   //             return "";
 
-            }
-        }
+   //         return usr.RutaFoto;
+   //     }
     }
 }

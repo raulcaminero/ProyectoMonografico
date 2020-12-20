@@ -124,6 +124,8 @@ namespace WebApp.Controllers
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
 
+				GeneralPurpose.Ruta = usr.RutaFoto;
+
 				return RedirectToAction("Index", "Home");
 			}
 
