@@ -4,13 +4,13 @@
 }
 
 <div class="text-center">
-    <h1 class="display-5" style="color:#4863A0">Lista de servicios</h1>
+    <h1 class="text-center pb-2" style="color:#4863A0">Lista de servicios</h1>
 </div>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Nuevo Servicio</a>
+    <a class="btn btn-primary mb-2" asp-action="Create">Nuevo Servicio</a>
 </p>
-<table class="table">
+<table id="faculties-tb" class="table">
     <thead>
         <tr>
             <th>
@@ -66,9 +66,21 @@
                 </td>
 
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Servicio_Id">Modificar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Servicio_Id">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Servicio_Id">Desactivar</a>
+                    <a asp-action="Edit" asp-route-id="@item.Servicio_Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Servicio_Id" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Servicio_Id" class="btn btn-danger">Eliminar</a>
+                    <a asp-action="Estado" asp-route-id="@item.Servicio_Id">
+
+                        @if (item.Estado_Id == "A")
+                        {
+                            <span class="btn btn-warning"> Inactivar </span>
+                        }
+                        else
+                        {
+                            <span class="btn btn-success"> Activar </span>
+                        }
+
+                    </a>
                 </td>
                 
             </tr>

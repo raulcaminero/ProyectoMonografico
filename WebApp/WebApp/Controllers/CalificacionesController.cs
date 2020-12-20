@@ -51,7 +51,7 @@ namespace WebApp.Controllers
         public IActionResult Create()
         {
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId");
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "primer_nombre + primer_apellido ");
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto");
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo");
             return View();
         }
@@ -68,7 +68,7 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre + primer_apellido ", calificaciones.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
@@ -87,7 +87,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre +''+ primer_apellido ", calificaciones.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
@@ -124,7 +124,7 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre + primer_apellido ", calificaciones.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "NombreCompleto", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }

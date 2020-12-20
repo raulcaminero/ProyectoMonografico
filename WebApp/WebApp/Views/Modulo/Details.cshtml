@@ -2,12 +2,12 @@
 
 @{
     ViewData["Title"] = "Detalles del modulo";
-    
+
 }
 
 
 <div class="container-fluid ">
-	
+
     <dl class="row">
         <dd class="col-sm-12 text-center">
             <h5>@Html.DisplayFor(model => model.Titulo)</h5>
@@ -31,7 +31,7 @@
             @Html.DisplayFor(model => model.FechaFin)
         </dd>
         <dt class="col-sm-2">
-           Adjunto
+            Adjunto
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.IdAdjuntoNavigation.Descripcion)
@@ -49,19 +49,19 @@
             @Html.DisplayFor(model => model.IdProfesorNavigation.primer_apellido)
         </dd>
     </dl>
-	
-
-	<div class="tab-content" id="nav-tabContent">
-		
-		
 
 
-		<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-	</div>
+    <div class="tab-content" id="nav-tabContent">
+
+
+
+
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+    </div>
 
 </div>
-<div>
-    <a class="btn btn-primary" asp-action="Index">volver</a>
-</div>
 
+    <div>
+        <a class="btn btn-primary" asp-action="Index">volver</a>
+    </div>
 
