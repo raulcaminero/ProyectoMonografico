@@ -41,7 +41,7 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-            //(m => m.Tema).ThenInclude( m => m.Asignacion) .ThenInclude
+            
             var modulo = await _context.Modulo.Include(m => m.Estado)
                 .Include(m => m.IdProfesorNavigation)
                 .Include(m => m.IdAdjuntoNavigation)
@@ -58,7 +58,7 @@ namespace WebApp.Controllers
         {
             
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto");
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto");
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion");
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion");
             return View();
@@ -92,8 +92,8 @@ namespace WebApp.Controllers
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion");
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", 
                 model.Estado.EstadoNombre);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto",
-            model.IdProfesorNavigation.primer_apellido);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto",
+            model.IdProfesorNavigation.NombreCompleto);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion",
                 model.Servicio.Servicio_Descripcion);
             return View();
@@ -129,7 +129,7 @@ namespace WebApp.Controllers
             }
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion", modulo.IdAdjunto);
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", modulo.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", modulo.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", modulo.UsuarioCodigo);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion", modulo.ServicioId);
             return View(modulo);
         }
@@ -165,7 +165,7 @@ namespace WebApp.Controllers
             }
             ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion", modulo.IdAdjunto);
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", modulo.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", modulo.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", modulo.UsuarioCodigo);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion", modulo.ServicioId);
             return View(modulo);
         }
