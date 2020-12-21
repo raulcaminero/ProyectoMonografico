@@ -229,6 +229,16 @@ namespace WebApp.Controllers
         {
             var usuario = await _context.usuarios.FindAsync(id);
             usuario.EstadoId = "A";
+
+            var current = AccountController.GetCurrentUser(User, _context);
+            var autorizacion = new Autorizacion()
+            {
+                IdUsuarioAutorizado = usuario.codigo,
+                IdUsuarioQueAutoriza = current.codigo,
+                Fecha = DateTime.Now
+            };
+            _context.Autorizaciones.Add(autorizacion);
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

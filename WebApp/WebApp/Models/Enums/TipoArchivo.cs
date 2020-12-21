@@ -1,6 +1,6 @@
 ﻿namespace WebApp.Models
 {
-	public enum TipoArchivoSolicitud
+	public enum TipoArchivo
 	{
 		Foto = 1,
 		Cedula = 2,
