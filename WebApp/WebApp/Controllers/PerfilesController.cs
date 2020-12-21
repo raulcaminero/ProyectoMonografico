@@ -123,7 +123,7 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Models.Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("codigo,primer_nombre,Email,contrasena,segundo_nombre,primer_apellido,segundo_apellido,TipoIdentificacion,identificacion,sexo,matricula,contacto,nacionalidad,fecha_nacimiento,IdCampus,RolID,EstadoId,RutaFoto")] Models.Usuario usuario)
         {
             if (id != usuario.codigo)
                 return NotFound();

@@ -71,88 +71,91 @@
                                                 </form>
                                             </div>
                                             <hr>
-                                            <form id="form_registro">
+                                            <form id="form_registro" asp-action="Edit">
                                                 <div class="row">
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Primer Nombre: <span class="rojo">*</span></label>
-                                                            <input title="" type="text" asp-for="primer_nombre" placeholder="Primer Nombre:" class="form-control" name="pNombre" id="pNombre" disabled="disabled">
+                                                            <input title="" type="text" asp-for="primer_nombre" placeholder="Primer Nombre:" class="form-control" name="pNombre" id="pNombre" >
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Segundo Nombre</label>
-                                                            <input type="text" asp-for="segundo_nombre" class="form-control" name="sNombre" id="sNombre" disabled="disabled">
+                                                            <input type="text" asp-for="segundo_nombre" class="form-control" name="sNombre" id="sNombre">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Primer Apellido: <span class="rojo">*</span></label>
-                                                            <input title="" type="text" asp-for="primer_apellido" class="form-control" name="PApellido" id="PApellido" disabled="disabled">
+                                                            <input title="" type="text" asp-for="primer_apellido" class="form-control" name="PApellido" id="PApellido" >
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Segundo Apellido: </label>
-                                                            <input type="text" class="form-control" asp-for="segundo_apellido" name="sApellido" id="sApellido" disabled="disabled">
+                                                            <input type="text" class="form-control" asp-for="segundo_apellido" name="sApellido" id="sApellido">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Tipo Identificación: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListIdentificacionTipo, "Value", "Text", ViewBag.identificacion), new { @class = "form-control", @disabled = "disabled" })
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListIdentificacionTipo, "Value", "Text", ViewBag.identificacion), new { @class = "form-control"})
 
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Número Identificación: <span class="rojo">*</span></label>
-                                                            <input title="Este campo es requerido." asp-for="identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" name="cedula" id="cedula" disabled="disabled">
+                                                            <input title="Este campo es requerido." asp-for="identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" name="cedula" id="cedula">
 
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Sexo: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListGenero, "Value", "Text", ViewBag.SelectSexo), new { @class = "form-control", @disabled = "disabled" })
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListGenero, "Value", "Text", ViewBag.SelectSexo), new { @class = "form-control"})
 
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Matricula o Código:</label>
-                                                            <input type="text" class="form-control" asp-for="matricula" placeholder="Matricula o Código" maxlength="20" name="matricula" id="matricula" disabled="disabled">
+                                                            <input type="text" class="form-control" asp-for="matricula" placeholder="Matricula o Código" maxlength="20" name="matricula" id="matricula">
                                                             <input type="hidden" name="matricula_vieja" id="matricula_vieja" value="AE4961">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Fecha Nacimiento: <span class="rojo">*</span></label>
-                                                            <input title="Este campo es requerido." type="date" class="form-control" name="fecha" id="fecha" disabled="disabled">
+                                                            <input title="Este campo es requerido." type="date" class="form-control" name="fecha" id="fecha" >
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Teléfono o Celular: <span class="rojo">*</span></label>
-                                                            <input title="Este campo es requerido." asp-for="contacto" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" name="contacto" id="contacto" disabled="disabled">
+                                                            <input title="Este campo es requerido." asp-for="contacto" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" name="contacto" id="contacto">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListNacionaliad, "Value", "Text", ViewBag.nacionalidad), new { @class = "form-control", @disabled = "disabled" })
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListNacionaliad, "Value", "Text", ViewBag.nacionalidad), new { @class = "form-control" })
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4">
+                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Campus: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListCampus, "Value", "Text", ViewBag.campus), new { @class = "form-control", @disabled = "disabled" })
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListCampus, "Value", "Text", ViewBag.campus), new { @class = "form-control"})
 
                                                         </div>
-                                                    </div>
+                                                    </div> 
 
                                                 </div>
+                                                <button type="submit" id="guardar_cambios" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
+                                                            Guardar Cambios
+                                                </button>
                                             </form>
                                         </div>
                                         <div class="tab-pane fade" id="v-pills-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
