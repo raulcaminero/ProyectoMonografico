@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace WebApp.Controllers
 {
-    public class PerfilesController : Controller
+    public class PerfilesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
@@ -23,7 +23,7 @@ namespace WebApp.Controllers
 
         private readonly IHostingEnvironment _env;
 
-        public PerfilesController(ApplicationDbContext context, IHostingEnvironment environment)
+        public PerfilesController(ApplicationDbContext context, IHostingEnvironment environment):base(context)
         {
             _context = context;
             _env = environment;
@@ -229,7 +229,7 @@ namespace WebApp.Controllers
             users.RutaFoto = guidImagen;
             _context.usuarios.Update(users);
             await _context.SaveChangesAsync();
-            GeneralPurpose.Ruta = guidImagen;
+            
             TempData["Msg_Success_img"] = "Imagen Cambiada";
             return RedirectToAction("Edit", "Perfiles", new { @id = users.codigo });
         }

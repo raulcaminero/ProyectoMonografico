@@ -10,11 +10,11 @@ using WebApp.Models;
 namespace WebApp.Controllers
 {
 	[Microsoft.AspNetCore.Authorization.Authorize]
-    public class CalificacionesController : Controller
+    public class CalificacionesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public CalificacionesController(ApplicationDbContext context)
+        public CalificacionesController(ApplicationDbContext context):base(context)
         {
             _context = context;
         }

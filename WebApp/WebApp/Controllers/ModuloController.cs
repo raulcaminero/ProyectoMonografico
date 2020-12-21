@@ -13,12 +13,12 @@ using WebApp.Models;
 namespace WebApp.Controllers
 {
 	[Microsoft.AspNetCore.Authorization.Authorize]
-    public class ModuloController : Controller
+    public class ModuloController : BaseController
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public ModuloController(ApplicationDbContext context, IWebHostEnvironment _webHostEnvironment)
+        public ModuloController(ApplicationDbContext context, IWebHostEnvironment _webHostEnvironment):base(context)
         {
             _context = context;
             webHostEnvironment = _webHostEnvironment;

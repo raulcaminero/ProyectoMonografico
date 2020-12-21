@@ -10,11 +10,11 @@ using WebApp.Models;
 namespace WebApp.Controllers
 {
 	[Microsoft.AspNetCore.Authorization.Authorize]
-    public class ServicioController : Controller
+    public class ServicioController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public ServicioController(ApplicationDbContext context)
+        public ServicioController(ApplicationDbContext context):base(context)
         {
             _context = context;
         }
