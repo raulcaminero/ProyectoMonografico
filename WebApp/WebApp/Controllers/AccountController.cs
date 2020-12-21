@@ -104,7 +104,7 @@ namespace WebApp.Controllers
 		{
 			// var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
 			var usr = await _context.usuarios
-				.Where(u => u.Email == email && u.EstadoId != "E")
+				.Where(u => u.Email == email && u.EstadoId != "I")
 				.Include(u => u.Rol)
 				.FirstOrDefaultAsync();
 
@@ -181,7 +181,7 @@ namespace WebApp.Controllers
 			var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 			var currentUser = context.usuarios
-				.Where(u => u.EstadoId != "E")
+				.Where(u => u.EstadoId != "I")
 				.Include(u => u.Rol)
 				.FirstOrDefault(u => u.Email == email);
 
