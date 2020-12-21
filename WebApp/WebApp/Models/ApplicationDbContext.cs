@@ -16,6 +16,7 @@ namespace WebApp.Models
 		}
 
 		public virtual DbSet<Usuario> usuarios { get; set; }
+		public virtual DbSet<Autorizacion> Autorizaciones { get; set; }
 		public virtual DbSet<AdjuntoMaterial> AdjuntoMaterial { get; set; }
 		public virtual DbSet<Calificaciones> Calificaciones { get; set; }
 		public virtual DbSet<Campus> Campus { get; set; }

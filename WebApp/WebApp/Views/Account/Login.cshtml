@@ -1,11 +1,8 @@
-﻿@{
+﻿@model WebApp.Models.Usuario
+
+@{
     Layout = null;
 }
-
-@model WebApp.Models.Usuario
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -118,21 +115,21 @@
                 </form>
                 <br />
                 @if (ViewBag.ServiceTypes.Count > 0)
-                { 
-                <p>
-                    Requisitos Básicos
-                    <br />
-                    @if (ViewBag.ServiceTypes != null)
-                    {
-                        foreach (var serviceType in ViewBag.ServiceTypes)
+                {
+                    <p>
+                        Requisitos Básicos
+                        <br />
+                        @if (ViewBag.ServiceTypes != null)
                         {
-                            <a href="#" id="@serviceType.TipoServicioId" class="btnShowModal btn-link">
-                                •	 Inscripción de @serviceType.TipoServicioDescripcion
-                            </a>
-                            <br />
+                            foreach (var serviceType in ViewBag.ServiceTypes)
+                            {
+                                <a href="#" id="@serviceType.TipoServicioId" class="btnShowModal btn-link">
+                                    •	 Inscripción de @serviceType.TipoServicioDescripcion
+                                </a>
+                                <br />
+                            }
                         }
-                    }
-                </p>
+                    </p>
                 }
             </div>
         </div>
@@ -153,7 +150,7 @@
                         <input type="hidden" id="service-type" name="serviceType" />
                         <div class="form-group">
                             <label class="control-label">Escuela</label>
-                            <select asp-items="@ViewBag.Schools" name="school" id=""school""></select>
+                            <select asp-items="@ViewBag.Schools" name="school" id="" school""></select>
                         </div>
                     </form>
                     <span id="errorMessage" style="color: red">@ViewBag.ErrorMessage</span>

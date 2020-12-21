@@ -54,6 +54,18 @@ namespace WebApp.Controllers
 			var usuario = await _context.usuarios.FirstOrDefaultAsync(x => x.Email == email);
 			if (usuario == null)
 			{
+				// Determinar el estado del usuario.
+				// Si es un Estudiante queda como "Activo" (A).
+				// Si no queda como "En proceso" (P)
+
+				var rolEstudiante = _context.Rol.FirstOrDefault(r => r.Descripcion == "Estudiante");
+				if (rolEstudiante == null)
+					throw new Exception("No se encontró el rol 'Estudiante' en la base de datos.");
+
+				var estadoId = "A";
+				if (rolEstudiante.Id != RolID)
+					estadoId = "P"; // En proceso, requiere autorizacion del administrador.
+
 				usuario = new Usuario()
 				{
 					Email = email,
@@ -68,7 +80,7 @@ namespace WebApp.Controllers
 					sexo = sexo,
 					matricula = matricula,
 					IdCampus = campus,
-					EstadoId = "A"
+					EstadoId = estadoId
 				};
 
 				_context.Add(usuario);
@@ -104,15 +116,20 @@ namespace WebApp.Controllers
 		{
 			// var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
 			var usr = await _context.usuarios
-				.Where(u => u.Email == email && u.EstadoId != "I")
+				.Where(u => u.Email == email && u.EstadoId != "E")
 				.Include(u => u.Rol)
 				.FirstOrDefaultAsync();
 
 			//var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
 			if (usr == null)
 			{
-
 				ViewBag.Login = "El usuario indicado no existe";
+				loadReqs();
+				return View();
+			}
+			else if (usr.EstadoId == "P")
+			{
+				ViewBag.Login = "Su usuario está siendo revisado";
 				loadReqs();
 				return View();
 			}

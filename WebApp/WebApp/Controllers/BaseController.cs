@@ -27,7 +27,7 @@ namespace WebApp.Controllers
                 var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
                 var foto = _context.usuarios.FirstOrDefault(x => x.Email == email);
-                if (foto == null)
+                if (string.IsNullOrWhiteSpace(foto?.RutaFoto))
                 {
                     ViewBag.UserPicture = "avatar.jpg";
                 }
@@ -41,7 +41,6 @@ namespace WebApp.Controllers
             else
             {
                 ViewBag.UserPicture = "avatar.jpg";
-
             }
 
             base.OnActionExecuted(context);
