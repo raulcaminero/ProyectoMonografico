@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<WebApp.Models.Usuario>
 
 @{
-    ViewData["Title"] = "Usuarios";
+    ViewData["Title"] = "Perfiles de usuario";
 }
 
-<h3>Usuarios</h3>
+<h3>Perfiles de usuario</h3>
 
 <table id="profiles-tb" class="table">
     <thead>
@@ -25,43 +25,54 @@
                 Documento identificación
             </th>
             <th>
-                Sexo
+                <span id="pf-campus-head">Campus</span>
             </th>
             <th>
-                <span id="pf-campus-head">Campus</span>
+                Estado
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var usr in Model)
+        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NombreCompleto)
+                @Html.DisplayFor(modelItem => usr.NombreCompleto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.Rol.Descripcion)
+                @Html.DisplayFor(modelItem => usr.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoIdentificacion)
+                @Html.DisplayFor(modelItem => usr.Rol.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.identificacion)
+                @Html.DisplayFor(modelItem => usr.TipoIdentificacion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Sexo)
-            </td>
-          <td>
-                @Html.DisplayFor(modelItem => item.Campus.Nombre)
+                @Html.DisplayFor(modelItem => usr.identificacion)
             </td>
             <td>
-                @*<a asp-action="Details" asp-route-id="@item.codigo" class="btn btn-info">Detalles</a>*@
-                <a asp-action="Delete" asp-route-id="@item.codigo" class="btn btn-danger">Eliminar</a>
+                @Html.DisplayFor(modelItem => usr.Campus.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => usr.Estado.EstadoNombre)
+            </td>
+            <td>
+                @if (usr.EstadoId == "P") // Estado "En Proceso"
+                {
+                    <a asp-action="Authorize" asp-route-id="@usr.codigo" class="btn btn-primary">Autorizar</a>
+                    <a asp-action="Delete" asp-route-id="@usr.codigo" class="btn btn-danger">Desautorizar</a>
+                }
+                else
+                {
+                    @if (usr.EstadoId == "A") // Estado "Activo"
+                    {<a asp-action="Delete" asp-route-id="@usr.codigo" class="btn btn-danger">Inactivar</a>}
+                    else
+                    {<a asp-action="Activate" asp-route-id="@usr.codigo" class="btn btn-success">Activar</a>}
+                }
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
