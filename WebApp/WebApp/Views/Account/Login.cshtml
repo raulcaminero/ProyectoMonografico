@@ -122,13 +122,15 @@
                 <p>
                     Requisitos Básicos
                     <br />
-         
-                    @foreach (var serviceType in ViewBag.ServiceTypes)
+                    @if (ViewBag.ServiceTypes != null)
                     {
-                        <a href="#" id="@serviceType.TipoServicioId" class="btnShowModal btn-link">
-                            •	 Inscripción de @serviceType.TipoServicioDescripcion
-                        </a>
-                        <br />
+                        foreach (var serviceType in ViewBag.ServiceTypes)
+                        {
+                            <a href="#" id="@serviceType.TipoServicioId" class="btnShowModal btn-link">
+                                •	 Inscripción de @serviceType.TipoServicioDescripcion
+                            </a>
+                            <br />
+                        }
                     }
                 </p>
                 }
@@ -147,8 +149,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post"  asp-page-handler="Modal" id="loginModalForm">
-                        <input type="hidden" id="service-type" name="serviceType"/>
+                    <form method="post" asp-page-handler="Modal" id="loginModalForm">
+                        <input type="hidden" id="service-type" name="serviceType" />
                         <div class="form-group">
                             <label class="control-label">Escuela</label>
                             <select asp-items="@ViewBag.Schools" name="school" id=""school""></select>
