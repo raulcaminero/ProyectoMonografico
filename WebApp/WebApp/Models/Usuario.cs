@@ -80,7 +80,7 @@ namespace WebApp.Models
         [NotMapped]
         public string NombreCompleto
         {
-            get { return primer_nombre.Trim() + " " + primer_apellido; }
+            get { return primer_nombre?.Trim() + " " + primer_apellido; }
         }
 
         //tabla intermedia para calificaciones, profesores en modulos, servicios y de estudiantes

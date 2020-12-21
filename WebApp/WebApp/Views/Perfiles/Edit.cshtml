@@ -48,6 +48,7 @@
 
                                                 <form id="form_imagenes" enctype="multipart/form-data" asp-action="CargarImagen">
 
+
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             <input type="hidden" asp-for="codigo" />
@@ -58,7 +59,7 @@
                                                                 <input type="file" id="files" name="Foto" as-for="Foto" multiple="multiple" accept="image/*" onchange="readURL(this);" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;opacity: 0;border-radius: 5px;">
                                                             </div>
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                <input type="submit" id="true_submit_imagenes" name="" style="display:none" class=" btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
+                                                                <input type="submit" id="true_submit_imagenes" style="display:none" class=" btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
                                                             </div>
 
                                                         </div>
@@ -76,86 +77,90 @@
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Primer Nombre: <span class="rojo">*</span></label>
-                                                            <input title="" type="text" asp-for="primer_nombre" placeholder="Primer Nombre:" class="form-control" name="pNombre" id="pNombre" >
+                                                            <input title="" type="text" asp-for="primer_nombre" placeholder="Primer Nombre:" class="form-control" id="pNombre" disabled="disabled">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Segundo Nombre</label>
-                                                            <input type="text" asp-for="segundo_nombre" class="form-control" name="sNombre" id="sNombre">
+                                                            <input type="text" asp-for="segundo_nombre" class="form-control" id="sNombre" disabled="disabled">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Primer Apellido: <span class="rojo">*</span></label>
-                                                            <input title="" type="text" asp-for="primer_apellido" class="form-control" name="PApellido" id="PApellido" >
+                                                            <input title="" type="text" asp-for="primer_apellido" class="form-control" id="PApellido" disabled="disabled">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Segundo Apellido: </label>
-                                                            <input type="text" class="form-control" asp-for="segundo_apellido" name="sApellido" id="sApellido">
+                                                            <input type="text" class="form-control" asp-for="segundo_apellido" id="sApellido"  disabled="disabled">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Tipo Identificación: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListIdentificacionTipo, "Value", "Text", ViewBag.identificacion), new { @class = "form-control"})
+                                                            <select asp-for="TipoIdentificacion" id="tipo_documento" class="form-control" enabled="false" disabled="disabled">
+                                                                <option selected=""></option>
+                                                                <option value="C">C&eacute;dula</option>
+                                                                <option value="P">Pasaporte</option>
+                                                            </select>
 
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Número Identificación: <span class="rojo">*</span></label>
-                                                            <input title="Este campo es requerido." asp-for="identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" name="cedula" id="cedula">
+                                                            <input title="Este campo es requerido." asp-for="identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" id="cedula" disabled="disabled">
 
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Sexo: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListGenero, "Value", "Text", ViewBag.SelectSexo), new { @class = "form-control"})
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListGenero, "Value", "Text", ViewBag.SelectSexo), new { @class = "form-control", @disabled="disabled" })
 
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Matricula o Código:</label>
-                                                            <input type="text" class="form-control" asp-for="matricula" placeholder="Matricula o Código" maxlength="20" name="matricula" id="matricula">
-                                                            <input type="hidden" name="matricula_vieja" id="matricula_vieja" value="AE4961">
+                                                            <input type="text" class="form-control" asp-for="matricula" placeholder="Matricula o Código" maxlength="20" id="matricula" disabled="disabled">
+                                                            <input type="hidden" id="matricula_vieja" value="AE4961">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Fecha Nacimiento: <span class="rojo">*</span></label>
-                                                            <input title="Este campo es requerido." type="date" class="form-control" name="fecha" id="fecha" >
+                                                            <input title="Este campo es requerido." type="date" asp-for="fecha_nacimiento" class="form-control" id="fecha" disabled="disabled">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Teléfono o Celular: <span class="rojo">*</span></label>
-                                                            <input title="Este campo es requerido." asp-for="contacto" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" name="contacto" id="contacto">
+                                                            <input title="Este campo es requerido." asp-for="contacto" type="text" class="form-control" placeholder="Teléfono o Celular:" maxlength="12" id="contacto" disabled="disabled">
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListNacionaliad, "Value", "Text", ViewBag.nacionalidad), new { @class = "form-control" })
+                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListNacionaliad, "Value", "Text", ViewBag.nacionalidad), new { @class = "form-control", @disabled = "disabled" })
 
                                                         </div>
                                                     </div>
-                                                     <div class="col-sm-4">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Campus: <span class="rojo">*</span></label>
-                                                            @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListCampus, "Value", "Text", ViewBag.campus), new { @class = "form-control"})
-
+                                                            <select asp-for="IdCampus" asp-items="@ViewBag.SelectListCampus" class="form-control" enabled="false" disabled="disabled">
+                                                            </select>
                                                         </div>
-                                                    </div> 
+                                                    </div>
 
                                                 </div>
-                                                <button type="submit" id="guardar_cambios" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
-                                                            Guardar Cambios
-                                                </button>
+                                                @*<button type="submit" id="guardar_cambios" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">
+                                                    Guardar Cambios
+                                                </button>*@
                                             </form>
                                         </div>
                                         <div class="tab-pane fade" id="v-pills-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
@@ -166,7 +171,7 @@
                                                             <div class="controls col-6">
                                                                 <input type="hidden" asp-for="codigo" />
                                                                 <label for="account-old-password">Contraseña anterior <span class="rojo">*</span></label>
-                                                                <input type="password" class="form-control" as-for="old_pass" name="old_pass" value="" />
+                                                                <input type="password" class="form-control" as-for="old_pass" value="" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -174,7 +179,7 @@
                                                         <div class="form-group">
                                                             <div class="controls col-6">
                                                                 <label for="account-new-password">Nueva contraseña <span class="rojo">*</span></label>
-                                                                <input type="password" id="new_pass" class="form-control" as-for="new_pass" name="new_pass" value="" />
+                                                                <input type="password" id="new_pass" class="form-control" as-for="new_pass" value="" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -185,7 +190,7 @@
                                                                     Reescriba nueva
                                                                     Contraseña <span class="rojo">*</span>
                                                                 </label>
-                                                                <input type="password" id="confirm_pass" class="form-control" as-for="confirm_pass" name="confirm_pass" value="" />
+                                                                <input type="password" id="confirm_pass" class="form-control" as-for="confirm_pass" value="" />
                                                             </div>
                                                         </div>
                                                     </div>

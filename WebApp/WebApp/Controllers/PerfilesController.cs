@@ -122,16 +122,26 @@ namespace WebApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("codigo,primer_nombre,Email,contrasena,segundo_nombre,primer_apellido,segundo_apellido,TipoIdentificacion,identificacion,sexo,matricula,contacto,nacionalidad,fecha_nacimiento,IdCampus,RolID,EstadoId,RutaFoto")] Models.Usuario usuario)
+        public async Task<IActionResult> Edit(Usuario usuario)
         {
-            if (id != usuario.codigo)
-                return NotFound();
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var usr = _context.usuarios.Find(usuario.codigo);
+                    usr.primer_nombre = usuario.primer_nombre;
+                    usr.segundo_nombre = usuario.segundo_nombre;
+                    usr.primer_apellido = usuario.primer_apellido;
+                    usr.segundo_apellido = usuario.segundo_apellido;
+                    usr.matricula = usuario.matricula;
+                    usr.contacto = usuario.contacto;
+                    usr.nacionalidad = usuario.primer_nombre;
+                    usr.fecha_nacimiento = usuario.fecha_nacimiento;
+                    usr.sexo = usuario.sexo;
+                    usr.IdCampus= usuario.IdCampus;
+                    usr.identificacion = usuario.identificacion;
+                    usr.tipo_identificacion = usuario.tipo_identificacion;
+
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
@@ -188,10 +198,8 @@ namespace WebApp.Controllers
         {
            
             var users = await _context.usuarios.FindAsync(model.codigo);
-            if (model.codigo == 0 || model.codigo == null)
-            {
+            if (model.codigo == 0)
                 return NotFound();
-            }
                        
             
             if (users.contrasena != model.old_pass)
