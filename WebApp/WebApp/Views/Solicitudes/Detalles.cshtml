@@ -6,7 +6,7 @@
 
 }
 
-<h1 class="text-center mr-5 pb-2" style="color:#4863A0">Detalles de la solicitud</h1>
+<h2 class="text-center mr-5 pb-2" style="color:#4863A0">Detalles de la solicitud</h2>
 
 <div class="row">
     <div class="col-xl-5">
@@ -65,8 +65,6 @@
                                 <option value="P">Pendiente de documentos</option>
                                 <option value="N">Aceptar solicitud (inscribir)</option>
                             </select>
-                        </div>
-                        <div class="form-group">
                             <input type="submit" value="Guardar" class="btn btn-primary" />
                         </div>
                     </form>
@@ -77,23 +75,89 @@
                 }
 
             </dd>
-
         </dl>
+
+        @if (Model.IdEstado == "N")
+        {
+            <div>
+
+                <hr />
+
+                <h3>Entrega de proyecto</h3>
+                <h5>Anteproyecto</h5>
+                <div class="border row" style="padding:10px">
+                    @*Anteproyecto enviado*@
+                    @{ var docAnteproyecto = Model.DocumentosEntregados.FirstOrDefault(d => d.Tipo == TipoArchivo.AnteProyecto);}
+                    @if (docAnteproyecto != null)
+                    {
+                        <div class="col-sm-9">
+                            <span>Anteproyecto enviado en fecha y hora @docAnteproyecto.Fecha.ToString("dd/MM/yyyy hh:mm tt")</span>
+                        </div>
+                        <div class="col-sm-3">
+                            <a asp-action="Descargar" asp-controller="Archivos" asp-route-idArchivo="@docAnteproyecto.IdArchivo" class="btn btn-secondary">Descargar</a>
+                        </div>
+                    }
+                    @*Aun no ha enviado el anteproyecto, mostrar opción*@
+                    else
+                    {
+                        <div class="col-sm-9">
+                            <span> Aún no ha enviado el anteproyecto</span>
+                        </div>
+                        <div class="col-sm-3">
+                            <a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivo.AnteProyecto" class="btn btn-primary">Enviar</a>
+                        </div>
+                    }
+                </div>
+
+                <h5>Proyecto</h5>
+                <div class="border row" style="padding:10px">
+                    @*Envió el anteproyecto y no ha enviado el proyecto, mostrar opción*@
+                    @if (Model.DocumentosEntregados.Any(d => d.Tipo == TipoArchivo.AnteProyecto))
+                    {
+                        var docProyecto = Model.DocumentosEntregados.FirstOrDefault(d => d.Tipo == TipoArchivo.Proyecto);
+                        @if (docProyecto != null)
+                        {
+                            <div class="col-sm-9">
+                                <span>Proyecto enviado en fecha y hora @docProyecto.Fecha.ToString("dd/MM/yyyy hh:mm tt")</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <a asp-action="Descargar" asp-controller="Archivos" asp-route-idArchivo="@docProyecto.IdArchivo" class="btn btn-secondary">Descargar</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-9">
+                                <span> Aún no ha enviado el proyecto</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivo.Proyecto" class="btn btn-primary">Enviar</a>
+                            </div>
+                        }
+                    }
+                    else
+                    {<span>Una vez envíe el anteproyecto será posible enviar el proyecto</span>}
+
+                </div>
+            </div>
+        }
 
     </div>
 
     <div class="col-xl-6">
         <hr />
         <h3 class="text-center">Documentos entregados</h3>
-        <Div title="Cargar" class="pb-3">
-            <hr />
-            <h5 class="pl-3 pb-1 row">Cargar</h5>
-            @if (!Model.DocumentosEntregados.Any(d => d.Tipo == TipoArchivoSolicitud.Pago))
-            {<a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivoSolicitud.Pago" class="btn btn-primary">Pago</a>}
-            <a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivoSolicitud.Proyecto" class="btn btn-primary">Proyecto</a>
-            <a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivoSolicitud.AnteProyecto" class="btn btn-primary">Anteproyecto</a>
-            <a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivoSolicitud.Otro" class="btn btn-primary">Otros</a>
-        </Div>
+        <div class="col-md-10 col-md-offset-10">
+            <div title="Cargar" class="pb-3 pull-right">
+                <br />
+                @*<h5 class="pl-3 pb-1 row">Cargar</h5>*@
+
+                @*Inscrito y aun no ha hecho el pago, mostrar opción*@
+                @if (Model.IdEstado == "N" && !Model.DocumentosEntregados.Any(d => d.Tipo == TipoArchivo.Pago))
+                {<a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivo.Pago" class="btn btn-primary">Enviar recibo de pago</a>}
+
+                <a asp-action="CargarDocumento" asp-route-id="@Model.Id" asp-route-tipo="@TipoArchivo.Otro" class="btn btn-primary">Enviar documento de requerimiento</a>
+            </div>
+        </div>
 
         <table class="table">
             <thead>
@@ -106,7 +170,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var archivo in Model.DocumentosEntregados)
+                @foreach (var archivo in Model.DocumentosEntregados.Where(d => d.Tipo != TipoArchivo.AnteProyecto && d.Tipo != TipoArchivo.Proyecto))
                 {
                     <tr>
                         <td>
@@ -126,5 +190,5 @@
 </div>
 <div>
     @if (User.IsInRole("Administrador"))
-    {<a asp-action="Index">Regresar a la lista</a>}
+    {<a asp-action="Index">Regresar a la lista de solicitudes</a>}
 </div>

@@ -12,7 +12,7 @@ namespace WebApp.ViewModels.Solicitudes
         [Required]
         public IFormFile Archivo { get; set; }
 
-		public TipoArchivoSolicitud TipoDocumento { get; set; }
+		public TipoArchivo TipoDocumento { get; set; }
 
 	}
 }

@@ -11,8 +11,9 @@ using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador,Estudiante")]
     public class SolicitudesController : BaseController
-    {
+	{
         private readonly ApplicationDbContext _context;
 
         public SolicitudesController(ApplicationDbContext context):base(context)
@@ -37,7 +38,7 @@ namespace PerfilEstudiante.Controllers
             return View(solicitudes);
         }
 
-		public async Task<IActionResult> CargarDocumento(int id, TipoArchivoSolicitud tipo)
+		public async Task<IActionResult> CargarDocumento(int id, TipoArchivo tipo)
 		{
 			var pago = new CargaDocumentoSolicitudViewModel() { IdSolicitud = id, TipoDocumento = tipo };
 			return View(pago);
@@ -55,16 +56,16 @@ namespace PerfilEstudiante.Controllers
 				{
 					IdArchivo = archivo.Id,
 					IdSolicitud = pago.IdSolicitud,
-					Tipo = TipoArchivoSolicitud.Pago,
+					Tipo = pago.TipoDocumento,
 				};
 
-				if (pago.TipoDocumento == TipoArchivoSolicitud.AnteProyecto || pago.TipoDocumento == TipoArchivoSolicitud.Proyecto) {
+				if (pago.TipoDocumento == TipoArchivo.AnteProyecto || pago.TipoDocumento == TipoArchivo.Proyecto) {
 					var proyecto = new Proyecto()
 					{
 						IdArchivo = archivo.Id,
 						IdSolicitud = pago.IdSolicitud,
 						EstadoId = "A",
-						Tipo = Enum.GetName(typeof(TipoArchivoSolicitud), pago.TipoDocumento),
+						Tipo = Enum.GetName(typeof(TipoArchivo), pago.TipoDocumento),
 					};
 					_context.Proyecto.Add(proyecto);
 				}
@@ -212,17 +213,17 @@ namespace PerfilEstudiante.Controllers
 
 				// Guardar los archivos
 
-				var archivos = new List<(Archivo Archivo, TipoArchivoSolicitud Tipo)>();
+				var archivos = new List<(Archivo Archivo, TipoArchivo Tipo)>();
 				var ctrl = new ArchivosController(_context);
 
 				if (vm.ArchivoFoto != null)
-					archivos.Add((await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Foto));
+					archivos.Add((await ctrl.Cargar(vm.ArchivoFoto, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivo.Foto));
 
 				if (vm.ArchivoCedula != null)
-					archivos.Add((await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Cedula));
+					archivos.Add((await ctrl.Cargar(vm.ArchivoCedula, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivo.Cedula));
 
 				if (vm.ArchivoKardex != null)
-					archivos.Add((await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivoSolicitud.Notas));
+					archivos.Add((await ctrl.Cargar(vm.ArchivoKardex, "Solicitudes", $"Servicios\\{vm.IdServicio}"), TipoArchivo.Notas));
 
 				await _context.SaveChangesAsync();
 

@@ -1,11 +1,8 @@
-﻿@{
+﻿@model WebApp.Models.Usuario
+
+@{
     Layout = null;
 }
-
-@model WebApp.Models.Usuario
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -117,19 +114,23 @@
                     </div>
                 </form>
                 <br />
-                <p>
-                    Requisitos Básicos
-                    <br />
-
-                    @foreach (var serviceType in ViewBag.ServiceTypes)
-                    {
-                        <a href="#" id="@serviceType.TipoServicioId" class="btnShowModal btn-link">
-                            •	 Inscripción de @serviceType.TipoServicioDescripcion
-                        </a>
+                @if (ViewBag.ServiceTypes.Count > 0)
+                {
+                    <p>
+                        Requisitos Básicos
                         <br />
-                    }
-
-                </p>
+                        @if (ViewBag.ServiceTypes != null)
+                        {
+                            foreach (var serviceType in ViewBag.ServiceTypes)
+                            {
+                                <a href="#" id="@serviceType.TipoServicioId" class="btnShowModal btn-link">
+                                    •	 Inscripción de @serviceType.TipoServicioDescripcion
+                                </a>
+                                <br />
+                            }
+                        }
+                    </p>
+                }
             </div>
         </div>
     </section>
@@ -145,13 +146,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post"  asp-page-handler="Modal" id="loginModalForm">
-                        <input type="hidden" id="service-type" name="serviceType"/>
+                    <form method="post" asp-page-handler="Modal" id="loginModalForm">
+                        <input type="hidden" id="service-type" name="serviceType" />
                         <div class="form-group">
                             <label class="control-label">Escuela</label>
-                            <select asp-items="@ViewBag.Schools" name="school"></select>
+                            <select asp-items="@ViewBag.Schools" name="school" id="" school""></select>
                         </div>
                     </form>
+                    <span id="errorMessage" style="color: red">@ViewBag.ErrorMessage</span>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="modalSubmit" form="loginModalForm" formaction="@Url.Action("Modal")" class="btn btn-primary">Descargar</button>
@@ -189,6 +191,24 @@
 
                 $("#service-type").val($(this).attr("id"));
             });
+
+            $("#loginModal").on("show.bs.modal", function ()
+            {
+                if (@ViewBag.Schools.Items.Count == 0)
+                {
+                    $("#modalSubmit").attr("disabled", true);
+                    $("#errorMessage").html("No hay escuelas disponibles");
+                }
+            });
+
+            $("#loginModal").on("hide.bs.modal", function ()
+            {
+                $("#errorMessage").html("");
+            });
+
+            if ($("#errorMessage").html() != "") {
+                $("#loginModal").modal('show');
+            }
 
             $("#modalSubmit").click(function () {
                 $("#loginModal").modal('hide');

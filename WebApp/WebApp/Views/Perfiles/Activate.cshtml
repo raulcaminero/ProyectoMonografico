@@ -1,12 +1,12 @@
 ﻿@model WebApp.Models.Usuario
 
 @{
-    ViewData["Title"] = "Eliminar";
+    ViewData["Title"] = "Activar";
 }
 
-<h1>Eliminar usuario</h1>
+<h1>Activar usuario</h1>
 
-<h3>Está seguro que quiere eliminar el usuario?</h3>
+<h3>Está seguro que quiere activar el usuario?</h3>
 <div>
     <hr />
     <dl class="row">
@@ -30,9 +30,9 @@
         </dd>
     </dl>
 
-    <form asp-action="Delete">
+    <form asp-action="Activate">
         <input type="hidden" asp-for="codigo" />
-        <input type="submit" value="Inactivar" class="btn btn-danger" />
+        <input type="submit" value="Activar" class="btn btn-primary" />
         <a asp-action="Index">Regresar a la lista de usuarios</a>
     </form>
 </div>

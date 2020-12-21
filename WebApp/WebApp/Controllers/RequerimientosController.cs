@@ -10,7 +10,7 @@ using WebApp.ViewModels.Requerimientos;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador")]
 	public class RequerimientosController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
@@ -94,6 +94,8 @@ namespace WebApp.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CreateRequerimientoViewModel modelo)
 		{
+			loadLists();
+
 			if (ModelState.IsValid)
 			{
 				var codigo = generarCodigo();

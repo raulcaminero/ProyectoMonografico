@@ -54,6 +54,18 @@ namespace WebApp.Controllers
 			var usuario = await _context.usuarios.FirstOrDefaultAsync(x => x.Email == email);
 			if (usuario == null)
 			{
+				// Determinar el estado del usuario.
+				// Si es un Estudiante queda como "Activo" (A).
+				// Si no queda como "En proceso" (P)
+
+				var rolEstudiante = _context.Rol.FirstOrDefault(r => r.Descripcion == "Estudiante");
+				if (rolEstudiante == null)
+					throw new Exception("No se encontró el rol 'Estudiante' en la base de datos.");
+
+				var estadoId = "A";
+				if (rolEstudiante.Id != RolID)
+					estadoId = "P"; // En proceso, requiere autorizacion del administrador.
+
 				usuario = new Usuario()
 				{
 					Email = email,
@@ -68,7 +80,7 @@ namespace WebApp.Controllers
 					sexo = sexo,
 					matricula = matricula,
 					IdCampus = campus,
-					EstadoId = "A"
+					EstadoId = estadoId
 				};
 
 				_context.Add(usuario);
@@ -95,10 +107,7 @@ namespace WebApp.Controllers
 		{
 			LogOff();
 
-			ViewBag.ServiceTypes = _context.TipoServicios.ToList();
-
-			var schools = _context.Escuelas.ToList();
-			ViewBag.Schools = new SelectList(schools, "Id", "Nombre");
+			loadReqs();
 
 			return View();
 		}
@@ -107,15 +116,21 @@ namespace WebApp.Controllers
 		{
 			// var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
 			var usr = await _context.usuarios
-				.Where(u => u.Email == email)
+				.Where(u => u.Email == email && u.EstadoId != "E")
 				.Include(u => u.Rol)
 				.FirstOrDefaultAsync();
 
 			//var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
 			if (usr == null)
 			{
-
 				ViewBag.Login = "El usuario indicado no existe";
+				loadReqs();
+				return View();
+			}
+			else if (usr.EstadoId == "P")
+			{
+				ViewBag.Login = "Su usuario está siendo revisado";
+				loadReqs();
 				return View();
 			}
 			if (usr.contrasena.Equals(password))
@@ -136,7 +151,8 @@ namespace WebApp.Controllers
 			}
 
 
-			ViewBag.Message = "Contraseña incorrecta";
+			ViewBag.Login = "Contraseña incorrecta";
+			loadReqs();
 			return View();
 		}
 
@@ -182,6 +198,7 @@ namespace WebApp.Controllers
 			var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 			var currentUser = context.usuarios
+				.Where(u => u.EstadoId != "I")
 				.Include(u => u.Rol)
 				.FirstOrDefault(u => u.Email == email);
 
@@ -199,19 +216,34 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Modal(string serviceType, string school)
 		{
-			int tipoServicioId = int.Parse(serviceType);
-			int escuelaId = int.Parse(school);
+			if (serviceType != null && school != null)
+            {
+				int tipoServicioId = int.Parse(serviceType);
+				int escuelaId = int.Parse(school);
 
-			var requerimiento = await _context.Requerimientos
-				.Where(r => r.Estado == EstadoRequerimiento.Activo && r.TipoServicioId == tipoServicioId && r.EscuelaId == escuelaId)
-				.FirstOrDefaultAsync();
+				var requerimiento = await _context.Requerimientos
+					.Where(r => r.Estado == EstadoRequerimiento.Activo && r.TipoServicioId == tipoServicioId && r.EscuelaId == escuelaId)
+					.FirstOrDefaultAsync();
 
-			var archivosController = new ArchivosController(_context);
+				var archivosController = new ArchivosController(_context);
 
-			if (requerimiento != null)
-				return await archivosController.Descargar(requerimiento.ArchivoId);
+				if (requerimiento != null)
+					return await archivosController.Descargar(requerimiento.ArchivoId);
 
-			return RedirectToAction("Login", "Account");
+				ViewBag.ErrorMessage = "No existen requerimientos para esta escuela";
+				loadReqs();
+				return View("Login");
+			}
+
+			return RedirectToAction("Login");
+		}
+
+		private void loadReqs ()
+        {
+			ViewBag.ServiceTypes = _context.TipoServicios.ToList();
+
+			var schools = _context.Escuelas.ToList();
+			ViewBag.Schools = new SelectList(schools, "Id", "Nombre");
 		}
 	}
 }
