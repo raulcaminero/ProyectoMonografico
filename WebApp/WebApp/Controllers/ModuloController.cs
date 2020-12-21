@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador,Profesor")]
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class ModuloController : BaseController
     {
         private readonly ApplicationDbContext _context;
@@ -27,10 +26,14 @@ namespace WebApp.Controllers
         // GET: Modulo
         public async Task<IActionResult> Index()
         {
-            var cULMINARE_DBContext = _context.Modulo
+            var usr = AccountController.GetCurrentUser(User, _context);
+            var idEstudiante = usr.Rol?.Descripcion == "Estudiante" ? usr.codigo : 0;
+
+            var modulos = _context.Modulo
+                .Where(m => idEstudiante == 0 || m.Servicio.Solicitudes.Any(s => s.IdUsuario == idEstudiante)) // Si es un Estudiante, solo mostrar los modulos en los que está inscrito.
                 .Include(m => m.Estado)
                 .Include(m => m.IdProfesorNavigation);
-            return View(await cULMINARE_DBContext.ToListAsync());
+            return View(await modulos.ToListAsync());
         }
 
         // GET: Modulo/Details/5
