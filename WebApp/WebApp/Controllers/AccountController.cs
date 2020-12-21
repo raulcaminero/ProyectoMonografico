@@ -15,11 +15,11 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	public class AccountController : Controller
+	public class AccountController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
 
-		public AccountController(ApplicationDbContext context)
+		public AccountController(ApplicationDbContext context):base(context)
 		{
 			_context = context;
 		}
@@ -94,6 +94,9 @@ namespace WebApp.Controllers
 		public ActionResult Login()
 		{
 			LogOff();
+
+			loadReqs();
+
 			return View();
 		}
 		[HttpPost]
@@ -101,7 +104,7 @@ namespace WebApp.Controllers
 		{
 			// var usuario = _context.usuarios1.SingleOrDefault(x => x.nombre == nombre);
 			var usr = await _context.usuarios
-				.Where(u => u.Email == email)
+				.Where(u => u.Email == email && u.EstadoId != "I")
 				.Include(u => u.Rol)
 				.FirstOrDefaultAsync();
 
@@ -110,25 +113,29 @@ namespace WebApp.Controllers
 			{
 
 				ViewBag.Login = "El usuario indicado no existe";
+				loadReqs();
 				return View();
 			}
 			if (usr.contrasena.Equals(password))
 			{
 				var claims = new[] {
-				new Claim(ClaimTypes.NameIdentifier,email),
-				new Claim(ClaimTypes.Name, usr.primer_nombre),
-				new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
-			   };
+					new Claim(ClaimTypes.NameIdentifier,email),
+					new Claim(ClaimTypes.Name, usr.primer_nombre),
+					new Claim(ClaimTypes.Role, usr.Rol.Descripcion)
+				};
 
 				var identity = new ClaimsIdentity(claims, "CookieAuth");
 				var principal = new ClaimsPrincipal(identity);
 				await HttpContext.SignInAsync("CookieAuth", principal);
 
+				//GeneralPurpose.Ruta = usr.RutaFoto == null? "avatar.jpg" : usr.RutaFoto;
+
 				return RedirectToAction("Index", "Home");
 			}
 
 
-			ViewBag.Message = "Contraseña incorrecta";
+			ViewBag.Login = "Contraseña incorrecta";
+			loadReqs();
 			return View();
 		}
 
@@ -174,6 +181,7 @@ namespace WebApp.Controllers
 			var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 			var currentUser = context.usuarios
+				.Where(u => u.EstadoId != "I")
 				.Include(u => u.Rol)
 				.FirstOrDefault(u => u.Email == email);
 
@@ -186,6 +194,39 @@ namespace WebApp.Controllers
 			var rol = usr.Rol?.Descripcion?.ToLower();
 			var esAdmin = (rol == "administrador");
 			return esAdmin;
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Modal(string serviceType, string school)
+		{
+			if (serviceType != null && school != null)
+            {
+				int tipoServicioId = int.Parse(serviceType);
+				int escuelaId = int.Parse(school);
+
+				var requerimiento = await _context.Requerimientos
+					.Where(r => r.Estado == EstadoRequerimiento.Activo && r.TipoServicioId == tipoServicioId && r.EscuelaId == escuelaId)
+					.FirstOrDefaultAsync();
+
+				var archivosController = new ArchivosController(_context);
+
+				if (requerimiento != null)
+					return await archivosController.Descargar(requerimiento.ArchivoId);
+
+				ViewBag.ErrorMessage = "No existen requerimientos para esta escuela";
+				loadReqs();
+				return View("Login");
+			}
+
+			return RedirectToAction("Login");
+		}
+
+		private void loadReqs ()
+        {
+			ViewBag.ServiceTypes = _context.TipoServicios.ToList();
+
+			var schools = _context.Escuelas.ToList();
+			ViewBag.Schools = new SelectList(schools, "Id", "Nombre");
 		}
 	}
 }

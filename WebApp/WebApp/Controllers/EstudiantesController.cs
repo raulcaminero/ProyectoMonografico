@@ -12,11 +12,11 @@ namespace WebApp.Controllers
 {
 
     [Authorize]
-    public class EstudiantesController : Controller
+    public class EstudiantesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public EstudiantesController(ApplicationDbContext context)
+        public EstudiantesController(ApplicationDbContext context):base(context)
         {
             _context = context;
         }
