@@ -265,4 +265,30 @@ $(document).ready(function () {
                 $(".yadcf-filter-reset-button").remove();
             }
         });
+
+    var profilesTB = $("#profiles-tb").DataTable(
+        {
+            language:
+            {
+                url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json'
+            },
+            initComplete: function () {
+                yadcf.init(profilesTB,
+                    [
+                        {
+                            column_number: 2,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        }
+                    ],
+                    {
+                        cumulative_filtering: true
+                    }
+                );
+
+                $("#yadcf-filter-wrapper--profiles-tb-2").insertBefore("#pf-role-head");
+
+                $(".yadcf-filter-reset-button").remove();
+            }
+        });
 });
