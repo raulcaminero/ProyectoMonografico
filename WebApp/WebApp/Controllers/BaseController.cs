@@ -20,31 +20,31 @@ namespace WebApp.Controllers
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            if (context.Result.GetType().BaseType.Name == "ActionResult")
-            {
-                if (User.Identity.IsAuthenticated)
-                {
-                    var usr = User as ClaimsPrincipal;
-                    var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-                    var foto = _context.usuarios.FirstOrDefault(x => x.Email == email);
-                    if (foto == null)
+           
+                    if (User.Identity.IsAuthenticated)
                     {
-                        ViewBag.UserPicture = "avatar.jpg";
+                        var usr = User as ClaimsPrincipal;
+                        var email = usr.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                        var foto = _context.usuarios.FirstOrDefault(x => x.Email == email);
+                        if (foto == null)
+                        {
+                            ViewBag.UserPicture = "avatar.jpg";
+                        }
+
+                        else
+                        {
+                            ViewBag.UserPicture = foto.RutaFoto;
+                        }
                     }
 
                     else
                     {
-                        ViewBag.UserPicture = foto.RutaFoto;
+                        ViewBag.UserPicture = "avatar.jpg";
+
                     }
-                }
-
-                else
-                {
-                    ViewBag.UserPicture = "avatar.jpg";
-
-                }
-            }
+          
+           
 
             base.OnActionExecuted(context);
         }
