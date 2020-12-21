@@ -11,15 +11,15 @@
 <p>
     <a class="btn btn-primary mb-2" asp-action="Create">Asignar Calificaciones</a>
 </p>
-<table id="faculties-tb" class="table table-striped table-bordered" style="width:100%">
+<table id="grades-tb" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
             <th>
-                Estudiante
+                <span id="gd-student-head">Estudiante</span>
 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Modulo)
+                <span id="gd-module-head">@Html.DisplayNameFor(model => model.Modulo)</span>
 
             </th>
             <th>

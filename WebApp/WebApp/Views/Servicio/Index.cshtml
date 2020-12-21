@@ -10,29 +10,29 @@
 <p>
     <a class="btn btn-primary mb-2" asp-action="Create">Nuevo Servicio</a>
 </p>
-<table id="faculties-tb" class="table">
+<table id="services-tb" class="table">
     <thead>
         <tr>
             <th>
-                Codigo
+                Código
             </th>
             <th>
-                Descripcion
+                Descripción
             </th>
             <th>
-                Tipo
+                <span id="sv-type-head">Tipo</span>
             </th>
             <th>
-                Campus
+                <span id="sv-campus-head">Campus</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Facultad)
+                <span id="sv-faculty-head">@Html.DisplayNameFor(model => model.Facultad)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Escuela)
+                <span id="sv-school-head">@Html.DisplayNameFor(model => model.Escuela)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Carrera)
+                <span id="sv-career-head">@Html.DisplayNameFor(model => model.Carrera)</span>
             </th>
 
             <th></th>
