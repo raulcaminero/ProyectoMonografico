@@ -48,7 +48,7 @@
     <script>
         $("#idFacultad").change(function () {
             var idFacultad = $(this).val();
-            $.get("/Carreras/GetFilteredEscuelas/", { "idFacultad": idFacultad }, function (data, success) {
+            $.get("/Escuelas/GetFilteredEscuelas/", { "idFacultad": idFacultad }, function (data, success) {
                 var opciones = "";
                 $("#idEscuela").empty();
 
