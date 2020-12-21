@@ -69,18 +69,6 @@
                     <a asp-action="Edit" asp-route-id="@item.Servicio_Id" class="btn btn-primary">Editar</a>
                     <a asp-action="Details" asp-route-id="@item.Servicio_Id" class="btn btn-info">Detalles</a>
                     <a asp-action="Delete" asp-route-id="@item.Servicio_Id" class="btn btn-danger">Eliminar</a>
-                    <a asp-action="Estado" asp-route-id="@item.Servicio_Id">
-
-                        @if (item.Estado_Id == "A")
-                        {
-                            <span class="btn btn-warning"> Inactivar </span>
-                        }
-                        else
-                        {
-                            <span class="btn btn-success"> Activar </span>
-                        }
-
-                    </a>
                 </td>
                 
             </tr>
