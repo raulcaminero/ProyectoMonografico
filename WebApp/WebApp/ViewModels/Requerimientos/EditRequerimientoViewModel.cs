@@ -11,11 +11,14 @@ namespace WebApp.ViewModels.Requerimientos
 		[Display(Name = "Código")]
 		public string Codigo { get; set; }
 
+		[Required(ErrorMessage = "Debe elegir un tipo de servicio")]
 		[Display(Name = "Aplica para")]
 		public string TipoServicioDescripcion { get; set; }
 
 		public int TipoServicioId { get; set; }
 
+
+		[Required(ErrorMessage = "Debe elegir una escuela")]
 		[Display(Name = "Escuela")]
 		public string EscuelaNombre { get; set; }
 
