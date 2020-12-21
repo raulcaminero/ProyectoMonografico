@@ -94,6 +94,8 @@ namespace WebApp.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CreateRequerimientoViewModel modelo)
 		{
+			loadLists();
+
 			if (ModelState.IsValid)
 			{
 				var codigo = generarCodigo();
