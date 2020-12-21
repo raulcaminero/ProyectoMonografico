@@ -29,8 +29,7 @@ namespace WebApp.Controllers
         {
             var cULMINARE_DBContext = _context.Modulo
                 .Include(m => m.Estado)
-                .Include(m => m.IdProfesorNavigation)
-                .Include(m=>m.IdAdjuntoNavigation);
+                .Include(m => m.IdProfesorNavigation);
             return View(await cULMINARE_DBContext.ToListAsync());
         }
 
@@ -44,7 +43,6 @@ namespace WebApp.Controllers
             
             var modulo = await _context.Modulo.Include(m => m.Estado)
                 .Include(m => m.IdProfesorNavigation)
-                .Include(m => m.IdAdjuntoNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (modulo == null)
             {
@@ -59,7 +57,6 @@ namespace WebApp.Controllers
             
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto");
-            ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion");
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion");
             return View();
         }
@@ -81,7 +78,6 @@ namespace WebApp.Controllers
                     UsuarioCodigo = model.UsuarioCodigo,
                     Imagen = uniqueFileName,
                     EstadoId = model.EstadoId,
-                    IdAdjunto = model.IdAdjunto,
                     ServicioId = model.ServicioId
                 };
 
@@ -89,8 +85,7 @@ namespace WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion");
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", 
+           ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", 
                 model.Estado.EstadoNombre);
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto",
             model.IdProfesorNavigation.NombreCompleto);
@@ -127,7 +122,6 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion", modulo.IdAdjunto);
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", modulo.EstadoId);
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", modulo.UsuarioCodigo);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion", modulo.ServicioId);
@@ -136,7 +130,7 @@ namespace WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Descripcion,FechaInicio,FechaFin,UsuarioCodigo,Imagen,EstadoId,IdAdjunto,ServicioId")] Modulo modulo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Descripcion,FechaInicio,FechaFin,UsuarioCodigo,Imagen,EstadoId,ServicioId")] Modulo modulo)
         {
             if (id != modulo.Id)
             {
@@ -163,7 +157,6 @@ namespace WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdAdjunto"] = new SelectList(_context.AdjuntoMaterial, "Id", "Descripcion", modulo.IdAdjunto);
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", modulo.EstadoId);
             ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", modulo.UsuarioCodigo);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion", modulo.ServicioId);
