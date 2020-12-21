@@ -8,39 +8,49 @@
 <h1>Activar</h1>
 
 <h3>¿Está seguro que desea activar esto?</h3>
-<div>
-    <h4>Campus</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Localidad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Localidad)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-    </dl>
-    
-    <form asp-action="Activate">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Activar" class="btn btn-danger" /> |
-        <a asp-action="Index">Regresar a la lista</a>
-    </form>
+<div class="col-8">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="p-3 mb-2 bg-primary text-white text-center">Campus</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <dl class="row">
+                    <div class="col">
+                        <dt>
+                            Código
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Codigo)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Nombre)
+                        </dd>
+                    </div>
+                    <div class="col">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Localidad)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Localidad)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Estado)
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+            <form asp-action="Activate">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Activar" class="btn btn-danger" /> 
+                <a asp-action="Index" class="btn btn-secondary">Regresar </a>
+            </form>
+        </div>
+    </div>
 </div>

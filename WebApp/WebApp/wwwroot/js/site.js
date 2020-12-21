@@ -155,7 +155,7 @@ $(document).ready(function () {
                         {
                             column_number: 1,
                             filter_type: "select",
-                            filter_default_label: "Todas"
+                            filter_default_label: "Todos"
                         },
                         {
                             column_number: 2,
@@ -178,6 +178,121 @@ $(document).ready(function () {
                 $("#yadcf-filter-wrapper--reqs-tb-1").insertBefore("#rq-type-head");
                 $("#yadcf-filter-wrapper--reqs-tb-2").insertBefore("#rq-school-head");
                 $("#yadcf-filter-wrapper--reqs-tb-4").insertBefore("#rq-state-head");
+
+                $(".yadcf-filter-reset-button").remove();
+            }
+        });
+
+    var servicesTB = $("#services-tb").DataTable(
+        {
+            language:
+            {
+                url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json'
+            },
+            initComplete: function () {
+                yadcf.init(servicesTB,
+                    [
+                        {
+                            column_number: 2,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        },
+                        {
+                            column_number: 3,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        },
+                        {
+                            column_number: 4,
+                            filter_type: "select",
+                            filter_default_label: "Todas"
+                        },
+                        {
+                            column_number: 5,
+                            filter_type: "select",
+                            filter_default_label: "Todas"
+                        },
+                        {
+                            column_number: 6,
+                            filter_type: "select",
+                            filter_default_label: "Todas"
+                        }
+                    ],
+                    {
+                        cumulative_filtering: true
+                    }
+                );
+
+                $("#yadcf-filter-wrapper--services-tb-2").insertBefore("#sv-type-head");
+                $("#yadcf-filter-wrapper--services-tb-3").insertBefore("#sv-campus-head");
+                $("#yadcf-filter-wrapper--services-tb-4").insertBefore("#sv-faculty-head");
+                $("#yadcf-filter-wrapper--services-tb-5").insertBefore("#sv-school-head");
+                $("#yadcf-filter-wrapper--services-tb-6").insertBefore("#sv-career-head");
+
+
+                $(".yadcf-filter-reset-button").remove();
+            }
+        });
+
+    var gradesTB = $("#grades-tb").DataTable(
+        {
+            language:
+            {
+                url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json'
+            },
+            initComplete: function () {
+                yadcf.init(gradesTB,
+                    [
+                        {
+                            column_number: 0,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        },
+                        {
+                            column_number: 1,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        }
+                    ],
+                    {
+                        cumulative_filtering: true
+                    }
+                );
+
+                $("#yadcf-filter-wrapper--grades-tb-0").insertBefore("#gd-student-head");
+                $("#yadcf-filter-wrapper--grades-tb-1").insertBefore("#gd-module-head");
+
+                $(".yadcf-filter-reset-button").remove();
+            }
+        });
+
+    var profilesTB = $("#profiles-tb").DataTable(
+        {
+            language:
+            {
+                url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json'
+            },
+            initComplete: function () {
+                yadcf.init(profilesTB,
+                    [
+                        {
+                            column_number: 2,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        },
+                        {
+                            column_number: 6,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        }
+                    ],
+                    {
+                        cumulative_filtering: true
+                    }
+                );
+
+                $("#yadcf-filter-wrapper--profiles-tb-2").insertBefore("#pf-role-head");
+                $("#yadcf-filter-wrapper--profiles-tb-6").insertBefore("#pf-campus-head");
 
                 $(".yadcf-filter-reset-button").remove();
             }

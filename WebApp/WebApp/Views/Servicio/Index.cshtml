@@ -4,35 +4,35 @@
 }
 
 <div class="text-center">
-    <h1 class="display-5" style="color:#4863A0">Lista de servicios</h1>
+    <h1 class="text-center pb-2" style="color:#4863A0">Lista de servicios</h1>
 </div>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Agregar Servicio</a>
+    <a class="btn btn-primary mb-2" asp-action="Create">Nuevo Servicio</a>
 </p>
-<table class="table">
+<table id="services-tb" class="table">
     <thead>
         <tr>
             <th>
-                Codigo
+                Código
             </th>
             <th>
-                Descripcion
+                Descripción
             </th>
             <th>
-                Tipo
+                <span id="sv-type-head">Tipo</span>
             </th>
             <th>
-                Campus
+                <span id="sv-campus-head">Campus</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Facultad)
+                <span id="sv-faculty-head">@Html.DisplayNameFor(model => model.Facultad)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Escuela)
+                <span id="sv-school-head">@Html.DisplayNameFor(model => model.Escuela)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Carrera)
+                <span id="sv-career-head">@Html.DisplayNameFor(model => model.Carrera)</span>
             </th>
 
             <th></th>
@@ -66,9 +66,21 @@
                 </td>
 
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Servicio_Id">Modificar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Servicio_Id">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Servicio_Id">Desactivar</a>
+                    <a asp-action="Edit" asp-route-id="@item.Servicio_Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Servicio_Id" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Servicio_Id" class="btn btn-danger">Eliminar</a>
+                    <a asp-action="Estado" asp-route-id="@item.Servicio_Id">
+
+                        @if (item.Estado_Id == "A")
+                        {
+                            <span class="btn btn-warning"> Inactivar </span>
+                        }
+                        else
+                        {
+                            <span class="btn btn-success"> Activar </span>
+                        }
+
+                    </a>
                 </td>
                 
             </tr>
