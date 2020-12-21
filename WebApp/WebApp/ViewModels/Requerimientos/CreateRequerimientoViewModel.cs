@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using WebApp.Models;
+using WebApp.ViewModels.Requerimientos.Validations;
 
 namespace WebApp.ViewModels.Requerimientos
 {
@@ -15,6 +16,7 @@ namespace WebApp.ViewModels.Requerimientos
 		public int EscuelaId { get; set; }
 
 		[Required(ErrorMessage = "Debe subir el documento")]
+		[FileTypes("pdf,doc,docx")]
 		[Display(Name = "Documento")]
 		public IFormFile Archivo { get; set; }
 	}
