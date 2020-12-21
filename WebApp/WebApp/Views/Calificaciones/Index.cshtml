@@ -9,17 +9,17 @@
 </div>
 
 <p>
-    <a class="btn btn-primary mb-2" asp-action="Create">Agregar Calificación</a>
+    <a class="btn btn-primary mb-2" asp-action="Create">Asignar Calificaciones</a>
 </p>
-<table id="faculties-tb" class="table table-striped table-bordered" style="width:100%">
+<table id="grades-tb" class="table table-striped table-bordered" style="width:100%">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Usuario)
+                <span id="gd-student-head">Estudiante</span>
 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Modulo)
+                <span id="gd-module-head">@Html.DisplayNameFor(model => model.Modulo)</span>
 
             </th>
             <th>
@@ -39,7 +39,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Usuario.primer_apellido)
+                    @Html.DisplayFor(modelItem => item.Usuario.NombreCompleto)
 
                 </td>
                 <td>
@@ -54,24 +54,9 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                    @* Por requerimiento del cliente las calificaciones no deben de eliminarse ni desactivarse *@
                 </td>
             </tr>
         }
     </tbody>
 </table>
-@section Scripts{
-    <!-- jQuery -->
-    <script language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-    <!-- El JavaScript de DataTables -->
-    <script language="javascript" type="text/javascript" src=" https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#TblCalificaciones').DataTable();
-        });
-
-    </script>
-
-}

@@ -11,13 +11,14 @@ using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
-    public class FacultadesController : Controller
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador")]
+    public class FacultadesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public FacultadesController(ApplicationDbContext context)
+        public FacultadesController(ApplicationDbContext context):base(context)
         {
+         
             _context = context;
         }
 

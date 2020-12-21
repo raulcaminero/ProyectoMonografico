@@ -9,12 +9,12 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
-    public class CalificacionesController : Controller
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador,Profesor")]
+    public class CalificacionesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public CalificacionesController(ApplicationDbContext context)
+        public CalificacionesController(ApplicationDbContext context):base(context)
         {
             _context = context;
         }
@@ -50,8 +50,8 @@ namespace WebApp.Controllers
         // GET: Calificaciones/Create
         public IActionResult Create()
         {
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId");
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "primer_nombre + primer_apellido ");
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "NombreCompleto");
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo");
             return View();
         }
@@ -67,8 +67,8 @@ namespace WebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoId", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre + primer_apellido ", calificaciones.UsuarioCodigo);
+            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "NombreCompleto", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
@@ -87,7 +87,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre +''+ primer_apellido ", calificaciones.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "NombreCompleto", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
@@ -124,7 +124,7 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "UsuarioCodigo", "primer_nombre + primer_apellido ", calificaciones.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "UsuarioCodigo", "NombreCompleto", calificaciones.UsuarioCodigo);
             ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }

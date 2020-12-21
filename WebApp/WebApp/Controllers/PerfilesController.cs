@@ -6,15 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 using WebApp.ViewModels.perfil;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
 namespace WebApp.Controllers
 {
-    public class PerfilesController : Controller
+	public class PerfilesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
@@ -23,18 +21,20 @@ namespace WebApp.Controllers
 
         private readonly IHostingEnvironment _env;
 
-        public PerfilesController(ApplicationDbContext context, IHostingEnvironment environment)
+        public PerfilesController(ApplicationDbContext context, IHostingEnvironment environment):base(context)
         {
             _context = context;
             _env = environment;
-
         }
 
         // GET: Perfiles
         public async Task<IActionResult> Index()
         {
+            var usr = AccountController.GetCurrentUser(User, _context);
+
 			var usuarios = await _context.usuarios
-                .Where(u => u.EstadoId != "I")
+                .Where(u => u.EstadoId != "E")
+                .Where(u => u.codigo != usr.codigo) // No mostrar al usuario su propio usuario
                 .Include(u => u.Estado)
                 .Include(u => u.Campus)
                 .Include(u => u.Rol)
@@ -148,13 +148,9 @@ namespace WebApp.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!UsuarioExists(usuario.codigo))
-                    {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+
+                    else throw;
                 }
             }
 
@@ -166,16 +162,14 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var usuario = await _context.usuarios
+                .Include(u => u.Rol)
                 .FirstOrDefaultAsync(m => m.codigo == id);
+
             if (usuario == null)
-            {
                 return NotFound();
-            }
 
             return View(usuario);
         }
@@ -187,12 +181,81 @@ namespace WebApp.Controllers
         {
             var usuario = await _context.usuarios.FindAsync(id);
             usuario.EstadoId = "I";
-
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost]
 
+
+        // GET: Perfiles/Delete/5
+        public async Task<IActionResult> Activate(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var usuario = await _context.usuarios
+                .Include(u => u.Rol)
+                .FirstOrDefaultAsync(m => m.codigo == id);
+
+            if (usuario == null)
+                return NotFound();
+
+            return View(usuario);
+        }
+
+        // POST: Perfiles/Delete/5
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ActivateConfirmed(int id)
+        {
+            var usuario = await _context.usuarios.FindAsync(id);
+            usuario.EstadoId = "A";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        // GET: Perfiles/Delete/5
+        public async Task<IActionResult> Authorize(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var usuario = await _context.usuarios
+                .Include(u => u.Rol)
+                .FirstOrDefaultAsync(m => m.codigo == id);
+
+            if (usuario == null)
+                return NotFound();
+
+            return View(usuario);
+        }
+
+        // POST: Perfiles/Delete/5
+        [HttpPost, ActionName("Authorize")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AuthorizeConfirmed(int id)
+        {
+            var usuario = await _context.usuarios.FindAsync(id);
+            usuario.EstadoId = "A";
+
+            var current = AccountController.GetCurrentUser(User, _context);
+            var autorizacion = new Autorizacion()
+            {
+                IdUsuarioAutorizado = usuario.codigo,
+                IdUsuarioQueAutoriza = current.codigo,
+                Fecha = DateTime.Now
+            };
+            _context.Autorizaciones.Add(autorizacion);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpPost]
         [Route("Perfiles/CambiarClave")]
         public async Task<IActionResult> CambiarClave(VM_CambarClave model)
         {
@@ -204,8 +267,7 @@ namespace WebApp.Controllers
             
             if (users.contrasena != model.old_pass)
             {
-                
-                TempData["Msg_Error_pass"] = "Su clave anterior no es Valida";
+                TempData["Msg_Error_pass"] = "Su clave anterior no es valida";
                 return RedirectToAction("Edit", "Perfiles", new { @id = users.codigo });
             }
             else
@@ -213,7 +275,7 @@ namespace WebApp.Controllers
                 users.contrasena = model.new_pass;
                 _context.usuarios.Update(users);
                 await _context.SaveChangesAsync();
-                TempData["Msg_Success"] = "Contraseña Cambiada";
+                TempData["Msg_Success"] = "Contraseña cambiada";
                 
                 return RedirectToAction("Edit", "Perfiles", new { @id = users.codigo });
             }
@@ -237,7 +299,7 @@ namespace WebApp.Controllers
             users.RutaFoto = guidImagen;
             _context.usuarios.Update(users);
             await _context.SaveChangesAsync();
-
+            
             TempData["Msg_Success_img"] = "Imagen Cambiada";
             return RedirectToAction("Edit", "Perfiles", new { @id = users.codigo });
         }

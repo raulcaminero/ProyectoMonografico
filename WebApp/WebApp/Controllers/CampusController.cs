@@ -11,12 +11,12 @@ using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
-    public class CampusController : Controller
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador")]
+    public class CampusController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public CampusController(ApplicationDbContext context)
+        public CampusController(ApplicationDbContext context):base(context)
         {
             _context = context;
         }

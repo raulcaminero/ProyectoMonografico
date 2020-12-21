@@ -1,22 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
 
-    [Authorize]
-    public class EstudiantesController : Controller
+	[Authorize]
+    public class EstudiantesController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public EstudiantesController(ApplicationDbContext context)
+        public EstudiantesController(ApplicationDbContext context):base(context)
         {
             _context = context;
         }
