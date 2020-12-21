@@ -12,7 +12,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador,Profesor")]
     public class ModuloController : BaseController
     {
         private readonly ApplicationDbContext _context;

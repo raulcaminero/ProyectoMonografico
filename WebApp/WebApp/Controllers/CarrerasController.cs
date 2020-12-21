@@ -13,7 +13,7 @@ using WebApp.ViewModels.Carrera;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador")]
     public class CarrerasController : BaseController
     {
         private readonly ApplicationDbContext _context;

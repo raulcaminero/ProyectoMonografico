@@ -35,7 +35,7 @@
 
             <ul class="nav navbar-nav ml-auto">
                 <li>
-                    
+
                     <a class="nav-link" asp-action="Edit" asp-controller="Perfiles">
                         <img src="~/imagenes/@ViewBag.UserPicture" class="rounded-circle" alt="Responsive image" width=" 35" height="30">
                         @* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRpYhZKw5Ww7Tg_9YFAB63f-x5NHb0vTpANQ&usqp=CAU" class="rounded-circle" alt="Responsive image" width=" 35" height="30">*@
@@ -52,14 +52,6 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">sign out</a>
                 </li>
-
-
-
-
-
-
-
-
 
             </ul>
         </nav>
@@ -110,6 +102,9 @@
                                 </div>
                             </a>
                         </li>
+                    }
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+                    {
                         <li>
                             <a class="list-group-item list-group-item-action " asp-controller="Modulo" asp-action="Index">
                                 <div class="ml-0">
@@ -134,6 +129,9 @@
                                 </div>
                             </a>
                         </li>
+                    }
+                    @if (User.IsInRole("Administrador"))
+                    {
                         <li>
                             <a class="list-group-item list-group-item-action " asp-controller="Campus" asp-action="Index">
                                 <div class="ml-0">
@@ -207,7 +205,7 @@
                             </a>
                         </li>
                     }
-                    else
+                    @if (User.IsInRole("Estudiante"))
                     {
                         <li>
                             <a class="list-group-item list-group-item-action " asp-controller="Solicitudes" asp-action="Registrar">
@@ -221,46 +219,35 @@
                                 </div>
                             </a>
                         </li>
-                        <li>
-                            <a class="list-group-item list-group-item-action " asp-controller="Modulo" asp-action="Index">
-                                <div class="ml-0">
-                                    <div class="media">
-                                        <span class="media-left">
-                                            <i class="icon fa fa-users fa-fw  mr-3" aria-hidden="true"></i>
-                                        </span>
-                                        <span class="media-body ">Modulos</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
                     }
 
                 </ul>
-            </nav>
-        </div>
-        <div class="col-lg-10 col-md-6">
+                    </nav >
+                    </div >
+                    <div class= "col-lg-10 col-md-6">
 
 
-            @RenderBody()
+                    @RenderBody()
 
 
-        </div>
-    </div>
+                    </div>
+
+                    </div>
 
 
-    @*      lol   *@
+                    @*      lol   *@
 
 
 
-    <!--<script src="~/plantilla/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/plantilla/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/plantilla/js/site.js" asp-append-version="true"></script>-->
-    <script src="~/js/jquery-3.2.1.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="~/lib/yadcf/dist/jquery.dataTables.yadcf.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+                    <!--<script src="~/plantilla/lib/jquery/dist/jquery.min.js"></script>
+                    <script src="~/plantilla/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                    <script src="~/plantilla/js/site.js" asp-append-version="true"></script>-->
+                    <script src="~/js/jquery-3.2.1.min.js"></script>
+                    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+                    <script src="~/lib/yadcf/dist/jquery.dataTables.yadcf.js"></script>
+                    <script src="~/js/site.js" asp-append-version="true"></script>
+                    @RenderSection("Scripts", required: false)
 
 
 </body>
