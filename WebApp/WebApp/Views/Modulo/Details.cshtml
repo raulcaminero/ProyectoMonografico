@@ -4,64 +4,63 @@
     ViewData["Title"] = "Detalles del modulo";
 
 }
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="p-3 mb-2 bg-primary text-white text-center">Detalles</h4>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <dl class="row">
+                    <div class="col">
+                        <dd>
+                            <h5>@Html.DisplayFor(model => model.Titulo)</h5>
+                        </dd>
+                        <dd>
+                            <img src="~/images/@Html.DisplayFor(model => model.Imagen)" />
+                        </dd>
+                    </div>
+                    <div class="col">
+                        <dd class="col-sm-12 text-center">
+                            @Html.DisplayFor(model => model.Descripcion)
+                        </dd>
+                        <dt>
+                            Fecha de Inicio
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.FechaInicio)
+                        </dd>
+                        <dt>
+                            Fecha de Finalizacion
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.FechaFin)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Estado.EstadoNombre)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Estado.EstadoNombre)
+                        </dd>
+                        <dt>
+                            Profesor Encargado
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.IdProfesorNavigation.primer_apellido)
+                        </dd>
+                    </div>
+                </dl>
 
+            </div>
+            <div>
 
-<div class="container-fluid ">
-
-    <dl class="row">
-        <dd class="col-sm-12 text-center">
-            <h5>@Html.DisplayFor(model => model.Titulo)</h5>
-        </dd>
-        <dd class="col-sm-10 text-center">
-            <img src="~/images/@Html.DisplayFor(model => model.Imagen)" />
-        </dd>
-        <dd class="col-sm-12 text-center">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class="col-sm-2">
-            Fecha de Inicio
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FechaInicio)
-        </dd>
-        <dt class="col-sm-2">
-            Fecha de Finalizacion
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FechaFin)
-        </dd>
-        <dt class="col-sm-2">
-            Adjunto
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdAdjuntoNavigation.Descripcion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado.EstadoNombre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Estado.EstadoNombre)
-        </dd>
-        <dt class="col-sm-2">
-            Profesor Encargado
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdProfesorNavigation.primer_apellido)
-        </dd>
-    </dl>
-
-
-    <div class="tab-content" id="nav-tabContent">
-
-
-
-
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                @if (User.IsInRole("Administrador"))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+                }
+                    <a asp-action="Index" class="btn btn-secondary">Regresar </a>
+                </div>
+        </div>
     </div>
-
 </div>
-
-    <div>
-        <a class="btn btn-primary" asp-action="Index">volver</a>
-    </div>
 

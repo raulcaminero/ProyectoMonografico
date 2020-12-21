@@ -16,7 +16,6 @@ namespace WebApp.Models
 		}
 
 		public virtual DbSet<Usuario> usuarios { get; set; }
-		public virtual DbSet<AdjuntoMaterial> AdjuntoMaterial { get; set; }
 		public virtual DbSet<Calificaciones> Calificaciones { get; set; }
 		public virtual DbSet<Campus> Campus { get; set; }
 		public virtual DbSet<Facultad> Facultades { get; set; }
@@ -35,34 +34,6 @@ namespace WebApp.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<AdjuntoMaterial>(entity =>
-			{
-				entity.ToTable("adjuntoMaterial");
-
-				entity.Property(e => e.Descripcion)
-					.IsRequired()
-					.HasColumnName("descripcion")
-					.HasMaxLength(50)
-					.IsUnicode(false);
-
-				entity.Property(e => e.EstadoId)
-					.IsRequired()
-					.HasColumnName("Estado_Id")
-					.HasMaxLength(1)
-					.IsUnicode(false)
-					.IsFixedLength();
-
-				entity.Property(e => e.Ruta)
-					.HasColumnName("ruta")
-					.HasMaxLength(100)
-					.IsUnicode(false);
-
-				entity.HasOne(d => d.Estado)
-					.WithMany(p => p.AdjuntoMaterial)
-					.HasForeignKey(d => d.EstadoId)
-					.OnDelete(DeleteBehavior.ClientSetNull)
-					.HasConstraintName("FK_adjuntoMaterialEstado");
-			});
 
 			modelBuilder.Entity<Calificaciones>(entity =>
 			{
@@ -137,8 +108,6 @@ namespace WebApp.Models
 					.HasColumnName("fecha_inicio")
 					.HasColumnType("datetime");
 
-				entity.Property(e => e.IdAdjunto).HasColumnName("id_adjunto");
-
 				entity.Property(e => e.Imagen)
 					.HasColumnName("imagen")
 					.IsUnicode(false);
@@ -157,13 +126,6 @@ namespace WebApp.Models
 					.HasForeignKey(d => d.EstadoId)
 					.OnDelete(DeleteBehavior.ClientSetNull)
 					.HasConstraintName("FK_ModuloEstado");
-
-				entity.HasOne(d => d.IdAdjuntoNavigation)
-					.WithMany(p => p.Modulo)
-					.HasForeignKey(d => d.IdAdjunto)
-					.OnDelete(DeleteBehavior.ClientSetNull)
-					.HasConstraintName("FK_ModuloAdjunto");
-
 
 				entity.HasOne(d => d.IdProfesorNavigation)
 				   .WithMany(p => p.Modulo)
