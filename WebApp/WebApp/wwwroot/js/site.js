@@ -284,6 +284,13 @@ $(document).ready(function () {
                             column_number: 6,
                             filter_type: "select",
                             filter_default_label: "Todos"
+                        },
+                        {
+                            column_number: 7,
+                            filter_type: "select",
+                            filter_default_label: "Todos",
+                            case_insensitive: false,
+                            data: ["Activo", "Inactivo", "En Proceso"]
                         }
                     ],
                     {
@@ -293,6 +300,7 @@ $(document).ready(function () {
 
                 $("#yadcf-filter-wrapper--profiles-tb-2").insertBefore("#pf-role-head");
                 $("#yadcf-filter-wrapper--profiles-tb-6").insertBefore("#pf-campus-head");
+                $("#yadcf-filter-wrapper--profiles-tb-7").insertBefore("#pf-estatus-head");
 
                 $(".yadcf-filter-reset-button").remove();
             }
