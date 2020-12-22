@@ -11,7 +11,7 @@ using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador")]
+	[Microsoft.AspNetCore.Authorization.Authorize]
     public class CampusController : BaseController
     {
         private readonly ApplicationDbContext _context;
