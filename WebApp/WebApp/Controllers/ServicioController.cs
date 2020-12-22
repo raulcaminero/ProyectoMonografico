@@ -9,7 +9,6 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador")]
     public class ServicioController : BaseController
     {
         private readonly ApplicationDbContext _context;

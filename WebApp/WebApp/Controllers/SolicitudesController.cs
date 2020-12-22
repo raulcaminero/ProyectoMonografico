@@ -11,7 +11,6 @@ using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize(Roles ="Administrador,Estudiante")]
     public class SolicitudesController : BaseController
 	{
         private readonly ApplicationDbContext _context;

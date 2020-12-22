@@ -20,7 +20,6 @@ namespace WebApp.Controllers
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 var usr = User as ClaimsPrincipal;
@@ -31,7 +30,6 @@ namespace WebApp.Controllers
                 {
                     ViewBag.UserPicture = "avatar.jpg";
                 }
-
                 else
                 {
                     ViewBag.UserPicture = foto.RutaFoto;
