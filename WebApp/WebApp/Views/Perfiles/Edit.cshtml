@@ -101,21 +101,18 @@
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Tipo Identificación: <span class="rojo">*</span></label>
                                                             @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListIdentificacionTipo, "Value", "Text", ViewBag.identificacion), new { @class = "form-control", @disabled = "disabled" })
-
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Número Identificación: <span class="rojo">*</span></label>
                                                             <input title="Este campo es requerido." asp-for="identificacion" type="text" placeholder="Número Identificación" class="form-control" maxlength="13" name="cedula" id="cedula" disabled="disabled">
-
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Sexo: <span class="rojo">*</span></label>
                                                             @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListGenero, "Value", "Text", ViewBag.SelectSexo), new { @class = "form-control", @disabled = "disabled" })
-
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
@@ -141,14 +138,12 @@
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Nacionalidad: <span class="rojo">*</span></label>
                                                             @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListNacionaliad, "Value", "Text", ViewBag.nacionalidad), new { @class = "form-control", @disabled = "disabled" })
-
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group label-floating">
                                                             <label class="control-label">Campus: <span class="rojo">*</span></label>
                                                             @Html.DropDownList("Buscar", new SelectList(ViewBag.SelectListCampus, "Value", "Text", ViewBag.campus), new { @class = "form-control", @disabled = "disabled" })
-
                                                         </div>
                                                     </div>
 

@@ -9,7 +9,6 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-	[Microsoft.AspNetCore.Authorization.Authorize]
     public class ServicioController : BaseController
     {
         private readonly ApplicationDbContext _context;
@@ -66,7 +65,7 @@ namespace WebApp.Controllers
             ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre");
             ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
             ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad");
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto");
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto");
             ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion");
             return View();
         }
@@ -89,7 +88,7 @@ namespace WebApp.Controllers
             ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre", servicio.Escuela_Id);
             ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", servicio.Estado_Id);
             ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad", servicio.Facultad_Id);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", servicio.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", servicio.UsuarioCodigo);
             ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion", servicio.TipoServicio_Id);
             return View(servicio);
         }
@@ -112,7 +111,7 @@ namespace WebApp.Controllers
             ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre", servicio.Escuela_Id);
             ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", servicio.Estado_Id);
             ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad", servicio.Facultad_Id);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", servicio.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", servicio.UsuarioCodigo);
             ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion", servicio.TipoServicio_Id);
             return View(servicio);
         }
@@ -154,7 +153,7 @@ namespace WebApp.Controllers
             ViewData["Escuela_Id"] = new SelectList(_context.Escuelas, "Id", "Nombre", servicio.Escuela_Id);
             ViewData["Estado_Id"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", servicio.Estado_Id);
             ViewData["Facultad_Id"] = new SelectList(_context.Facultades, "Id", "NombreFacultad", servicio.Facultad_Id);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios, "codigo", "NombreCompleto", servicio.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", servicio.UsuarioCodigo);
             ViewData["TipoServicio_Id"] = new SelectList(_context.TipoServicios, "TipoServicioId", "TipoServicioDescripcion", servicio.TipoServicio_Id);
             return View(servicio);
         }

@@ -11,8 +11,9 @@ namespace WebApp.ViewModels.Solicitudes
 		[Display(Name = "Archivo")]
 		public string NombreArchivo { get; set; }
 
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}")]
 		public DateTime Fecha { get; set; }
 
-		public TipoArchivoSolicitud	Tipo { get; set; }
+		public TipoArchivo	Tipo { get; set; }
 	}
 }

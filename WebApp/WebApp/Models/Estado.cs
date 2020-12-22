@@ -7,7 +7,6 @@ namespace WebApp.Models
     {
         public Estado()
         {
-            AdjuntoMaterial = new HashSet<AdjuntoMaterial>();
             Calificaciones = new HashSet<Calificaciones>();
             Modulo = new HashSet<Modulo>();
             Usuario = new HashSet<Usuario>();
@@ -17,7 +16,6 @@ namespace WebApp.Models
 
         public string EstadoId { get; set; }
         public string EstadoNombre { get; set; }
-        public virtual ICollection<AdjuntoMaterial> AdjuntoMaterial { get; set; }
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
         public virtual ICollection<Modulo> Modulo { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }

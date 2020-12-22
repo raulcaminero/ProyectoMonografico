@@ -59,6 +59,7 @@ namespace WebApp.Models
         public int Carrera_Id { get; set; }
         
         public virtual ICollection<Modulo> Modulo { get; set; }
+        public virtual ICollection<SolicitudServicio> Solicitudes { get; set; }
         public virtual Campus Campus { get; set; }
         public virtual Carrera Carrera { get; set; }
         public virtual Facultad Facultad { get; set; }

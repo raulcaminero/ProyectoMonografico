@@ -6,20 +6,20 @@
 
 <h2>Solicitudes</h2>
 
-<table class="table">
+<table id="registrations-tb" class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Usuario)
+                <span id="rg-user-head">@Html.DisplayNameFor(model => model.Usuario)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Servicio)
+                <span id="rg-service-head">@Html.DisplayNameFor(model => model.Servicio)</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                <span id="rg-estatus-head">@Html.DisplayNameFor(model => model.Estado)</span>
             </th>
             <th>
                 
