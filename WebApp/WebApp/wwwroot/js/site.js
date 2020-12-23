@@ -305,4 +305,43 @@ $(document).ready(function () {
                 $(".yadcf-filter-reset-button").remove();
             }
         });
+    var registrationsTB = $("#registrations-tb").DataTable(
+        {
+            language:
+            {
+                url: 'https://cdn.datatables.net/plug-ins/1.10.22/i18n/Spanish.json'
+            },
+            initComplete: function () {
+                yadcf.init(registrationsTB,
+                    [
+                        {
+                            column_number: 1,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        },
+                        {
+                            column_number: 2,
+                            filter_type: "select",
+                            filter_default_label: "Todos"
+                        },
+                        {
+                            column_number: 3,
+                            filter_type: "select",
+                            filter_default_label: "Todos",
+                            case_insensitive: false,
+                            data: ["Activo", "Inscrito", "En Proceso", "Pendiente"]
+                        }
+                    ],
+                    {
+                        cumulative_filtering: true
+                    }
+                );
+
+                $("#yadcf-filter-wrapper--registrations-tb-1").insertBefore("#rg-user-head");
+                $("#yadcf-filter-wrapper--registrations-tb-2").insertBefore("#rg-service-head");
+                $("#yadcf-filter-wrapper--registrations-tb-3").insertBefore("#rg-estatus-head");
+
+                $(".yadcf-filter-reset-button").remove();
+            }
+        });
 });
