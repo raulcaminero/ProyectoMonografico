@@ -281,12 +281,12 @@ $(document).ready(function () {
                             filter_default_label: "Todos"
                         },
                         {
-                            column_number: 6,
+                            column_number: 5,
                             filter_type: "select",
                             filter_default_label: "Todos"
                         },
                         {
-                            column_number: 7,
+                            column_number: 6,
                             filter_type: "select",
                             filter_default_label: "Todos",
                             case_insensitive: false,
@@ -299,8 +299,8 @@ $(document).ready(function () {
                 );
 
                 $("#yadcf-filter-wrapper--profiles-tb-2").insertBefore("#pf-role-head");
-                $("#yadcf-filter-wrapper--profiles-tb-6").insertBefore("#pf-campus-head");
-                $("#yadcf-filter-wrapper--profiles-tb-7").insertBefore("#pf-estatus-head");
+                $("#yadcf-filter-wrapper--profiles-tb-5").insertBefore("#pf-campus-head");
+                $("#yadcf-filter-wrapper--profiles-tb-6").insertBefore("#pf-estatus-head");
 
                 $(".yadcf-filter-reset-button").remove();
             }
@@ -314,11 +314,6 @@ $(document).ready(function () {
             initComplete: function () {
                 yadcf.init(registrationsTB,
                     [
-                        {
-                            column_number: 1,
-                            filter_type: "select",
-                            filter_default_label: "Todos"
-                        },
                         {
                             column_number: 2,
                             filter_type: "select",
@@ -337,7 +332,6 @@ $(document).ready(function () {
                     }
                 );
 
-                $("#yadcf-filter-wrapper--registrations-tb-1").insertBefore("#rg-user-head");
                 $("#yadcf-filter-wrapper--registrations-tb-2").insertBefore("#rg-service-head");
                 $("#yadcf-filter-wrapper--registrations-tb-3").insertBefore("#rg-estatus-head");
 
