@@ -30,34 +30,41 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoEscuela)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Facultad.NombreFacultad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
-                @if (item.Estado == (( Estados ) 1))
-                {
-                    <a asp-action="Inactivate" asp-route-id="@item.Id" class="btn btn-warning">Inactivar</a>
-                }
-                else
-                {
-                    <a asp-action="Activate" asp-route-id="@item.Id" class="btn btn-success">Activar</a>
-                }
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodigoEscuela)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Facultad.NombreFacultad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+
+                    @* Solo permitir cambiar estado si no tiene un Servicio o Escuela activo *@
+                    @if (!item.Carrera.Any(c => c.Estado == Estados.Activo) && !item.Servicio.Any(s => s.Estado_Id == "A"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                        @if (item.Estado == ((Estados)1))
+                        {
+                            <a asp-action="Inactivate" asp-route-id="@item.Id" class="btn btn-warning">Inactivar</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Activate" asp-route-id="@item.Id" class="btn btn-success">Activar</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

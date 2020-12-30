@@ -27,6 +27,8 @@ namespace WebApp.Controllers
             var request = await _context.Escuelas
                 .Where(e => e.Estado != Estados.Eliminado)
                 .Include(e => e.Facultad)
+                .Include(e => e.Carrera)
+                .Include(e => e.Servicio)
                 .ToListAsync();
 
             return View(request);
@@ -135,8 +137,12 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var escuela = await _context.Escuelas
-                .FirstOrDefaultAsync(m => m.Id == id);
-            
+               .Where(f => f.Id == id)
+               .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+               .Where(f => f.Carrera.All(e => e.Estado != Estados.Activo))
+               .Include(c => c.Facultad)
+               .FirstOrDefaultAsync();
+
             if (escuela == null)
                 return NotFound();
 
@@ -148,7 +154,15 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var escuela = await _context.Escuelas.FindAsync(id);
+            var escuela = await _context.Escuelas
+               .Where(f => f.Id == id)
+               .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+               .Where(f => f.Carrera.All(e => e.Estado != Estados.Activo))
+               .FirstOrDefaultAsync();
+
+            if (escuela == null)
+                return NotFound();
+
             escuela.Estado = Estados.Eliminado;
 
             _context.Escuelas.Update(escuela);
@@ -168,7 +182,11 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var escuela = await _context.Escuelas
-                .FirstOrDefaultAsync(m => m.Id == id);
+               .Where(f => f.Id == id)
+               .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+               .Where(f => f.Carrera.All(e => e.Estado != Estados.Activo))
+               .Include(c => c.Facultad)
+               .FirstOrDefaultAsync();
 
             if (escuela == null)
                 return NotFound();
@@ -181,7 +199,15 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> InactivateConfirmed(int id)
         {
-            var escuela = await _context.Escuelas.FindAsync(id);
+            var escuela = await _context.Escuelas
+               .Where(f => f.Id == id)
+               .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+               .Where(f => f.Carrera.All(e => e.Estado != Estados.Activo))
+               .FirstOrDefaultAsync();
+
+            if (escuela == null)
+                return NotFound();
+
             escuela.Estado = Estados.Inactivo;
             _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();
@@ -195,7 +221,11 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var escuela = await _context.Escuelas
-                .FirstOrDefaultAsync(m => m.Id == id);
+               .Where(f => f.Id == id)
+               .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+               .Where(f => f.Carrera.All(e => e.Estado != Estados.Activo))
+               .Include(c => c.Facultad)
+               .FirstOrDefaultAsync();
 
             if (escuela == null)
                 return NotFound();
@@ -208,7 +238,15 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ActivateConfirmed(int id)
         {
-            var escuela = await _context.Escuelas.FindAsync(id);
+            var escuela = await _context.Escuelas
+               .Where(f => f.Id == id)
+               .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+               .Where(f => f.Carrera.All(e => e.Estado != Estados.Activo))
+               .FirstOrDefaultAsync();
+
+            if (escuela == null)
+                return NotFound();
+
             escuela.Estado = Estados.Activo;
             _context.Escuelas.Update(escuela);
             await _context.SaveChangesAsync();

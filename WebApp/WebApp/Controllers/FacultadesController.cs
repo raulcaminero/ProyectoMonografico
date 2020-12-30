@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models;
-//using WebApp.Models.Data;
 using WebApp.Models.Enums;
 
 namespace WebApp.Controllers
@@ -25,7 +21,11 @@ namespace WebApp.Controllers
         // GET: Facultad
         public async Task<IActionResult> Index()
         {
-            var facultad = await _context.Facultades.Where(x => x.Estado != Estados.Eliminado).ToListAsync();
+            var facultad = await _context.Facultades
+                .Include(f => f.Servicio)
+                .Include(f => f.Escuela)
+                .Where(x => x.Estado != Estados.Eliminado)
+                .ToListAsync();
             return View(facultad);
         }
 
@@ -145,11 +145,13 @@ namespace WebApp.Controllers
             }
 
             var facultad = await _context.Facultades
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Where(f => f.Id == id)
+                .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+                .Where(f => f.Escuela.All(e => e.Estado != Estados.Activo))
+                .FirstOrDefaultAsync();
+
             if (facultad == null)
-            {
                 return NotFound();
-            }
 
             return View(facultad);
         }
@@ -162,11 +164,13 @@ namespace WebApp.Controllers
             }
 
             var facultad = await _context.Facultades
-                .FirstOrDefaultAsync(m => m.Id == id);
+                 .Where(f => f.Id == id)
+                 .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+                 .Where(f => f.Escuela.All(e => e.Estado != Estados.Activo))
+                 .FirstOrDefaultAsync();
+
             if (facultad == null)
-            {
                 return NotFound();
-            }
 
             return View(facultad);
         }
@@ -176,7 +180,14 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var facultad = await _context.Facultades.FindAsync(id);
+            var facultad = await _context.Facultades
+                .Where(f => f.Id == id)
+                .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+                .Where(f => f.Escuela.All(e => e.Estado != Estados.Activo))
+                .FirstOrDefaultAsync();
+
+            if (facultad == null)
+                return NotFound();
 
             facultad.Estado = Estados.Eliminado;
 
@@ -190,16 +201,18 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmarEstado(int id)
         {
-            var facultad = await _context.Facultades.FindAsync(id);
+            var facultad = await _context.Facultades
+                .Where(f => f.Id == id)
+                .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+                .Where(f => f.Escuela.All(e => e.Estado != Estados.Activo))
+                .FirstOrDefaultAsync();
+
+            if (facultad == null)
+                return NotFound();
 
             if (facultad.Estado == Estados.Activo)
-            {
                 facultad.Estado = Estados.Inactivo;
-            }
-            else
-            {
-                facultad.Estado = Estados.Activo;
-            }
+            else facultad.Estado = Estados.Activo;
 
             _context.Facultades.Update(facultad);
             await _context.SaveChangesAsync();

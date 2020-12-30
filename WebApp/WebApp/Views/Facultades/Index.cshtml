@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>
-               Nombre
+                Nombre
             </th>
             <th>
                 Código
@@ -36,44 +36,49 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreFacultad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreDecano)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ubicación)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id"  class="btn btn-primary">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
-                <a asp-action="Estado" asp-route-id="@item.Id">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreFacultad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreDecano)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ubicación)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
 
-                    @if (item.Estado == Estados.Activo)
+                    @* Solo permitir cambiar estado si no tiene un Servicio o Escuela activo *@
+                    @if (!item.Escuela.Any(c => c.Estado == Estados.Activo) && !item.Servicio.Any(s => s.Estado_Id == "A"))
                     {
-                        <span class="btn btn-warning"> Inactivar </span>
-                    }
-                    else
-                    {
-                        <span class="btn btn-success"> Activar </span>
-                    }
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                        <a asp-action="Estado" asp-route-id="@item.Id">
 
-                </a>
-            </td>
-        </tr>
-}
+                            @if (item.Estado == Estados.Activo)
+                            {
+                                <span class="btn btn-warning"> Inactivar </span>
+                            }
+                            else
+                            {
+                                <span class="btn btn-success"> Activar </span>
+                            }
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

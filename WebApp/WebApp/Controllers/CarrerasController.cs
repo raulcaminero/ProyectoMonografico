@@ -29,33 +29,8 @@ namespace WebApp.Controllers
 			var carreras = await _context.Carreras
 				 .Include(c => c.Escuela.Facultad)
 				 .Where(c => c.Estado != Estados.Eliminado)
+				 .Include(c => c.Servicio)
 				 .ToListAsync();
-			/* List<Escuela> escuelas = new List<Escuela>();
-             Escuela todaEscuela = new Escuela
-             {
-                 Id = 0,
-                 Nombre = "Todas"
-             };
-             escuelas.Add(todaEscuela);
-             escuelas.AddRange(_context.Escuelas
-                 .Where(e => e.Estado == Estados.Activo)
-                 .Include(e => e.Facultad)
-                 .ToList());
-             Facultad todas = new Facultad
-             {
-                 Id = 0,
-                 NombreFacultad = "Todas"
-             };
-             List<Facultad> facultades = new List<Facultad>();
-             facultades.Add(todas);
-             facultades.AddRange(_context.Facultades.Where(x => x.Estado == Estados.Activo).ToList());
-             VM_IndexCarrera vm = new VM_IndexCarrera
-             {
-                 Carreras = carreras,
-                 Escuelas = escuelas,
-                 Facultades = facultades
-             };
-             return base.View(vm);*/
 
 			return View(carreras);
 		}
@@ -264,12 +239,13 @@ namespace WebApp.Controllers
 				return NotFound();
 
 			var carrera = await _context.Carreras
-				.Include(c => c.Escuela.Facultad)
-				.FirstOrDefaultAsync(c => c.Id == id);
+			   .Where(f => f.Id == id)
+			   .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+			   .Include(c => c.Escuela.Facultad)
+			   .FirstOrDefaultAsync();
 
 			if (carrera == null)
 				return NotFound();
-
 
 			return View(carrera);
 		}
@@ -279,7 +255,14 @@ namespace WebApp.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> InactivateConfirmed(int id)
 		{
-			var carrera = await _context.Carreras.FindAsync(id);
+			var carrera = await _context.Carreras
+			   .Where(f => f.Id == id)
+			   .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+			   .FirstOrDefaultAsync();
+
+			if (carrera == null)
+				return NotFound();
+
 			carrera.Estado = Estados.Inactivo;
 			_context.Carreras.Update(carrera);
 			await _context.SaveChangesAsync();
@@ -328,8 +311,11 @@ namespace WebApp.Controllers
 			if (id == null)
 				return NotFound();
 
-			var carrera = await _context.Carreras.Include(x => x.Escuela.Facultad)
-				.FirstOrDefaultAsync(m => m.Id == id);
+			var carrera = await _context.Carreras
+			   .Where(f => f.Id == id)
+			   .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+			   .Include(c => c.Escuela.Facultad)
+			   .FirstOrDefaultAsync();
 
 			if (carrera == null)
 				return NotFound();
@@ -342,7 +328,14 @@ namespace WebApp.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
-			var carrera = await _context.Carreras.FindAsync(id);
+			var carrera = await _context.Carreras
+			   .Where(f => f.Id == id)
+			   .Where(f => f.Servicio.All(s => s.Estado_Id != "A"))
+			   .FirstOrDefaultAsync();
+
+			if (carrera == null)
+				return NotFound();
+
 			carrera.Estado = Estados.Eliminado;
 			_context.Carreras.Update(carrera);
 			await _context.SaveChangesAsync();

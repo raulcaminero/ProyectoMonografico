@@ -24,7 +24,12 @@ namespace WebApp.Controllers
         // GET: Campus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Campus.Where(c => c.Estado != ((Estados)(-1))).ToListAsync());
+			var lstCampus = await _context.Campus
+                .Where(c => c.Estado != Estados.Eliminado)
+                .Include(c => c.Servicio)
+                .ToListAsync();
+
+			return base.View(lstCampus);
         }
 
         // GET: Campus/Details/5
@@ -123,16 +128,15 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var campus = await _context.Campus
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Where(c => c.Id == id)
+                .Where(c => c.Servicio.All(s => s.Estado_Id != "A"))
+                .FirstOrDefaultAsync();
+
             if (campus == null)
-            {
                 return NotFound();
-            }
 
             return View(campus);
         }
@@ -142,8 +146,15 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var campus = await _context.Campus.FindAsync(id);
-            campus.Estado = (Estados) (-1);
+            var campus = await _context.Campus
+                .Where(c => c.Id == id)
+                .Where(c => c.Servicio.All(s => s.Estado_Id != "A"))
+                .FirstOrDefaultAsync();
+
+            if (campus == null)
+                return NotFound();
+
+            campus.Estado = Estados.Eliminado;
             _context.Campus.Update(campus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -153,16 +164,15 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Inactivate(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var campus = await _context.Campus
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Where(c => c.Id == id)
+                .Where(c => c.Servicio.All(s => s.Estado_Id != "A"))
+                .FirstOrDefaultAsync();
+
             if (campus == null)
-            {
                 return NotFound();
-            }
 
             return View(campus);
         }
@@ -172,7 +182,14 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> InactivateConfirmed(int id)
         {
-            var campus = await _context.Campus.FindAsync(id);
+            var campus = await _context.Campus
+                .Where(c => c.Id == id)
+                .Where(c => c.Servicio.All(s => s.Estado_Id != "A"))
+                .FirstOrDefaultAsync();
+
+            if (campus == null)
+                return NotFound();
+
             campus.Estado = 0;
             _context.Campus.Update(campus);
             await _context.SaveChangesAsync();
