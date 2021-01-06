@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace WebApp.Controllers
 {
+	[Authorize]
 	public class PerfilesController : BaseController
     {
         private readonly ApplicationDbContext _context;
