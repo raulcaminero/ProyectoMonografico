@@ -11,6 +11,7 @@ using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
+	[Authorize]
     public class SolicitudesController : BaseController
 	{
         private readonly ApplicationDbContext _context;
