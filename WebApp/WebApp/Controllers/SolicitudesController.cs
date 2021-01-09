@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using WebApp.Controllers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PerfilEstudiante.Controllers
 {

@@ -9,6 +9,7 @@ using WebApp.Models;
 using WebApp.ViewModels.perfil;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {

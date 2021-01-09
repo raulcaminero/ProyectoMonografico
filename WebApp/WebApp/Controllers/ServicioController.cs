@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class ServicioController : BaseController
     {
         private readonly ApplicationDbContext _context;
@@ -33,6 +35,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Servicio/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
