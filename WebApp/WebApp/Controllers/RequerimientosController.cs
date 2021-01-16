@@ -10,11 +10,12 @@ using WebApp.ViewModels.Requerimientos;
 
 namespace WebApp.Controllers
 {
+	[Microsoft.AspNetCore.Authorization.Authorize(Roles = "Administrador")]
 	public class RequerimientosController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
 
-		public RequerimientosController(ApplicationDbContext context):base(context)
+		public RequerimientosController(ApplicationDbContext context) : base(context)
 		{
 			_context = context;
 		}
@@ -100,7 +101,7 @@ namespace WebApp.Controllers
 				var codigo = generarCodigo();
 
 				var archivosController = new ArchivosController(_context);
-				var archivo = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos\\{codigo}");	
+				var archivo = archivosController.Cargar(modelo.Archivo, "Requerimientos", $"Requerimientos\\{codigo}");
 
 				var req = new Requerimiento()
 				{
@@ -160,7 +161,7 @@ namespace WebApp.Controllers
 				EscuelaId = req.EscuelaId,
 				TipoServicioDescripcion = req.TipoServicio.TipoServicioDescripcion,
 				EscuelaNombre = req.Escuela.Nombre
- 			};
+			};
 
 			return View(modelo);
 		}
@@ -264,7 +265,7 @@ namespace WebApp.Controllers
 
 			if (requerimiento == null)
 				return NotFound();
-			
+
 			requerimiento.Estado = Models.EstadoRequerimiento.Inactivo;
 
 			await _context.SaveChangesAsync();
@@ -278,7 +279,7 @@ namespace WebApp.Controllers
 
 			if (requerimiento == null)
 				return NotFound();
-			
+
 			requerimiento.Estado = Models.EstadoRequerimiento.Activo;
 
 			await _context.SaveChangesAsync();

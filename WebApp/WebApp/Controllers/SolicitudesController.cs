@@ -11,18 +11,19 @@ using WebApp.Controllers;
 
 namespace PerfilEstudiante.Controllers
 {
-	[Authorize]
-    public class SolicitudesController : BaseController
+	[Microsoft.AspNetCore.Authorization.Authorize]
+	public class SolicitudesController : BaseController
 	{
-        private readonly ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
 
-        public SolicitudesController(ApplicationDbContext context):base(context)
-        {
-            _context = context;
+		public SolicitudesController(ApplicationDbContext context) : base(context)
+		{
+			_context = context;
 
-        }
+		}
 
 		// GET: Campus
+		[Microsoft.AspNetCore.Authorization.Authorize("Adminitrador")]
 		public async Task<IActionResult> Index()
 		{
 			// Validar que el usuario tenga acceso
@@ -35,8 +36,8 @@ namespace PerfilEstudiante.Controllers
 				.Include(s => s.Estado)
 				.ToListAsync();
 
-            return View(solicitudes);
-        }
+			return View(solicitudes);
+		}
 
 		public async Task<IActionResult> CargarDocumento(int id, TipoArchivo tipo)
 		{
@@ -59,7 +60,8 @@ namespace PerfilEstudiante.Controllers
 					Tipo = pago.TipoDocumento,
 				};
 
-				if (pago.TipoDocumento == TipoArchivo.AnteProyecto || pago.TipoDocumento == TipoArchivo.Proyecto) {
+				if (pago.TipoDocumento == TipoArchivo.AnteProyecto || pago.TipoDocumento == TipoArchivo.Proyecto)
+				{
 					var proyecto = new Proyecto()
 					{
 						IdArchivo = archivo.Id,
@@ -125,7 +127,7 @@ namespace PerfilEstudiante.Controllers
 				}).ToList();
 
 			return View(solicitud);
-        }
+		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]

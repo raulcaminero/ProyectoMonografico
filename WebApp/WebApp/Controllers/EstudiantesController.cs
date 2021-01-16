@@ -6,8 +6,8 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+    [Microsoft.AspNetCore.Authorization.Authorize]
 
-	[Authorize]
     public class EstudiantesController : BaseController
     {
         private readonly ApplicationDbContext _context;

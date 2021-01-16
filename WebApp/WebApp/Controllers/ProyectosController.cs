@@ -11,6 +11,7 @@ namespace WebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+	[Microsoft.AspNetCore.Authorization.Authorize]
     //public class ProyectosController : ControllerBase
     public class ProyectosController : BaseController
     {
