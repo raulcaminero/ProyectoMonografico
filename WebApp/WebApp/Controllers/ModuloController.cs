@@ -27,30 +27,33 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var usr = AccountController.GetCurrentUser(User, _context);
-            var idEstudiante = usr.Rol?.Descripcion == "Estudiante" ? usr.codigo : 0;
+            var esEstudiante = usr.Rol?.Descripcion == "Estudiante";
+            var esProfesor = usr.Rol?.Descripcion == "Profesor";
 
-            var modulos = _context.Modulo
-                .Where(m => idEstudiante == 0 || m.Servicio.Solicitudes.Any(s => s.IdUsuario == idEstudiante)) // Si es un Estudiante, solo mostrar los modulos en los que está inscrito.
+            var modulos = await _context.Modulo
+                .Where(m => !esEstudiante || m.Servicio.Solicitudes.Any(s => s.IdUsuario == usr.codigo)) // Si es Estudiante, mostrar solo modulos asociados.
+                .Where(m => !esProfesor ||m.Profesor.codigo == usr.codigo) // Si es Profesor, mostrar solo modulos asociados.
                 .Include(m => m.Estado)
-                .Include(m => m.IdProfesorNavigation);
-            return View(await modulos.ToListAsync());
+                .Include(m => m.Profesor)
+                .ToListAsync();
+
+            return View( modulos);
         }
 
         // GET: Modulo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
             
-            var modulo = await _context.Modulo.Include(m => m.Estado)
-                .Include(m => m.IdProfesorNavigation)
+            var modulo = await _context.Modulo
+                .Include(m => m.Estado)
+                .Include(m => m.Servicio)
+                .Include(m => m.Profesor)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (modulo == null)
-            {
                 return NotFound();
-            }
 
             return View(modulo);
         }
@@ -90,8 +93,8 @@ namespace WebApp.Controllers
             }
            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", 
                 model.Estado.EstadoNombre);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto",
-            model.IdProfesorNavigation.NombreCompleto);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Profesor"), "codigo", "NombreCompleto",
+            model.Profesor.NombreCompleto);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion",
                 model.Servicio.Servicio_Descripcion);
             return View();
@@ -113,20 +116,24 @@ namespace WebApp.Controllers
             }
             return FileName;
         }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var modulo = await _context.Modulo.FindAsync(id);
+            var modulo = await _context.Modulo
+                .Include(m => m.Servicio)
+                .Include(m => m.Profesor)
+                .Where(m => m.Id == id)
+                .FirstOrDefaultAsync();
+
             if (modulo == null)
             {
                 return NotFound();
             }
             ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", modulo.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Administrador"), "codigo", "NombreCompleto", modulo.UsuarioCodigo);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Profesor"), "codigo", "NombreCompleto", modulo.UsuarioCodigo);
             ViewData["ServicioId"] = new SelectList(_context.Servicio, "Servicio_Id", "Servicio_Descripcion", modulo.ServicioId);
             return View(modulo);
         }
@@ -176,7 +183,8 @@ namespace WebApp.Controllers
 
             var modulo = await _context.Modulo
                 .Include(m => m.Estado)
-                .Include(m => m.IdProfesorNavigation)
+                .Include(m => m.Servicio)
+                .Include(m => m.Profesor)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (modulo == null)
             {
@@ -200,7 +208,7 @@ namespace WebApp.Controllers
                     System.IO.File.Delete(imagePath);
                 }
             }
-            _context.Modulo.Remove(modulo);
+            modulo.EstadoId = "E";
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -28,6 +28,6 @@ namespace WebApp.Models
         public virtual Estado Estado { get; set; }
         public virtual Servicio Servicio { get; set; }
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
-        public virtual Usuario IdProfesorNavigation { get; set; }
+        public virtual Usuario Profesor { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace PerfilEstudiante.Controllers
 		}
 
 		// GET: Campus
-		[Microsoft.AspNetCore.Authorization.Authorize("Adminitrador")]
+		[Microsoft.AspNetCore.Authorization.Authorize(Roles = "Administrador")]
 		public async Task<IActionResult> Index()
 		{
 			// Validar que el usuario tenga acceso

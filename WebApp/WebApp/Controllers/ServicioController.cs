@@ -78,10 +78,11 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Servicio_Id,Servicio_Codigo,Servicio_Descripcion,Servicio_FechaInicio,Servicio_FechaCierre,Servicio_Costo,UsuarioCodigo,TipoServicio_Id,Estado_Id,Campus_Id,Facultad_Id,Escuela_Id,Carrera_Id")] Servicio servicio)
+        public async Task<IActionResult> Create([Bind("Servicio_Id,Servicio_Codigo,Servicio_Descripcion,Servicio_FechaInicio,Servicio_FechaCierre,Servicio_Costo,UsuarioCodigo,TipoServicio_Id,Campus_Id,Facultad_Id,Escuela_Id,Carrera_Id")] Servicio servicio)
         {
             if (ModelState.IsValid)
             {
+                servicio.Estado_Id = "A";
                 _context.Add(servicio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

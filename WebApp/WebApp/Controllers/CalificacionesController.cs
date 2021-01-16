@@ -50,26 +50,27 @@ namespace WebApp.Controllers
         // GET: Calificaciones/Create
         public IActionResult Create()
         {
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre");
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "NombreCompleto");
-            ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo");
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "MatriculaNombre");
+            var modulos = getModulos();
+            ViewData["ModuloId"] = new SelectList(modulos, "Id", "Titulo");
             return View();
         }
 
         // POST: Calificaciones/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ModuloId,UsuarioCodigo,Calificacion,EstadoId")] Calificaciones calificaciones)
+        public async Task<IActionResult> Create([Bind("Id,ModuloId,UsuarioCodigo,Calificacion")] Calificaciones calificaciones)
         {
             if (ModelState.IsValid)
             {
+                calificaciones.EstadoId = "A";
                 _context.Add(calificaciones);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "NombreCompleto", calificaciones.UsuarioCodigo);
-            ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "MatriculaNombre", calificaciones.UsuarioCodigo);
+            var modulos = getModulos();
+            ViewData["ModuloId"] = new SelectList(modulos, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
 
@@ -86,9 +87,9 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "NombreCompleto", calificaciones.UsuarioCodigo);
-            ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
+            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "codigo", "MatriculaNombre", calificaciones.UsuarioCodigo);
+            var modulos = getModulos();
+            ViewData["ModuloId"] = new SelectList(modulos, "Id", "Titulo", calificaciones.ModuloId);
             return View(calificaciones);
         }
 
@@ -96,41 +97,56 @@ namespace WebApp.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ModuloId,UsuarioCodigo,Calificacion,EstadoId")] Calificaciones calificaciones)
-        {
-            if (id != calificaciones.Id)
-            {
-                return NotFound();
-            }
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ModuloId,UsuarioCodigo,Calificacion")] Calificaciones calificaciones)
+		{
+			if (id != calificaciones.Id)
+				return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(calificaciones);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CalificacionesExists(calificaciones.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EstadoId"] = new SelectList(_context.Estado, "EstadoId", "EstadoNombre", calificaciones.EstadoId);
-            ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "UsuarioCodigo", "NombreCompleto", calificaciones.UsuarioCodigo);
-            ViewData["ModuloId"] = new SelectList(_context.Modulo, "Id", "Titulo", calificaciones.ModuloId);
-            return View(calificaciones);
-        }
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					var original = await _context.Calificaciones.Where(c => c.Id == id).AsNoTracking().FirstOrDefaultAsync();
+					calificaciones.EstadoId = original.EstadoId;
+					_context.Update(calificaciones);
+					await _context.SaveChangesAsync();
+				}
+				catch (DbUpdateConcurrencyException)
+				{
+					if (!CalificacionesExists(calificaciones.Id))
+					{
+						return NotFound();
+					}
+					else
+					{
+						throw;
+					}
+				}
+				return RedirectToAction(nameof(Index));
+			}
+			ViewData["UsuarioCodigo"] = new SelectList(_context.usuarios.Where(x => x.Rol.Descripcion == "Estudiante"), "UsuarioCodigo", "MatriculaNombre", calificaciones.UsuarioCodigo);
 
-        // GET: Calificaciones/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+			var modulos = getModulos();
+			ViewData["ModuloId"] = new SelectList(modulos, "Id", "Titulo", calificaciones.ModuloId);
+			return View(calificaciones);
+		}
+
+		private List<Modulo> getModulos()
+		{
+			var usr = AccountController.GetCurrentUser(User, _context);
+			var esProfesor = usr.Rol?.Descripcion == "Profesor";
+
+			var modulos = _context.Modulo
+				.Where(m => !esProfesor || m.Profesor.codigo == usr.codigo) // Si es Profesor, mostrar solo modulos asociados.
+				.Include(m => m.Estado)
+				.Include(m => m.Profesor)
+				.ToList();
+
+			return modulos;
+		}
+
+		// GET: Calificaciones/Delete/5
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {

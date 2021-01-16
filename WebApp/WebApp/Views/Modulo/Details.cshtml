@@ -1,7 +1,7 @@
 ﻿@model WebApp.Models.Modulo
 
 @{
-    ViewData["Title"] = "Detalles del modulo";
+    ViewData["Title"] = "Detalles del módulo";
 
 }
 <div class="col-12">
@@ -24,29 +24,41 @@
                         <dd class="col-sm-12 text-center">
                             @Html.DisplayFor(model => model.Descripcion)
                         </dd>
+                        <br />
                         <dt>
                             Fecha de Inicio
                         </dt>
                         <dd>
                             @Html.DisplayFor(model => model.FechaInicio)
                         </dd>
+                        <br />
                         <dt>
                             Fecha de Finalizacion
                         </dt>
                         <dd>
                             @Html.DisplayFor(model => model.FechaFin)
                         </dd>
+                        <br />
                         <dt>
-                            @Html.DisplayNameFor(model => model.Estado.EstadoNombre)
+                            Servicio
                         </dt>
                         <dd>
-                            @Html.DisplayFor(model => model.Estado.EstadoNombre)
+                            (@Model.Servicio?.Servicio_Codigo?.Trim())
+                            @Html.DisplayFor(model => model.Servicio.Servicio_Descripcion)
                         </dd>
+                        <br />
                         <dt>
                             Profesor Encargado
                         </dt>
                         <dd>
-                            @Html.DisplayFor(model => model.IdProfesorNavigation.primer_apellido)
+                            @Html.DisplayFor(model => model.Profesor.NombreCompleto)
+                        </dd>
+                        <br />
+                        <dt>
+                            Estado
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Estado.EstadoNombre)
                         </dd>
                     </div>
                 </dl>

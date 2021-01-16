@@ -19,7 +19,7 @@ namespace WebApp.Controllers
 	{
 		private readonly ApplicationDbContext _context;
 
-		public AccountController(ApplicationDbContext context):base(context)
+		public AccountController(ApplicationDbContext context) : base(context)
 		{
 			_context = context;
 		}
@@ -86,8 +86,11 @@ namespace WebApp.Controllers
 				_context.Add(usuario);
 				_context.SaveChanges();
 
-				EnviarCorreo(email, primer_nombre);// para enviar correo
-
+				// Enviar correo de bienvenida.
+				new Helper.EmailSender().Send(email,
+					titulo: "Bienvenido a  Culminare",
+					cuerpo: $"Te damos la Bienvenida a Culminare, {primer_nombre}.\n\n" +
+					$"Ya puedes acceder a través de este enlace: https://culminare.azurewebsites.net/");
 			}
 			else
 			{
@@ -163,33 +166,38 @@ namespace WebApp.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
-		public string EnviarCorreo(string correo, string nombre)
+		[HttpPost]
+		public async Task<ActionResult> ForgotPassword(string email)
 		{
-			var mensaje = "Cumplido";
-
-
-			MailMessage Correo = new MailMessage();
-			Correo.From = new MailAddress("culminare.v2@gmail.com");
-			Correo.To.Add(correo);
-			Correo.Subject = ("Bienvenido a  Culminare");
-			Correo.Body = "Saludos, Te damos la Bienvenida a Culminare:" + "     " + nombre;
-			Correo.Priority = MailPriority.Normal;
-
-			SmtpClient ServerEmail = new SmtpClient();
-			ServerEmail.Credentials = new NetworkCredential("culminare.v2@gmail.com", "UASD1538");
-			ServerEmail.Host = "smtp.gmail.com";
-			ServerEmail.Port = 587;
-			ServerEmail.EnableSsl = true;
-			try
+			var usr = await _context.usuarios.Where(u => u.Email == email).FirstOrDefaultAsync();
+			if (usr != null)
 			{
-				ServerEmail.Send(Correo);
+				var pass = generatePassword();
+				new Helper.EmailSender().Send(email, titulo: "Contraseña temporal", cuerpo: $"Hola, {usr.primer_nombre}.\n\nTemporalmente podrás acceder con la contraseña siguiente:\n\n{pass}" +
+					$"\n\nTe recomendamos que una vez ingreses vayas a tu perfil y cambies tu contraseña." +
+					$"\n\nhttps://culminare.azurewebsites.net/Perfiles/Edit");
+
+				usr.contrasena = pass;
+				await _context.SaveChangesAsync();
 			}
-			catch (Exception e)
-			{
-				Console.Write(e);
-			}
-			Correo.Dispose();
-			return mensaje;
+
+			return RedirectToAction(nameof(PasswordSent));
+		}
+
+		private string generatePassword()
+		{
+			Random random = new Random();
+			const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+			string pass = new string(Enumerable.Repeat(chars, 10)
+						  .Select(s => s[random.Next(s.Length)])
+						  .ToArray());
+			return pass;
+		}
+
+		public ActionResult PasswordSent()
+		{
+			return View();
 		}
 
 		public static Usuario GetCurrentUser(IPrincipal user, ApplicationDbContext context)
@@ -217,7 +225,7 @@ namespace WebApp.Controllers
 		public async Task<IActionResult> Modal(string serviceType, string school)
 		{
 			if (serviceType != null && school != null)
-            {
+			{
 				int tipoServicioId = int.Parse(serviceType);
 				int escuelaId = int.Parse(school);
 
@@ -238,8 +246,8 @@ namespace WebApp.Controllers
 			return RedirectToAction("Login");
 		}
 
-		private void loadReqs ()
-        {
+		private void loadReqs()
+		{
 			ViewBag.ServiceTypes = _context.TipoServicios.ToList();
 
 			var schools = _context.Escuelas.ToList();

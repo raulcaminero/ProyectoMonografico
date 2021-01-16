@@ -4,7 +4,7 @@
     ViewData["Title"] = "Perfiles de usuario";
 }
 
-<h3>Perfiles de usuario</h3>
+<h1 class="text-center pb-2" style="color:#4863A0">Perfiles de usuario</h1>
 
 <table id="profiles-tb" class="table">
     <thead>
@@ -36,43 +36,43 @@
     <tbody>
         @foreach (var usr in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => usr.NombreCompleto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => usr.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => usr.Rol.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => usr.TipoIdentificacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => usr.identificacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => usr.Campus.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => usr.Estado.EstadoNombre)
-            </td>
-            <td>
-                @if (usr.EstadoId == "P") // Estado "En Proceso"
-                {
-                    <a asp-action="Authorize" asp-route-id="@usr.codigo" class="btn btn-primary">Autorizar</a>
-                    <a asp-action="Delete" asp-route-id="@usr.codigo" class="btn btn-danger">Desautorizar</a>
-                }
-                else
-                {
-                    @if (usr.EstadoId == "A") // Estado "Activo"
-                    {<a asp-action="Delete" asp-route-id="@usr.codigo" class="btn btn-danger">Inactivar</a>}
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => usr.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usr.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usr.Rol.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usr.TipoIdentificacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usr.identificacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usr.Campus.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => usr.Estado.EstadoNombre)
+                </td>
+                <td>
+                    @if (usr.EstadoId == "P") // Estado "En Proceso"
+                    {
+                        <a asp-action="Authorize" asp-route-id="@usr.codigo" class="btn btn-primary">Autorizar</a>
+                        <a asp-action="Delete" asp-route-id="@usr.codigo" class="btn btn-danger">Desautorizar</a>
+                    }
                     else
-                    {<a asp-action="Activate" asp-route-id="@usr.codigo" class="btn btn-success">Activar</a>}
-                }
-            </td>
-        </tr>
+                    {
+                        @if (usr.EstadoId == "A") // Estado "Activo"
+                        {<a asp-action="Delete" asp-route-id="@usr.codigo" class="btn btn-danger">Inactivar</a>}
+                        else
+                        {<a asp-action="Activate" asp-route-id="@usr.codigo" class="btn btn-success">Activar</a>}
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

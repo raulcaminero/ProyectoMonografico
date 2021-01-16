@@ -83,6 +83,12 @@ namespace WebApp.Models
             get { return primer_nombre.Trim() + " " + primer_apellido; }
         }
 
+        [NotMapped]
+        public string MatriculaNombre
+        {
+            get { return $"{matricula} {primer_nombre} {primer_apellido}"; }
+        }
+
         //tabla intermedia para calificaciones, profesores en modulos, servicios y de estudiantes
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
         

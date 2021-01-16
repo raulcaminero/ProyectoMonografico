@@ -18,11 +18,15 @@
                         <div class="form-row">
                             <div class="col">
                                 <label asp-for="Campus_Id" class="control-label"></label>
-                                <select asp-for="Campus_Id" class="form-control" asp-items="ViewBag.Campus_Id"></select>
+                                <select asp-for="Campus_Id" class="form-control" asp-items="ViewBag.Campus_Id">
+                                    <option value="0" selected="">Seleccione una opción</option>
+                                </select>
                             </div>
                             <div class="col">
                                 <label asp-for="Facultad_Id" class="control-label"></label>
-                                <select asp-for="Facultad_Id" class="form-control combined combined_1" asp-items="ViewBag.Facultad_Id"></select>
+                                <select asp-for="Facultad_Id" class="form-control combined_1" asp-items="ViewBag.Facultad_Id">
+                                    <option value="0" selected="">Seleccione una opción</option>
+                                </select>
                                 <span asp-validation-for="Facultad_Id" class="text-danger"></span>
                             </div>
                         </div>
@@ -31,12 +35,16 @@
                         <div class="form-row">
                             <div class="col">
                                 <label asp-for="Escuela_Id" class="control-label"></label>
-                                <select asp-for="Escuela_Id" class="form-control combined combined_2" asp-items="ViewBag.Escuela_Id"></select>
+                                <select asp-for="Escuela_Id" class="form-control combined combined_2" asp-items="ViewBag.Escuela_Id">
+                                    <option value="0" selected="">Seleccione una opción</option>
+                                </select>
                                 <span asp-validation-for="Escuela_Id" class="text-danger"></span>
                             </div>
                             <div class="col">
                                 <label asp-for="Carrera_Id" class="control-label"></label>
-                                <select asp-for="Carrera_Id" class="form-control combined combined_3" asp-items="ViewBag.Carrera_Id"></select>
+                                <select asp-for="Carrera_Id" class="form-control combined combined_3" asp-items="ViewBag.Carrera_Id">
+                                    <option value="0" selected="">Seleccione una opción</option>
+                                </select>
                                 <span asp-validation-for="Carrera_Id" class="text-danger"></span>
                             </div>
                         </div>
@@ -45,12 +53,12 @@
                         <div class="form-row">
                             <div class="col">
                                 <label asp-for="TipoServicio_Id" class="control-label"></label>
-                                <select asp-for="TipoServicio_Id" class="form-control combined combined_4" asp-items="ViewBag.TipoServicio_Id"></select>
+                                <select asp-for="TipoServicio_Id" class="form-control combined combined_4" asp-items="ViewBag.TipoServicio_Id">
+                                    <option value="0" selected="">Seleccione una opción</option>
+                                </select>
                                 <span asp-validation-for="TipoServicio_Id" class="text-danger"></span>
                             </div>
                             <div class="col">
-                                <label asp-for="Estado_Id" class="control-label"></label>
-                                <select asp-for="Estado_Id" class="form-control combined combined_5" asp-items="ViewBag.Estado_Id"></select>
                             </div>
                         </div>
                     </div>
@@ -103,8 +111,8 @@
 </div>
 
 @*@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
 
 
 @section Scripts {

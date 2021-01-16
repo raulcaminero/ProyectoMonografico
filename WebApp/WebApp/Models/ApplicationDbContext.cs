@@ -128,7 +128,7 @@ namespace WebApp.Models
 					.OnDelete(DeleteBehavior.ClientSetNull)
 					.HasConstraintName("FK_ModuloEstado");
 
-				entity.HasOne(d => d.IdProfesorNavigation)
+				entity.HasOne(d => d.Profesor)
 				   .WithMany(p => p.Modulo)
 				   .HasForeignKey(d => d.UsuarioCodigo)
 				   .OnDelete(DeleteBehavior.ClientSetNull)

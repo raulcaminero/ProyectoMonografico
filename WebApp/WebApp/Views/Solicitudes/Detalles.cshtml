@@ -69,9 +69,13 @@
                         </div>
                     </form>
                 }
+                else if (Model.IdEstado == "P")
+                {
+                    <strong style="color:#910400">Pendiente por documentos</strong>
+                }
                 else
                 {
-                    <strong style="color:#910400">@Html.DisplayFor(model => model.Estado.EstadoNombre)</strong>
+                <strong style="color:#910400">@Html.DisplayFor(model => model.Estado.EstadoNombre)</strong>
                 }
 
             </dd>
