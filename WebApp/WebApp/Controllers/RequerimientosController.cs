@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace WebApp.Controllers
 			_context = context;
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// GET: Requerimientos
 		public async Task<IActionResult> Index()
 		{
@@ -80,6 +82,7 @@ namespace WebApp.Controllers
 			return model;
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// GET: Requerimientos/Create
 		public IActionResult Create()
 		{
@@ -87,6 +90,7 @@ namespace WebApp.Controllers
 			return View();
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// POST: Requerimientos/Create
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -137,6 +141,7 @@ namespace WebApp.Controllers
 			return codigo;
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// GET: Requerimientos/Edit/5
 		public async Task<IActionResult> Edit(string codigo)
 		{
@@ -166,6 +171,7 @@ namespace WebApp.Controllers
 			return View(modelo);
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// POST: Requerimientos/Edit/5
 		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -203,6 +209,7 @@ namespace WebApp.Controllers
 			return View(modelo);
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// GET: Requerimientos/Delete/5
 		public async Task<IActionResult> Delete(int? id)
 		{
@@ -224,6 +231,7 @@ namespace WebApp.Controllers
 			return View(requerimiento);
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// POST: Requerimientos/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
@@ -236,6 +244,7 @@ namespace WebApp.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// GET: Requerimientos/Inactivate/5
 		public async Task<IActionResult> Inactivate(int? id)
 		{
@@ -256,6 +265,7 @@ namespace WebApp.Controllers
 			return View(requerimiento);
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// POST: Requerimientos/Inactivate/5
 		[HttpPost, ActionName("Inactivate")]
 		[ValidateAntiForgeryToken]
@@ -272,6 +282,7 @@ namespace WebApp.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+		[Authorize(Roles = "Administrador")]
 		// POST: Requerimientos/Activate/5
 		public async Task<IActionResult> Activate(int id)
 		{
