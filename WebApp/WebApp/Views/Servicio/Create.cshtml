@@ -24,7 +24,7 @@
                             </div>
                             <div class="col">
                                 <label asp-for="Facultad_Id" class="control-label"></label>
-                                <select asp-for="Facultad_Id" class="form-control combined_1" asp-items="ViewBag.Facultad_Id">
+                                <select asp-for="Facultad_Id" id="idFacultad" class="form-control combined combined_1" asp-items="ViewBag.Facultad_Id">
                                     <option value="0" selected="">Seleccione una opción</option>
                                 </select>
                                 <span asp-validation-for="Facultad_Id" class="text-danger"></span>
@@ -35,14 +35,14 @@
                         <div class="form-row">
                             <div class="col">
                                 <label asp-for="Escuela_Id" class="control-label"></label>
-                                <select asp-for="Escuela_Id" class="form-control combined combined_2" asp-items="ViewBag.Escuela_Id">
+                                <select asp-for="Escuela_Id" id="idEscuela" class="form-control combined combined_2" asp-items="ViewBag.Escuela_Id">
                                     <option value="0" selected="">Seleccione una opción</option>
                                 </select>
                                 <span asp-validation-for="Escuela_Id" class="text-danger"></span>
                             </div>
                             <div class="col">
                                 <label asp-for="Carrera_Id" class="control-label"></label>
-                                <select asp-for="Carrera_Id" class="form-control combined combined_3" asp-items="ViewBag.Carrera_Id">
+                                <select asp-for="Carrera_Id" id="idCarrera" class="form-control combined combined_3" asp-items="ViewBag.Carrera_Id">
                                     <option value="0" selected="">Seleccione una opción</option>
                                 </select>
                                 <span asp-validation-for="Carrera_Id" class="text-danger"></span>
@@ -53,7 +53,7 @@
                         <div class="form-row">
                             <div class="col">
                                 <label asp-for="TipoServicio_Id" class="control-label"></label>
-                                <select asp-for="TipoServicio_Id" class="form-control combined combined_4" asp-items="ViewBag.TipoServicio_Id">
+                                <select asp-for="TipoServicio_Id" id="idTipoServicio" class="form-control combined combined_4" asp-items="ViewBag.TipoServicio_Id">
                                     <option value="0" selected="">Seleccione una opción</option>
                                 </select>
                                 <span asp-validation-for="TipoServicio_Id" class="text-danger"></span>
