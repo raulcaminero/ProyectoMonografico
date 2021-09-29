@@ -50,7 +50,7 @@
         "d3": "^4.9.1",
         "dropify": "^0.2.0",
         "datatables": "^1.10.13",
-        "datatables.net": "^1.10.19",
+        "datatables.net": "^1.11.3",
         "datatables.net-bs4": "^1.10.16",
         "daterangepicker": "^3.0.1",
         "dragula": "^3.7.2",
